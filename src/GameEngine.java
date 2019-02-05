@@ -6,7 +6,7 @@ import javax.swing.Timer;
 public class GameEngine implements Runnable {
 	Window window;
 	Timer timer;
-	final int TIMERDELAY = 200;
+	final int TIMERDELAY = 100;
 	ActionListener aListener;
 	
 	public GameEngine() 
