@@ -41,7 +41,6 @@ public class Worm extends GameObject{
 	Position headPos;
 	Color color;
 	
-	
 	public Worm(Position pos, Color color) 
 	{
 		this.headPos = pos;
