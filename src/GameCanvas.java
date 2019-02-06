@@ -33,7 +33,7 @@ public class GameCanvas extends JPanel implements KeyListener{
 	public void update() 
 	{
 		for (int i=0; i < gameObjects.size();i++)
-			gameObjects.get(i).update(); System.out.println("hej");	
+			gameObjects.get(i).update();
 			
 			this.repaint();
 	}

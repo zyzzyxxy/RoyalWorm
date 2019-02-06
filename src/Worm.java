@@ -41,19 +41,25 @@ public class Worm extends GameObject{
 	Position headPos;
 	Color color;
 	
+	
 	public Worm(Position pos, Color color) 
 	{
+		//lining it upp
+		pos.x-=pos.x%Constants.wormSize;
+		pos.y-=pos.y%Constants.wormSize;
 		this.headPos = pos;
 		this.startPos = pos;
 		this.length = STARTLENGTH;
 		this.speed = 3;
 		this.direction= new Direction(1, 0);
 		this.startDirection=direction;
-		this.wormSize = 10;
+		this.wormSize = Constants.wormSize;
 		this.color = color;
+		this.type = 'w';
 		
 		body = new LinkedList<Position>();
 		body.add(pos);
+		
 		
 		update();
 
@@ -83,8 +89,10 @@ public class Worm extends GameObject{
 	{
 		if(body.size()<this.length) 
 		{
+			if(CollisionChecker.collisionCheck(headPos))
+				CollisionChecker.collisionHandle(this,headPos);
 			body.add(headPos);
-			headPos = new Position(headPos.x+direction.getX()*wormSize, headPos.y+direction.getY()*wormSize);
+			headPos = new Position(headPos.x+direction.getX()*wormSize, headPos.y+direction.getY()*wormSize);	
 		}
 		else
 		{
