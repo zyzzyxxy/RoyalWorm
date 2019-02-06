@@ -45,7 +45,7 @@ import javax.swing.JFrame;
 public class Window extends JFrame{
 	
 	Container baseContainer;
-	GameCanvas gameContainer;
+	public GameCanvas gameContainer;
 	JMenuBar menuBar;
 	Image gameImage;
 	
