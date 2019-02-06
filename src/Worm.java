@@ -30,6 +30,9 @@ import java.util.Map;
 public class Worm extends GameObject{
 
 	private int length, speed,wormSize;
+	private final int STARTLENGTH = 8;
+	Position startPos;
+	Direction startDirection;
 	List<Position> body; 
 	//Wich way we are giong
 	//TODO fix better direction!
@@ -41,9 +44,11 @@ public class Worm extends GameObject{
 	public Worm(Position pos, Color color) 
 	{
 		this.headPos = pos;
-		this.length = 8;
+		this.startPos = pos;
+		this.length = STARTLENGTH;
 		this.speed = 3;
 		this.direction= new Direction(1, 0);
+		this.startDirection=direction;
 		this.wormSize = 10;
 		this.color = color;
 		
@@ -93,6 +98,26 @@ public class Worm extends GameObject{
 	{
 		return wormGraphics;
 	}
-
-	
+	public void grow() 
+	{
+		length+=1; 
+	}
+	public void grow(int n) 
+	{
+		length+=n; 
+	}
+	public void shrink() 
+	{
+		length-=1; 
+	}
+	public void shrink(int n) 
+	{
+		length-=n; 
+	}
+	public void reset() 
+	{
+		body.clear();
+		length=STARTLENGTH; 
+		headPos=startPos;
+	}
 }

@@ -62,5 +62,17 @@ public class GameCanvas extends JPanel implements KeyListener{
 		// TODO Auto-generated method stub
 		
 	}
-
+	public void spawn(String str){
+		try {
+			switch (str) 
+			{
+			case "apple": gameObjects.add(new Apple());
+			
+			}
+			
+			
+		}
+		catch(IllegalArgumentException e){System.out.println("Bad stringArg");}
+		
+	}
 }
