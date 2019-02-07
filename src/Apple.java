@@ -12,8 +12,8 @@ public class Apple extends GameObject {
 		Random rnd = new Random();
 		Position tempPos = new Position(rnd.nextInt(Constants.gameWidth),rnd.nextInt(Constants.gameHeight));
 		//Lining it up nicely :)
-		tempPos.x-=tempPos.x%Constants.wormSize;
-		tempPos.y-=tempPos.y%Constants.wormSize;
+		tempPos.x=tempPos.x-tempPos.x%Constants.wormSize;
+		tempPos.y=tempPos.y-tempPos.y%Constants.wormSize;
 		while(CollisionChecker.collisionCheck(tempPos))
 		{
 			tempPos = new Position(rnd.nextInt(Constants.gameWidth),rnd.nextInt(Constants.gameHeight)); 	

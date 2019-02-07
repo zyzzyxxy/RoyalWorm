@@ -66,8 +66,10 @@ public class GameCanvas extends JPanel implements KeyListener{
 		try {
 			switch (str) 
 			{
-			case "apple": gameObjects.add(new Apple());
-			
+			case "apple":
+				GameObject apple = new Apple();
+				gameObjects.add(apple);
+				CollisionChecker.gameWorld[apple.getPos().x/Constants.wormSize][apple.getPos().y/Constants.wormSize]=apple.type;
 			}
 			
 			

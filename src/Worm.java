@@ -23,6 +23,7 @@ import java.awt.image.ImageObserver;
 import java.awt.image.RenderedImage;
 import java.awt.image.renderable.RenderableImage;
 import java.text.AttributedCharacterIterator;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -92,13 +93,18 @@ public class Worm extends GameObject{
 			if(CollisionChecker.collisionCheck(headPos))
 				CollisionChecker.collisionHandle(this,headPos);
 			body.add(headPos);
-			headPos = new Position(headPos.x+direction.getX()*wormSize, headPos.y+direction.getY()*wormSize);	
+			CollisionChecker.updateGameworld(headPos, this.type);
+			updateHeadPos();
 		}
 		else
 		{
+			if(CollisionChecker.collisionCheck(headPos))
+				CollisionChecker.collisionHandle(this,headPos);
 			body.add(headPos);
+			CollisionChecker.updateGameworld(headPos, this.type);
+			CollisionChecker.updateGameworld(body.get(0), '0');
 			body.remove(0);
-			headPos = new Position(headPos.x+direction.getX()*wormSize, headPos.y+direction.getY()*wormSize);
+			updateHeadPos();
 		}
 	}
 	
@@ -124,8 +130,24 @@ public class Worm extends GameObject{
 	}
 	public void reset() 
 	{
+		Iterator iter = body.iterator();
+		while(iter.hasNext())
+			CollisionChecker.updateGameworld((Position)iter.next(), '0');
 		body.clear();
 		length=STARTLENGTH; 
 		headPos=startPos;
+	}
+	public void updateHeadPos() 
+	{
+		headPos = new Position(headPos.x+direction.getX()*wormSize, headPos.y+direction.getY()*wormSize);	
+		if(headPos.x>=Constants.gameWidth)
+			headPos.x=0;
+		if(headPos.y>=Constants.gameHeight)
+			headPos.y=0;
+		if(headPos.x<0)
+			headPos.x=Constants.gameWidth-1;
+		if(headPos.y<0)
+			headPos.y=Constants.gameHeight-1;
+
 	}
 }
