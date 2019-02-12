@@ -3,6 +3,7 @@ import java.awt.Graphics;
 public abstract class GameObject {
 	
 	Position pos;
+	char type;
 	
 	public Position getPos()
 	{
