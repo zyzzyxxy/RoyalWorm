@@ -9,6 +9,8 @@ public class GameWindow extends JFrame implements Observer {
     JMenu File, Options, Help;
     JMenuItem New, Save, Load, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
+    Controller controller = new Controller();
+
 
     public GameWindow(GameEngine gm) {
         gm.addObserver(this);
@@ -18,7 +20,7 @@ public class GameWindow extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("test");
+        System.out.println("I´m updated");
     }
 
 
