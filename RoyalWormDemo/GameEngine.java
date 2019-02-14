@@ -18,7 +18,7 @@ public class GameEngine extends Observable {
 
     private void fillGameworld() {
         for (char[] c : GameWorld) {
-            Arrays.fill(c, '0');
+            Arrays.fill(c, 'a');
         }
     }
 

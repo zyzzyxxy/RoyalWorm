@@ -28,6 +28,8 @@ public class GameWindow extends JFrame implements Observer {
         makeMenus();
         setJMenuBar(menuBar);
         getContentPane().add(gameCanvas = new GameCanvas());
+        gameCanvas.setBackground(Color.black);
+        gameCanvas.repaint();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
         setVisible(true);

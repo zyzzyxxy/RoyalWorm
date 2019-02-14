@@ -6,6 +6,7 @@ public class Main {
 		GameEngine gm = new GameEngine();
 		gm.printGameWorld();
 		GameWindow gw = new GameWindow(gm);
+
 	}
 
 }
