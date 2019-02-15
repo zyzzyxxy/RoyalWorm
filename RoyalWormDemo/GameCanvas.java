@@ -30,9 +30,8 @@ public class GameCanvas extends JPanel {
     @Override
     public void paint(Graphics g) {
 
-       // g = (Graphics2D) g;
-        g.setColor(Color.blue);
-        g.fillOval(50,50,50,50);
+        //g.setColor(Color.blue);
+        //g.fillOval(50,50,50,50);
         drawWorld(g);
     }
 
@@ -56,6 +55,20 @@ public class GameCanvas extends JPanel {
         {
             case 'a':
                 GameGraphics.drawApple(p, g);
+                break;
+                //For players
+            case '1':
+                GameGraphics.drawPlayer(1,p,g);
+                break;
+            case '2':
+                GameGraphics.drawPlayer(2,p,g);
+                break;
+            case '3':
+                GameGraphics.drawPlayer(3,p,g);
+                break;
+            case '4':
+                GameGraphics.drawPlayer(4,p,g);
+                break;
         }
     }
 

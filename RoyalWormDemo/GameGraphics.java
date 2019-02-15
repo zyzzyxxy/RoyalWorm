@@ -14,5 +14,21 @@ public class GameGraphics {
 
         return graphics;
     }
+    public static Graphics drawPlayer(int player, Position p, Graphics graphics)
+    {
+        if(player == 1)
+            graphics.setColor(Constants.p1Color);
+        else if(player == 2)
+            graphics.setColor(Constants.p2Color);
+        else if(player == 3)
+            graphics.setColor(Constants.p3Color);
+        else if(player == 4)
+            graphics.setColor(Constants.p4Color);
+
+        graphics.drawRect(p.getX()*Constants.gameConstant,p.getY()*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
+        graphics.fillRect(p.getX()*Constants.gameConstant,p.getY()*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
+
+        return graphics;
+    }
 
 }

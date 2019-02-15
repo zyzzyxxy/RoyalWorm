@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class GameEngine extends Observable {
@@ -6,9 +8,8 @@ public class GameEngine extends Observable {
     List<Player> playerList = new ArrayList<>();
     List<GameObject> gameObjectList = new ArrayList<>();
 
-    public GameEngine() {
+    public GameEngine() throws FileNotFoundException {
         GameWorld = new char[Constants.worldHeight][Constants.worldWidth];
-        fillGameworld();
     }
 
     private void update() {
@@ -16,9 +17,23 @@ public class GameEngine extends Observable {
         notifyObservers();
     }
 
-    private void fillGameworld() {
+    public void resetGameworld() {
         for (char[] c : GameWorld) {
-            Arrays.fill(c, 'a');
+            Arrays.fill(c, '0');
+        }
+    }
+    public void loadGameworld(File file) throws FileNotFoundException {
+        Scanner sc = new Scanner(file);
+
+        int i = 0;
+        for (char[] c : GameWorld) {
+            if(sc.hasNextLine()) {
+                c=sc.nextLine().toCharArray();
+                System.out.println(new String(c));
+                GameWorld[i++] = c;
+            }
+            else
+                Arrays.fill(c, '0');
         }
     }
 
@@ -27,7 +42,7 @@ public class GameEngine extends Observable {
         for (char[] c : GameWorld) {
             System.out.println(new String(c));
         }
-        String result = "";
+       /* String result = "";
         for (char[] c : GameWorld) {
             result += new String(c);
         }
@@ -48,7 +63,7 @@ public class GameEngine extends Observable {
         for (char[] c : testWorld) {
             System.out.println(new String(c));
         }
-
+*/
 
     }
 
