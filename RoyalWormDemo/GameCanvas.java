@@ -24,6 +24,7 @@ public class GameCanvas extends JPanel {
         //testPaint();
         //drawWorld();
         this.repaint();
+        setBackground(Constants.backgroundColor);
 
     }
 
@@ -41,11 +42,11 @@ public class GameCanvas extends JPanel {
     }
     public void drawWorld(Graphics g)
     {
-        for (int i = 0;i<Constants.worldHeight;i++)
-            for (int j = 0;j<Constants.worldWidth;j++)
+        for (int i = 0;i<Constants.worldWidth;i++)
+            for (int j = 0;j<Constants.worldHeight;j++)
             {
                 if(GameEngine.GameWorld[i][j]!='0')
-                    drawObject(GameEngine.GameWorld[i][j], new Position(j,i), g);
+                    drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
 
             }
     }
@@ -58,16 +59,16 @@ public class GameCanvas extends JPanel {
                 break;
                 //For players
             case '1':
-                GameGraphics.drawPlayer(1,p,g);
+                GameGraphics.drawPlayer(false,1,p,g);
                 break;
             case '2':
-                GameGraphics.drawPlayer(2,p,g);
+                GameGraphics.drawPlayer(false,2,p,g);
                 break;
             case '3':
-                GameGraphics.drawPlayer(3,p,g);
+                GameGraphics.drawPlayer(false,3,p,g);
                 break;
             case '4':
-                GameGraphics.drawPlayer(4,p,g);
+                GameGraphics.drawPlayer(false,4,p,g);
                 break;
         }
     }

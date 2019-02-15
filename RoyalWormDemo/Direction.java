@@ -1,7 +1,8 @@
 public class Direction extends BoardCordinates {
-    private int x,y;
+    public int x,y;
 
     public Direction(int x, int y) {
+        super(x,y);
         this.x=x;
         this.y=y;
     }
