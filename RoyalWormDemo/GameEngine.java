@@ -8,6 +8,7 @@ public class GameEngine extends Observable implements Observer{
     public static char[][] GameWorld;
     List<Player> playerList = new ArrayList<>();
     List<GameObject> gameObjectList = new ArrayList<>();
+    Timer gameTimer;
 
     public GameEngine(String[] players) throws FileNotFoundException, InterruptedException {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];

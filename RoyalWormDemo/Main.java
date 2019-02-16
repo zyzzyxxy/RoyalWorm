@@ -12,7 +12,7 @@ public class Main {
 		//gm.printGameWorld();
 		GameWindow gw = new GameWindow(gm);
 		gm.resetGameworld();
-		gm.playerList.get(0).worm.addToSpeed(5);
+		//gm.playerList.get(0).worm.addToSpeed(5);
 		//gw.loadFile(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/Maps/testMap2"));
 	}
 

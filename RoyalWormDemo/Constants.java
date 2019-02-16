@@ -9,7 +9,7 @@ public class Constants {
 
     //WormArgs
     public static int wormsize = 10;
-    public static int wormspeed = 5;
+    public static int wormspeed = 10;
     public static int wormStartingLength = 8;
 
 
