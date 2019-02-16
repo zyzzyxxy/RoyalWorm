@@ -16,7 +16,8 @@ public class Controller implements Observer {
 
     public Controller(GameEngine gameEngine) throws SocketException {
         this.gameEngine = gameEngine;
-        this.datagramSocket = new DatagramSocket(1234);
+        this.datagramSocket = new DatagramSocket();
+        gameEngine.addObserver(this);
     }
 
     @Override
@@ -36,5 +37,6 @@ public class Controller implements Observer {
                 NetworkController.sendWorldData(gameEngine.GameWorld,datagramSocket,p.addr,p.port);
             }
         }
+
     }
 }

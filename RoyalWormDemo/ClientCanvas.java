@@ -2,15 +2,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
 
-public class GameCanvas extends JPanel {
+public class ClientCanvas extends JPanel {
 
+    private char[][] clientWorld;
 
-    public GameCanvas()
+    public ClientCanvas(char[][] c)
     {
-        this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
+        this.clientWorld = c;
+       // this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
+        setSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
-        this.repaint();
-        setBackground(Constants.backgroundColor);
+
+    }
+
+    public void updateClientworld(char[][] world)
+    {
+        this.clientWorld=world;
     }
 
     @Override
@@ -23,8 +30,8 @@ public class GameCanvas extends JPanel {
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
-                if(GameEngine.GameWorld[i][j]!='0')
-                    drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
+                if(clientWorld[i][j]!='0')
+                    drawObject(clientWorld[i][j], new Position(i,j), g);
 
             }
     }
@@ -35,7 +42,7 @@ public class GameCanvas extends JPanel {
             case 'a':
                 GameGraphics.drawApple(p, g);
                 break;
-                //For players
+            //For players
             case '1':
                 GameGraphics.drawPlayer(false,1,p,g);
                 break;

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.SocketException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -14,10 +15,10 @@ public class GameWindow extends JFrame implements Observer {
     JMenuItem New, Save, Load, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
     StartScreen startScreen;
-    Controller controller = new Controller();
+    //Controller controller = new Controller();
     GameEngine gm;
 
-    public GameWindow(GameEngine gm) {
+    public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
         makeFrame();
         gm.addObserver(this);
@@ -28,7 +29,6 @@ public class GameWindow extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.repaint();
-        System.out.println("I´m updated");
     }
 
 

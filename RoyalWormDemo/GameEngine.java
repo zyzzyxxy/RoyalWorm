@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.UnknownHostException;
 import java.util.*;
 import java.util.Timer;
 
@@ -10,12 +11,12 @@ public class GameEngine extends Observable implements Observer{
     List<GameObject> gameObjectList = new ArrayList<>();
     Timer gameTimer;
 
-    public GameEngine(String[] players) throws FileNotFoundException, InterruptedException {
+    public GameEngine(String[] players) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         addPlayers(players);
     }
 
-    private void addPlayers(String[] players) throws InterruptedException {
+    private void addPlayers(String[] players) throws InterruptedException, UnknownHostException {
         for (String s : players) {
             addPlayer(s);
         }
@@ -24,18 +25,18 @@ public class GameEngine extends Observable implements Observer{
         }
     }
 
-    private void addPlayer(String name) throws InterruptedException {
+    private void addPlayer(String name) throws InterruptedException, UnknownHostException {
         int number = playerList.size()+1;
         boolean host = false;
         Position position;
         if (number == 1) {
             host = true;
             position = new Position(Constants.worldWidth / 4, Constants.worldHeight / 4);
-            playerList.add(new Player(name, number, position, host));
+            playerList.add(new Player(name, number, position, true));
         }
         else if (number == 2) {
             position = new Position(Constants.worldWidth / 4, Constants.worldHeight * 3 / 4);
-            playerList.add(new Player(name, number, position, host));
+            playerList.add(new Player(name, number, position, false));
         }
         else if (number == 3) {
             position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight / 4);
@@ -79,7 +80,6 @@ public class GameEngine extends Observable implements Observer{
         for (char[] c : GameWorld) {
             if (sc.hasNextLine()) {
                 c = sc.nextLine().toCharArray();
-                //System.out.println(new String(c));
                 GameWorld[i++] = c;
             } else
                 Arrays.fill(c, '0');
@@ -119,12 +119,8 @@ public class GameEngine extends Observable implements Observer{
 
     @Override
     public synchronized void update(Observable o, Object arg) {
-        System.out.println("In update");
         Position[] changed = (Position[])arg;
-        System.out.println(changed[0].x);
-        System.out.println(changed[0].y);
         GameWorld[changed[0].x][changed[0].y] = ((Worm) o).type;
-        System.out.println(GameWorld[changed[0].x][changed[0].y]);
         try {
             GameWorld[changed[1].x][changed[1].y] = '0';
         }
@@ -134,7 +130,5 @@ public class GameEngine extends Observable implements Observer{
 
         setChanged();
         notifyObservers();
-        System.out.println(changed[0].toString());
-        printGameWorld();
     }
 }

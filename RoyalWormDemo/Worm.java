@@ -24,14 +24,12 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         this.tailPos = position;
         this.startPos = position;
         this.type= Integer.toString(wormNumber).charAt(0);
-        System.out.println(((char) type));
         body = new ArrayList<>();
     }
     //@Override
      public void run() {
         while (true) {
             update();
-            System.out.println("running");
             try {
                 Thread.sleep(1000 / speed);
             } catch (InterruptedException e) {
@@ -44,7 +42,6 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     public void update()
     {
         setChanged();
-        System.out.println(type);
         notifyObservers(updateBody());
     }
     public Position getHeadPos(){return headPos;}
@@ -118,7 +115,6 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
             headPos.x=Constants.worldWidth-1;
         if(headPos.y<0)
             headPos.y=Constants.worldHeight-1;
-        printBody();
 
     }
     //Just for testing

@@ -9,7 +9,7 @@ public class Player {
     Worm worm;
     int lives;
     String name;
-    
+
     //Network
     public boolean host;
     public InetAddress addr;
@@ -20,7 +20,7 @@ public class Player {
         this.name = name;
         lives = Constants.startingLives;
         this.host = host;
-        this.addr = InetAddress.getLocalHost();
+        this.addr = InetAddress.getByName("127.0.0.1");
 
         Thread t1 = new Thread(worm);
         t1.start();

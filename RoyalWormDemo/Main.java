@@ -4,16 +4,15 @@ import java.io.IOException;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException, InterruptedException {
+	public static void main(String[] args) throws Exception {
 		//TODO everything
-		String[] players =  {"Bob", "James", "StephenHawkings", "Gulagubben"};
-		//String[] players =  {"Bob"};
+		String[] players =  {"Bob", "James"};//, "StephenHawkings", "Gulagubben"};
 		GameEngine gm = new GameEngine(players);
-		//gm.printGameWorld();
 		GameWindow gw = new GameWindow(gm);
+		Controller controller = new Controller(gm);
+		ClientWindow clWindow = new ClientWindow();
 		gm.resetGameworld();
-		//gm.playerList.get(0).worm.addToSpeed(5);
-		//gw.loadFile(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/Maps/testMap2"));
+
 	}
 
 }

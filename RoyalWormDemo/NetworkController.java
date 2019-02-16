@@ -17,11 +17,13 @@ public class NetworkController{
             result+=new String(c);
         }
         byte[] data = result.getBytes();
+        //hard coding
+        InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
+        port = 1234;
 
-        //InetAddress inetAddress = InetAddress.getByName(addr);
         try {
 
-            datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
+            datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
         }
         catch (Exception e){e.printStackTrace();}
 
