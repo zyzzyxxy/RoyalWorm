@@ -23,7 +23,6 @@ public class ClientWindow extends Thread {
         System.out.println("Got this far");
         clientCanvas = new ClientCanvas(recievedWorld);
         frame.add(clientCanvas);
-        //this.start();
         recieveMessages();
     }
 
@@ -41,30 +40,24 @@ public class ClientWindow extends Thread {
             DatagramPacket dp = new DatagramPacket(data,data.length);
             dSocket.receive(dp);
             String message = new String(dp.getData(),0,dp.getLength());
-            //Changing massage to gameworld
-           // printRecWorld();
+
             stringToWorld(message);
+            clientCanvas.updateClientworld(GameEngine.GameWorld);
             clientCanvas.updateClientworld(recievedWorld);
             clientCanvas.repaint();
         }
     }
     private void stringToWorld(String s)
     {
-
         int i = 0;
         while (true) {
             recievedWorld[i] = s.substring(0, Constants.worldWidth).toCharArray();
-            s = s.substring(Constants.worldWidth);
+            s = s.substring(Constants.worldHeight);
             i++;
             if (i > Constants.worldHeight - 1)
                 break;
         }
 
-    }
-    private void printRecWorld() {
-        for (char[] c : recievedWorld) {
-            System.out.println(new String(c));
-        }
     }
 
 }

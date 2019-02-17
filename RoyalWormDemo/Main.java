@@ -8,10 +8,12 @@ public class Main {
 		//TODO everything
 		String[] players =  {"Bob", "James"};//, "StephenHawkings", "Gulagubben"};
 		GameEngine gm = new GameEngine(players);
+		gm.printGameWorld();
 		GameWindow gw = new GameWindow(gm);
 		Controller controller = new Controller(gm);
 		ClientWindow clWindow = new ClientWindow();
 		gm.resetGameworld();
+
 
 	}
 
