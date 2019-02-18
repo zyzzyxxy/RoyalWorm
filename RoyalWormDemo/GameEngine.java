@@ -15,6 +15,14 @@ public class GameEngine extends Observable implements Observer{
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         addPlayers(players);
+        startGame();
+    }
+    public void startGame()
+    {
+        for(Player p: playerList)
+        {
+            p.startWorm();
+        }
     }
 
     private void addPlayers(String[] players) throws InterruptedException, UnknownHostException {

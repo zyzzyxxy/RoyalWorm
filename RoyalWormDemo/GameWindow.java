@@ -39,8 +39,7 @@ public class GameWindow extends JFrame implements Observer {
         setJMenuBar(menuBar);
 
         getContentPane().add(gameCanvas = new GameCanvas());
-        getContentPane().add(startScreen = new StartScreen());
-        getContentPane().add(startScreen = new StartScreen());
+//        getContentPane().add(startScreen = new StartScreen());
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
 

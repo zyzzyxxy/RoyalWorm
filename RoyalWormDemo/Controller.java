@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,11 +15,16 @@ import java.util.Observer;
 public class Controller implements Observer {
     GameEngine gameEngine;
     DatagramSocket datagramSocket;
+    GameWindow gw;
+    ClientWindow clWindow;
+    JFrame startFrame;
 
-    public Controller(GameEngine gameEngine) throws SocketException {
-        this.gameEngine = gameEngine;
-        this.datagramSocket = new DatagramSocket();
-        gameEngine.addObserver(this);
+    public Controller() throws Exception {
+
+        showStartScreen();
+        //while (startFrame.isEnabled()) { }
+        startGame();
+
     }
 
     @Override
@@ -38,5 +45,28 @@ public class Controller implements Observer {
             }
         }
 
+    }
+
+    private void showStartScreen() throws Exception {
+        startFrame = new JFrame("Start Screen");
+        StartScreen sc = new StartScreen();
+        startFrame.add(sc);
+        startFrame.pack();
+        startFrame.setVisible(true);
+        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //while (sc.active){}
+        //startFrame.enable(false);
+    }
+
+    public void startGame() throws Exception {
+        String[] players =  {"Bob", "James"};//, "StephenHawkings", "Gulagubben"};
+        this.gameEngine = new GameEngine(players);
+        gameEngine.addObserver(this);
+        this.datagramSocket = new DatagramSocket();
+        gw = new GameWindow(gameEngine);
+        clWindow = new ClientWindow();
+
+        System.out.println("going here");
+        gameEngine.resetGameworld();
     }
 }
