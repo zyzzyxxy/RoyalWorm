@@ -17,11 +17,13 @@ public class GameWindow extends JFrame implements Observer {
     StartScreen startScreen;
     //Controller controller = new Controller();
     GameEngine gm;
+    JFrame startWindow;
 
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
         makeFrame();
         gm.addObserver(this);
+        setResizable(false);
 
     }
 
@@ -35,8 +37,10 @@ public class GameWindow extends JFrame implements Observer {
     private void makeFrame() {
         makeMenus();
         setJMenuBar(menuBar);
-        getContentPane().add(startScreen = new StartScreen());
+
         getContentPane().add(gameCanvas = new GameCanvas());
+        getContentPane().add(startScreen = new StartScreen());
+        getContentPane().add(startScreen = new StartScreen());
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
 

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
 
 public class ClientCanvas extends JPanel {
 
@@ -12,6 +13,7 @@ public class ClientCanvas extends JPanel {
        // this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
+
 
     }
 

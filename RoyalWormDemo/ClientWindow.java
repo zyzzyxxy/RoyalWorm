@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -12,6 +14,7 @@ public class ClientWindow extends Thread {
     byte[] data = new byte[4661];
     ClientCanvas clientCanvas;
     char[][] recievedWorld;
+    KeyListener keyListener;
 
     public ClientWindow() throws IOException {
 
@@ -23,6 +26,23 @@ public class ClientWindow extends Thread {
         System.out.println("Got this far");
         clientCanvas = new ClientCanvas(recievedWorld);
         frame.add(clientCanvas);
+        clientCanvas.addKeyListener(keyListener = new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                keyHandler(e.getKeyCode());
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                keyHandler(e.getKeyCode());
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        clientCanvas.grabFocus();
         recieveMessages();
     }
 
@@ -33,6 +53,7 @@ public class ClientWindow extends Thread {
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false);
     }
 
     private void recieveMessages() throws IOException {
@@ -58,6 +79,24 @@ public class ClientWindow extends Thread {
                 break;
         }
 
+    }
+    private void keyHandler(int keycode)
+    {
+        switch (keycode)
+        {
+            case KeyEvent.VK_UP:
+                System.out.println("Up");
+                break;
+            case KeyEvent.VK_DOWN:
+                System.out.println("Down");
+                break;
+            case KeyEvent.VK_LEFT:
+                System.out.println("Left");
+                break;
+            case KeyEvent.VK_RIGHT:
+                System.out.println("Right");
+                break;
+        }
     }
 
 }
