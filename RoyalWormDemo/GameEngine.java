@@ -13,6 +13,7 @@ public class GameEngine extends Observable implements Observer{
 
     public GameEngine(String[] players) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        resetGameworld();
         addPlayers(players);
     }
 
@@ -89,22 +90,26 @@ public class GameEngine extends Observable implements Observer{
 
     //Just for testing
     public void printGameWorld() {
+        System.out.println("Gameworld:");
         for (char[] c : GameWorld) {
             System.out.println(new String(c));
         }
-       /* String result = "";
+
+        String result = "";
         for (char[] c : GameWorld) {
             result += new String(c);
         }
         byte[] data = result.getBytes();
         String str = new String(data);
+        System.out.println("result");
         System.out.println(result);
+        System.out.println("str");
         System.out.println(str);
 
         char[][] testWorld = new char[Constants.worldWidth][Constants.worldHeight];
         int i = 0;
         while (true) {
-            testWorld[i] = str.substring(0, Constants.worldWidth).toCharArray();
+            testWorld[i] = str.substring(0, Constants.worldHeight).toCharArray();
             str = str.substring(Constants.worldWidth);
             i++;
             if (i > Constants.worldHeight - 1)
@@ -113,7 +118,10 @@ public class GameEngine extends Observable implements Observer{
         for (char[] c : testWorld) {
             System.out.println(new String(c));
         }
-*/
+
+        System.out.println("Same?");
+        System.out.println(Testing.mapsEqual(GameWorld,testWorld));
+
 
     }
 

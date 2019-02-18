@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class StartScreen extends Container {
 
-    JButton hostButton = new JButton("Host");
-    JButton clientButton = new JButton("Client");
+    public JButton hostButton = new JButton("Host");
+    public JButton clientButton = new JButton("Client");
 
     public StartScreen()
     {
