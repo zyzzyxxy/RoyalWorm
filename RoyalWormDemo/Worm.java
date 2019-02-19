@@ -26,6 +26,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         this.type= Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
     }
+
     //@Override
      public void run() {
         while (true) {

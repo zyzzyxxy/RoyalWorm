@@ -48,7 +48,7 @@ public class GameWindow extends JFrame implements Observer {
     private void updateP1Direction()
     {
         gm.playerList.get(0).worm.direction = gameCanvas.direction;
-        System.out.println(gameCanvas.hasFocus());
+       // System.out.println(gameCanvas.hasFocus());
     }
 
     @Override
