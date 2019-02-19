@@ -27,8 +27,6 @@ public class NetworkController{
             datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
         }
         catch (Exception e){e.printStackTrace();}
-
-
     }
 
 

@@ -1,16 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class GameCanvas extends JPanel {
 
+    public Direction direction;
 
     public GameCanvas()
     {
+        direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
         this.repaint();
-        setBackground(Constants.backgroundColor);
     }
 
     @Override
@@ -50,5 +53,4 @@ public class GameCanvas extends JPanel {
                 break;
         }
     }
-
 }

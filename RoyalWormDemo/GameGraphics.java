@@ -1,7 +1,4 @@
-import javax.swing.*;
 import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.text.AttributedCharacterIterator;
 
 public class GameGraphics {
 
@@ -20,6 +17,8 @@ public class GameGraphics {
         }
         return graphics;
     }
+
+
     public static Graphics drawPlayer(boolean head, int player, Position p, Graphics graphics)
     {
         if(player == 1)

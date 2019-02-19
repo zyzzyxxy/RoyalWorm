@@ -26,6 +26,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         this.type= Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
     }
+
     //@Override
      public void run() {
         while (true) {
@@ -85,14 +86,17 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     {
         length+=n;
     }
+
     public void shrink()
     {
         length-=1;
     }
+
     public void shrink(int n)
     {
         length-=n;
     }
+
     public void reset()
     {
         //Todo fix this
@@ -100,10 +104,12 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         length=Constants.wormStartingLength;
         headPos=startPos;
     }
+
     public void addToSpeed(int n)
     {
         speed+=n;
     }
+
     public void updateHeadPos()
     {
         headPos = new Position(headPos.x+direction.x, headPos.y+direction.getY());
@@ -117,6 +123,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
             headPos.y=Constants.worldHeight-1;
 
     }
+
     //Just for testing
     public void printBody()
     {
