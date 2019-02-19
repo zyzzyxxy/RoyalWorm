@@ -108,11 +108,7 @@ public class Worm extends GameObject{
 		}
 	}
 	
-	public Graphics2D getGraphics2d() 
-	{
-		return wormGraphics;
-	}
-	public void grow() 
+	public void grow()
 	{
 		length+=1; 
 	}
