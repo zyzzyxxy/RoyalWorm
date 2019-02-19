@@ -13,12 +13,14 @@ public class GameEngine extends Observable implements Observer{
     List<GameObject> gameObjectList = new ArrayList<>();
     Timer gameTimer;
 
+
     public GameEngine(String[] players) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         addPlayers(players);
         startGame();
     }
+
     public void startGame()
     {
         for(Player p: playerList)
@@ -26,6 +28,7 @@ public class GameEngine extends Observable implements Observer{
             p.startWorm();
         }
     }
+
 
     private void addPlayers(String[] players) throws InterruptedException, UnknownHostException {
         for (String s : players) {
@@ -77,7 +80,7 @@ public class GameEngine extends Observable implements Observer{
         GameWorld[pos.y][pos.x] = c;
     }
 
-
+    //Todo this does not reset worms
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');

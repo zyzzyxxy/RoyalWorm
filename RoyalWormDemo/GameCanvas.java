@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
-public class GameCanvas extends JPanel implements KeyListener {
+public class GameCanvas extends JPanel {
 
     public Direction direction;
 
@@ -52,35 +52,5 @@ public class GameCanvas extends JPanel implements KeyListener {
                 GameGraphics.drawPlayer(false,4,p,g);
                 break;
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        keyAction(e);
-        System.out.println("pressed" + e.getKeyCode());
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        keyAction(e);
-        System.out.println("pressed" + e.getKeyCode());
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println("pressed" + e.getKeyCode());
-
-    }
-    private void keyAction(KeyEvent e)
-    {
-        if(e.getKeyCode() == KeyEvent.VK_DOWN);
-            direction.x=0;direction.y=1;
-        if(e.getKeyCode() == KeyEvent.VK_UP);
-            direction.x=0;direction.y=-1;
-        if(e.getKeyCode() == KeyEvent.VK_LEFT);
-            direction.x=-1;direction.y=0;
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT);
-            direction.x=1;direction.y=0;
     }
 }

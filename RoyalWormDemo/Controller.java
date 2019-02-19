@@ -47,13 +47,12 @@ public class Controller implements Observer {
     }
 
     //Todo
-    private void recieveDataToPlayers() throws UnknownHostException {
+    private void recieveDataFromPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.host) {
-                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.addr, p.port);
+
             }
         }
-
     }
 
     private void showStartScreen() throws Exception {

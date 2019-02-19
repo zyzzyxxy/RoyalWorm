@@ -17,12 +17,10 @@ import java.util.Observer;
 public class GameWindow extends JFrame implements Observer {
     JMenuBar menuBar;
     JMenu File, Options, Help;
-    JMenuItem New, Save, Load, Quit, SetControllers, Gamemode, About;
+    JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
     StartScreen startScreen;
 
-
-    //Controller controller = new Controller();
     GameEngine gm;
     JFrame startWindow;
 
@@ -48,7 +46,6 @@ public class GameWindow extends JFrame implements Observer {
     private void updateP1Direction()
     {
         gm.playerList.get(0).worm.direction = gameCanvas.direction;
-       // System.out.println(gameCanvas.hasFocus());
     }
 
     @Override
@@ -63,7 +60,6 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas = new GameCanvas();
         gameCanvas.setFocusable(true);
         getContentPane().add(gameCanvas);
-//        getContentPane().add(startScreen = new StartScreen());
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
 
@@ -81,6 +77,7 @@ public class GameWindow extends JFrame implements Observer {
         File.add(New = new JMenuItem("New"));
         File.add(Save = new JMenuItem("Save"));
         File.add(Load = new JMenuItem("Load"));
+        File.add(Reset = new JMenuItem("Reset"));
         File.add(Quit = new JMenuItem("Quit"));
 
         Options.add(SetControllers = new JMenuItem("Set Controllers"));
@@ -106,14 +103,14 @@ public class GameWindow extends JFrame implements Observer {
 
 
         if(e.getActionCommand().equalsIgnoreCase("New")) {
-           // startScreen.setVisible(false);
             gm.resetGameworld(); gameCanvas.repaint();
-
         }
         if(e.getActionCommand().equalsIgnoreCase("Save"))
-            loadFile();
+            saveFile();
         if(e.getActionCommand().equalsIgnoreCase("Load"))
             loadFile();
+        if(e.getActionCommand().equalsIgnoreCase("Reset"))
+            gm.resetGameworld(); gameCanvas.repaint();
         if(e.getActionCommand().equalsIgnoreCase("Quit"))
             System.exit(0);
     }
