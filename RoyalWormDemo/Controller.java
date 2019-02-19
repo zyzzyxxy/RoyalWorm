@@ -1,11 +1,5 @@
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,12 +12,14 @@ public class Controller implements Observer {
     GameWindow gw;
     ClientWindow clWindow;
     JFrame startFrame;
+    boolean host = false;
 
     public Controller() throws Exception {
 
         showStartScreen();
+       // showStartScreen();
         //while (startFrame.isEnabled()) { }
-        startGame();
+
 
     }
 
@@ -46,16 +42,43 @@ public class Controller implements Observer {
         }
 
     }
+    //Todo
+    private void recieveDataToPlayers() throws UnknownHostException {
+        for (Player p : gameEngine.playerList)
+        {
+            if(!p.host)
+            {
+                NetworkController.sendWorldData(gameEngine.GameWorld,datagramSocket,p.addr,p.port);
+            }
+        }
+
+    }
 
     private void showStartScreen() throws Exception {
         startFrame = new JFrame("Start Screen");
-        StartScreen sc = new StartScreen();
+        JButton hostButton = new JButton("Host");
+        JButton clientButton = new JButton("Client");
+        StartScreen sc = new StartScreen(hostButton,clientButton);
+        hostButton.addActionListener(e -> {
+            try {
+                buttonClicked(e.getActionCommand());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+        clientButton.addActionListener(e -> {
+            try {
+                buttonClicked(e.getActionCommand());
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        });
+
         startFrame.add(sc);
         startFrame.pack();
         startFrame.setVisible(true);
-        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //while (sc.active){}
-        //startFrame.enable(false);
+        startFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
     }
 
     public void startGame() throws Exception {
@@ -63,10 +86,34 @@ public class Controller implements Observer {
         this.gameEngine = new GameEngine(players);
         gameEngine.addObserver(this);
         this.datagramSocket = new DatagramSocket();
-        gw = new GameWindow(gameEngine);
-        clWindow = new ClientWindow();
+        if(host)
+            gw = new GameWindow(gameEngine);
+        else
+            clWindow = new ClientWindow();
 
         System.out.println("going here");
         gameEngine.resetGameworld();
     }
+
+    public void buttonClicked(String actionCommand) throws Exception {
+        if (actionCommand.equals("Host")){
+            System.out.println("HostButtonClicked");
+            host = true;
+            startGame();
+            //startFrame.dispose();
+        }
+        if (actionCommand.equals("Client")){
+            System.out.println("ClientButtonClicked");
+            String hostAdress = JOptionPane.showInputDialog("write host's adress");
+            host = false;
+        }
+    }
+
+    public void makeStartScreen()
+    {
+
+    }
+
+
+
 }

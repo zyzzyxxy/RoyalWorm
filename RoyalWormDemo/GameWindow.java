@@ -1,13 +1,18 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Observable;
 import java.util.Observer;
+
+/**
+ * The game window for the host machine
+ */
+
 
 public class GameWindow extends JFrame implements Observer {
     JMenuBar menuBar;
@@ -15,6 +20,8 @@ public class GameWindow extends JFrame implements Observer {
     JMenuItem New, Save, Load, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
     StartScreen startScreen;
+
+
     //Controller controller = new Controller();
     GameEngine gm;
     JFrame startWindow;
@@ -24,9 +31,25 @@ public class GameWindow extends JFrame implements Observer {
         makeFrame();
         gm.addObserver(this);
         setResizable(false);
-
+        gameCanvas.grabFocus();
+        //constantly check for new directions
+        Thread dirUpdater = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true) {
+                    updateP1Direction();
+                }
+            }
+        });
+        dirUpdater.start();
     }
 
+    //Calling for setting worm1direction
+    private void updateP1Direction()
+    {
+        gm.playerList.get(0).worm.direction = gameCanvas.direction;
+        System.out.println(gameCanvas.hasFocus());
+    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -37,8 +60,9 @@ public class GameWindow extends JFrame implements Observer {
     private void makeFrame() {
         makeMenus();
         setJMenuBar(menuBar);
-
-        getContentPane().add(gameCanvas = new GameCanvas());
+        gameCanvas = new GameCanvas();
+        gameCanvas.setFocusable(true);
+        getContentPane().add(gameCanvas);
 //        getContentPane().add(startScreen = new StartScreen());
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
@@ -82,7 +106,7 @@ public class GameWindow extends JFrame implements Observer {
 
 
         if(e.getActionCommand().equalsIgnoreCase("New")) {
-            startScreen.setVisible(false);
+           // startScreen.setVisible(false);
             gm.resetGameworld(); gameCanvas.repaint();
 
         }

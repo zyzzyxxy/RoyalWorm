@@ -1,16 +1,19 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class GameCanvas extends JPanel {
+public class GameCanvas extends JPanel implements KeyListener {
 
+    public Direction direction;
 
     public GameCanvas()
     {
+        direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
         this.repaint();
-        setBackground(Constants.backgroundColor);
     }
 
     @Override
@@ -51,4 +54,33 @@ public class GameCanvas extends JPanel {
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        keyAction(e);
+        System.out.println("pressed" + e.getKeyCode());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        keyAction(e);
+        System.out.println("pressed" + e.getKeyCode());
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("pressed" + e.getKeyCode());
+
+    }
+    private void keyAction(KeyEvent e)
+    {
+        if(e.getKeyCode() == KeyEvent.VK_DOWN);
+            direction.x=0;direction.y=1;
+        if(e.getKeyCode() == KeyEvent.VK_UP);
+            direction.x=0;direction.y=-1;
+        if(e.getKeyCode() == KeyEvent.VK_LEFT);
+            direction.x=-1;direction.y=0;
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT);
+            direction.x=1;direction.y=0;
+    }
 }
