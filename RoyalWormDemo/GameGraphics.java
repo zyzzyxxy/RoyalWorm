@@ -17,6 +17,8 @@ public class GameGraphics {
         }
         return graphics;
     }
+
+
     public static Graphics drawPlayer(boolean head, int player, Position p, Graphics graphics)
     {
         if(player == 1)
