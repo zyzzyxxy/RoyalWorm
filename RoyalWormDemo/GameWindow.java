@@ -30,27 +30,13 @@ public class GameWindow extends JFrame implements Observer {
         gm.addObserver(this);
         setResizable(false);
         gameCanvas.grabFocus();
-        //constantly check for new directions
-        Thread dirUpdater = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    updateP1Direction();
-                }
-            }
-        });
-        dirUpdater.start();
-    }
 
-    //Calling for setting worm1direction
-    private void updateP1Direction()
-    {
-        gm.playerList.get(0).worm.direction = gameCanvas.direction;
     }
 
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.repaint();
+       // GameEngine.changes.clear();
     }
 
 
@@ -97,11 +83,10 @@ public class GameWindow extends JFrame implements Observer {
                 });
     }
 
+    //Handles JMenu in GameWindow
     private void menuClicked(ActionEvent e) throws IOException {
 
         System.out.println(e.getActionCommand());
-
-
         if(e.getActionCommand().equalsIgnoreCase("New")) {
             gm.resetGameworld(); gameCanvas.repaint();
         }
@@ -129,7 +114,6 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.repaint();
     }
 
-    //Todo get writable option in window
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -144,12 +128,6 @@ public class GameWindow extends JFrame implements Observer {
                 fw.write("\n");
             }
         }
-        gameCanvas.repaint();
-    }
-
-    //Just for testing
-    public void loadFile(File file) throws IOException {
-        gm.loadGameworld(file);
         gameCanvas.repaint();
     }
 }

@@ -18,7 +18,8 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        drawWorld(g);
+        //drawWorld(g);
+        drawChanges(g);
     }
 
     public void drawWorld(Graphics g)
@@ -31,6 +32,13 @@ public class GameCanvas extends JPanel {
 
             }
     }
+    public void drawChanges(Graphics g)
+    {
+        for (Change ch:GameEngine.changes) {
+            drawObject(ch.type, new Position(ch.x,ch.y), g);
+        }
+
+    }
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)
@@ -39,6 +47,9 @@ public class GameCanvas extends JPanel {
                 GameGraphics.drawApple(p, g);
                 break;
                 //For players
+            case '0':
+                GameGraphics.erase(p,g);
+                break;
             case '1':
                 GameGraphics.drawPlayer(false,1,p,g);
                 break;
@@ -50,6 +61,12 @@ public class GameCanvas extends JPanel {
                 break;
             case '4':
                 GameGraphics.drawPlayer(false,4,p,g);
+                break;
+            case 'w':
+                GameGraphics.drawWall(p,g);
+                break;
+            case 's':
+                GameGraphics.drawSuperApple(p,g);
                 break;
         }
     }
