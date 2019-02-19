@@ -120,8 +120,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     //Just for testing
     public void printBody()
     {
-        for (Position p:body
-             ) {
+        for (Position p:body) {
             System.out.println(p.x);
             System.out.println(p.y);
         }
