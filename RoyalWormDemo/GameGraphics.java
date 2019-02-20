@@ -12,6 +12,7 @@ public class GameGraphics {
         graphics.setColor(Color.GREEN);
         //Todo make details better :)
         //Draw details, just for fun
+
         for(int i = 0; i<5;i++) {
             graphics.drawArc(p.getX() * constant - constant + constant / 2, p.getY() * constant-i, 10+i, 10, 0, 90);
         }
@@ -27,6 +28,7 @@ public class GameGraphics {
         graphics.setColor(Color.orange);
         //Todo make details better :)
         //Draw details, just for fun
+
         for(int i = 0; i<5;i++) {
             graphics.drawArc(p.getX() * constant - constant + constant / 2, p.getY() * constant-i, 10+i, 10, 0, 90);
         }

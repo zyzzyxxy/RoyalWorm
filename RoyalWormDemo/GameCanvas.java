@@ -3,27 +3,42 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.PublicKey;
+import java.util.Iterator;
+import java.util.List;
 
 public class GameCanvas extends JPanel {
 
-    public Direction direction;
+    //public Direction direction;
+    public List<Change> changes;
 
     public GameCanvas()
     {
-        direction = new Direction(-1,0);
+        changes = GameEngine.changes;
+        //direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
         this.repaint();
+       /* Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                drawChanges(getParent().getGraphics());
+            }
+        });
+        t.start();*/
     }
 
     @Override
     public void paint(Graphics g) {
-        //drawWorld(g);
+        drawWorld(g);
+        //g = this.getGraphics();
+       //
         drawChanges(g);
     }
 
     public void drawWorld(Graphics g)
     {
+        //Brute Force
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
@@ -31,13 +46,22 @@ public class GameCanvas extends JPanel {
                     drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
 
             }
+        //int i, j;
+        /*for(Change ch: changes)
+        {
+            i=ch.x;j=ch.y;
+            drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
+        }*/
     }
     public void drawChanges(Graphics g)
     {
-        for (Change ch:GameEngine.changes) {
-            drawObject(ch.type, new Position(ch.x,ch.y), g);
-        }
+        if(!changes.isEmpty())
+        {
+            for (Change ch :changes) {
+                drawObject(ch.type,new Position(ch.x,ch.y),g);
+            }
 
+        }
     }
     public void drawObject(char c, Position p, Graphics g)
     {

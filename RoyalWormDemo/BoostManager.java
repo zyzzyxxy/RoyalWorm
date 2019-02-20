@@ -39,7 +39,7 @@ public class BoostManager {
 
     public void spawn(Position key, Boost value) {
         boosts.put(key, value);
-        //GameEngine.GameWorld[key.x][key.y] = value.type;
+        GameEngine.GameWorld[key.x][key.y] = value.type;
         GameEngine.changes.add(new Change(key.x,key.y,value.type));
     }
 

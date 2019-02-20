@@ -6,6 +6,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -35,7 +37,24 @@ public class GameWindow extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
+        List<Change> changes = (List<Change>) arg;
+        /*while (!changes.isEmpty())
+        {
+            //gameCanvas.changes.add(changes.get(0));
+            gameCanvas.repaint();
+            //changes.remove(0);
+        }*/
+
+       /* Change ch;
+        while(((Iterator) arg).hasNext())
+        {
+            ch = ((Change) ((Iterator) arg).next());
+            gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
+        }*/
+        //gameCanvas.iterator = (Iterator) arg;
         gameCanvas.repaint();
+
+
        // GameEngine.changes.clear();
     }
 
