@@ -31,6 +31,7 @@ public class Worm extends GameObject {
     }
 
 
+
     public void update() {
         updateBody();
     }
@@ -126,9 +127,11 @@ public class Worm extends GameObject {
     }
 
     //Just for testing
+
     public void printBody() {
         for (Position p : body
         ) {
+
             System.out.println(p.x);
             System.out.println(p.y);
         }

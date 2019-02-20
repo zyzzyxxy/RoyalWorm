@@ -6,3 +6,4 @@ public class Boost extends GameObject{
 
     }
 }
+
