@@ -9,7 +9,7 @@ public class GameEngine extends Observable implements Observer{
 
     public static char[][] GameWorld;
     
-    private Boostmanager boosts;
+    private BoostManager boosts;
     List<Player> playerList = new ArrayList<>();
     List<GameObject> gameObjectList = new ArrayList<>();
     Timer gameTimer;
@@ -19,7 +19,7 @@ public class GameEngine extends Observable implements Observer{
         resetGameworld();
         addPlayers(players);
         startGame();
-        boosts = new Boostmanager();
+        boosts = new BoostManager();
     }
     public void startGame()
     {
