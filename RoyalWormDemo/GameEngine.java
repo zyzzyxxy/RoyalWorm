@@ -8,16 +8,18 @@ import java.util.Timer;
 public class GameEngine extends Observable implements Observer{
 
     public static char[][] GameWorld;
-
+    
+    private Boostmanager boosts;
     List<Player> playerList = new ArrayList<>();
     List<GameObject> gameObjectList = new ArrayList<>();
     Timer gameTimer;
-
+    
     public GameEngine(String[] players) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         addPlayers(players);
         startGame();
+        boosts = new Boostmanager();
     }
     public void startGame()
     {
