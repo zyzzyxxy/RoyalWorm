@@ -8,13 +8,17 @@ import java.util.Timer;
 public class GameEngine extends Observable implements Observer{
 
     public static char[][] GameWorld;
-
+    public static BoostManager BM;
+    public static CollisionHandler CH;
+    
     List<Player> playerList = new ArrayList<>();
     List<GameObject> gameObjectList = new ArrayList<>();
     Timer gameTimer;
 
     public GameEngine(String[] players) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        BM = new BoostManager();
+        CH = new CollisionHandler();
         resetGameworld();
         addPlayers(players);
         startGame();
@@ -100,7 +104,7 @@ public class GameEngine extends Observable implements Observer{
 
 
     //Just for testing
-    public void printGameWorld() {
+    public static void printGameWorld() {
         System.out.println("Gameworld:");
         for (char[] c : GameWorld) {
             System.out.println(new String(c));

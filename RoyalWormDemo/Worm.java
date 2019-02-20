@@ -12,6 +12,8 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     int wormNumber;
     char type;
     BoardCordinates position,direction;
+    
+    boolean running;
 
 
     public Worm(Position position, Direction direction, int wormNumber) {
@@ -25,14 +27,16 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         this.startPos = position;
         this.type= Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
+        
+        running = true;
     }
 
     //@Override
      public void run() {
-        while (true) {
+        while (running) {
             update();
             try {
-                Thread.sleep(1000 / speed);
+            	Thread.sleep(1000 / speed);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -51,30 +55,27 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     public Position[] updateBody()
     {
         Position head,tail;
-        if(body.size()<this.length)
-        {
-           // if(CollisionChecker.collisionCheck(headPos))
-           //     CollisionChecker.collisionHandle(this,headPos);
-            body.add(headPos);
-            head=headPos;
-            tailPos=body.get(0);
-            tail = null;
-            //GameEngine.updateGameworld(headPos, this.type);
-            updateHeadPos();
-        }
-        else
-        {
-           // if(CollisionChecker.collisionCheck(headPos))
-           //     CollisionChecker.collisionHandle(this,headPos);
-            body.add(headPos);
-            head=headPos;
-         //   GameEngine.updateGameworld(headPos, this.type);
-         //   GameEngine.updateGameworld(body.get(0), '0');
-            tail=tailPos;
-            body.remove(0);
-            tailPos=body.get(0);
-            updateHeadPos();
-        }
+        //System.out.printf("head: %s" , headPos.getX());
+        if(GameEngine.CH.collisionCheck(headPos)) {
+	           GameEngine.CH.collisionHandle(this,headPos);
+	           System.out.printf("headpos: %d", headPos.getY());
+         }
+        body.add(headPos);
+        head=headPos;
+        tailPos=body.get(0);
+	        if(body.size()<this.length)
+	        {
+	            tail = null;
+		           //GameEngine.updateGameworld(headPos, this.type);
+	        }
+	        else
+	        {
+	         //   GameEngine.updateGameworld(headPos, this.type);
+	         //   GameEngine.updateGameworld(body.get(0), '0');
+	           tail=tailPos;
+	           body.remove(0);
+	        }
+	    updateHeadPos();
         return new Position[]{head,tail};
     }
 
@@ -93,6 +94,12 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
     public void shrink(int n)
     {
         length-=n;
+    }
+    public void stop()
+    {
+    	System.out.print("STOP");
+    	//GameEngine.printGameWorld();
+    	running = false;
     }
     public void reset()
     {
@@ -126,10 +133,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
             System.out.println(p.y);
         }
     }
-
-
-
-    }
+}
 
 
 
