@@ -1,12 +1,19 @@
+import javax.swing.*;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class Main {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	Player[] playerList;
+
+	public static void main(String[] args) throws Exception {
 		//TODO everything
-		GameEngine gm = new GameEngine();
-		//gm.printGameWorld();
-		GameWindow gw = new GameWindow(gm);
+		Controller gameController = new Controller();
+
+	}
+	private static void startGame() throws Exception {
+
 
 	}
 

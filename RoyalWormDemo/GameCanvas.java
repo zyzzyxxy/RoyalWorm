@@ -1,51 +1,33 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
-import java.awt.font.FontRenderContext;
-import java.awt.font.GlyphVector;
-import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
-import java.awt.image.ImageObserver;
-import java.awt.image.RenderedImage;
-import java.awt.image.renderable.RenderableImage;
-import java.text.AttributedCharacterIterator;
-import java.util.Map;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class GameCanvas extends JPanel {
+public class GameCanvas extends JPanel implements KeyListener {
 
+    public Direction direction;
 
     public GameCanvas()
     {
+        direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
-
-
-        //testPaint();
-        //drawWorld();
         this.repaint();
-
     }
 
     @Override
     public void paint(Graphics g) {
-
-        //g.setColor(Color.blue);
-        //g.fillOval(50,50,50,50);
         drawWorld(g);
     }
 
-    public void testPaint()
-    {
-
-    }
     public void drawWorld(Graphics g)
     {
-        for (int i = 0;i<Constants.worldHeight;i++)
-            for (int j = 0;j<Constants.worldWidth;j++)
+        for (int i = 0;i<Constants.worldWidth;i++)
+            for (int j = 0;j<Constants.worldHeight;j++)
             {
                 if(GameEngine.GameWorld[i][j]!='0')
-                    drawObject(GameEngine.GameWorld[i][j], new Position(j,i), g);
+                    drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
 
             }
     }
@@ -58,18 +40,47 @@ public class GameCanvas extends JPanel {
                 break;
                 //For players
             case '1':
-                GameGraphics.drawPlayer(1,p,g);
+                GameGraphics.drawPlayer(false,1,p,g);
                 break;
             case '2':
-                GameGraphics.drawPlayer(2,p,g);
+                GameGraphics.drawPlayer(false,2,p,g);
                 break;
             case '3':
-                GameGraphics.drawPlayer(3,p,g);
+                GameGraphics.drawPlayer(false,3,p,g);
                 break;
             case '4':
-                GameGraphics.drawPlayer(4,p,g);
+                GameGraphics.drawPlayer(false,4,p,g);
                 break;
         }
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        keyAction(e);
+        System.out.println("pressed" + e.getKeyCode());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        keyAction(e);
+        System.out.println("pressed" + e.getKeyCode());
+
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("pressed" + e.getKeyCode());
+
+    }
+    private void keyAction(KeyEvent e)
+    {
+        if(e.getKeyCode() == KeyEvent.VK_DOWN);
+            direction.x=0;direction.y=1;
+        if(e.getKeyCode() == KeyEvent.VK_UP);
+            direction.x=0;direction.y=-1;
+        if(e.getKeyCode() == KeyEvent.VK_LEFT);
+            direction.x=-1;direction.y=0;
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT);
+            direction.x=1;direction.y=0;
+    }
 }
