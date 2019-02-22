@@ -88,15 +88,24 @@ public class GameEngine extends Observable implements Observer{
 
     //Todo fix loading, now it loads wrong by 90 degrees
     public void loadGameworld(File file) throws FileNotFoundException {
-        Scanner sc = new Scanner(file);
-
+        @SuppressWarnings("resource")
+		Scanner sc = new Scanner(file);
+        
         int i = 0;
+   
         for (char[] c : GameWorld) {
             if (sc.hasNextLine()) {
-                c = sc.nextLine().toCharArray();
-                GameWorld[i++] = c;
+                c = ((String)sc.nextLine()).toCharArray();
+                //System.out.println(c);
+                GameWorld[i] = c;
+                i++;
+                
+                
             } else
-                Arrays.fill(c, '0');
+               Arrays.fill(c, '0');
+        }
+        for(char[] c : GameWorld) {
+        	System.out.println(c);
         }
     }
 
