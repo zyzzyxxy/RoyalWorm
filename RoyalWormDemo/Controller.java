@@ -47,13 +47,12 @@ public class Controller implements Observer {
     }
 
     //Todo
-    private void recieveDataToPlayers() throws UnknownHostException {
+    private void recieveDataFromPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.host) {
-                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.addr, p.port);
+
             }
         }
-
     }
 
     private void showStartScreen() throws Exception {
@@ -79,7 +78,7 @@ public class Controller implements Observer {
         startFrame.add(sc);
         startFrame.pack();
         startFrame.setVisible(true);
-        startFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //DO_NOTHING_ON_CLOSE
 
     }
 
@@ -119,26 +118,22 @@ public class Controller implements Observer {
     }
 
     private void hostButtonPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).worm.direction.y != -1) {
             gameEngine.playerList.get(0).worm.direction.x = 0;
             gameEngine.playerList.get(0).worm.direction.y = 1;
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.direction.y != 1) {
             gameEngine.playerList.get(0).worm.direction.x = 0;
             gameEngine.playerList.get(0).worm.direction.y = -1;
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.direction.x != 1) {
             gameEngine.playerList.get(0).worm.direction.x = -1;
             gameEngine.playerList.get(0).worm.direction.y = 0;
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.direction.x != -1) {
             gameEngine.playerList.get(0).worm.direction.x = 1;
             gameEngine.playerList.get(0).worm.direction.y = 0;
         }
-    }
-
-    public void makeStartScreen() {
-
     }
 
 

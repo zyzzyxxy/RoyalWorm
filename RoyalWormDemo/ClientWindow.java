@@ -7,6 +7,10 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.Arrays;
 
+
+/**
+This window works also as a controller for clients recieving and sending data
+ */
 public class ClientWindow extends Thread {
     private JFrame frame;
     int recievePort = 1234;
