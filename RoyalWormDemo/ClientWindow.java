@@ -5,6 +5,8 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.Arrays;
 
 
@@ -19,8 +21,10 @@ public class ClientWindow extends Thread {
     ClientCanvas clientCanvas;
     char[][] recievedWorld;
     KeyListener keyListener;
+    InetAddress hostAddr;
+    int portNr = 1233;
 
-    public ClientWindow() throws IOException {
+    public ClientWindow() throws Exception, InterruptedException {
 
         makeFrame();
         recievedWorld = new char[Constants.worldWidth][Constants.worldHeight];
@@ -33,12 +37,16 @@ public class ClientWindow extends Thread {
         clientCanvas.addKeyListener(keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                keyHandler(e.getKeyCode());
+                //keyHandler(e.getKeyCode());
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                keyHandler(e.getKeyCode());
+                try {
+                    keyHandler(e.getKeyCode());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
 
             @Override
@@ -47,6 +55,8 @@ public class ClientWindow extends Thread {
             }
         });
         clientCanvas.grabFocus();
+        //dSocket = new DatagramSocket();
+        hostAddr = InetAddress.getByName("127.0.0.1");
         recieveMessages();
     }
 
@@ -60,9 +70,10 @@ public class ClientWindow extends Thread {
         frame.setResizable(false);
     }
 
-    private void recieveMessages() throws IOException {
+    public void recieveMessages() throws IOException, InterruptedException {
         while (true && !interrupted()) {
             DatagramPacket dp = new DatagramPacket(data,data.length);
+        try{
             dSocket.receive(dp);
             String message = new String(dp.getData(),0,dp.getLength());
 
@@ -70,6 +81,9 @@ public class ClientWindow extends Thread {
             clientCanvas.updateClientworld(GameEngine.GameWorld);
             clientCanvas.updateClientworld(recievedWorld);
             clientCanvas.repaint();
+            sleep(10);
+            }
+        catch (Exception e){e.printStackTrace();}
         }
     }
     private void stringToWorld(String s)
@@ -84,12 +98,12 @@ public class ClientWindow extends Thread {
         }
 
     }
-    private void keyHandler(int keycode)
-    {
+    private void keyHandler(int keycode) throws Exception {
         switch (keycode)
         {
             case KeyEvent.VK_UP:
                 System.out.println("Up");
+                NetworkController.sendDirectionData(new Direction(0,-1),dSocket,hostAddr,portNr);
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("Down");

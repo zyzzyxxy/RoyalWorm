@@ -15,25 +15,16 @@ public class GameCanvas extends JPanel {
     public GameCanvas()
     {
         changes = GameEngine.changes;
-        //direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
-        setBackground(Constants.backgroundColor);
         this.repaint();
-       /* Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                drawChanges(getParent().getGraphics());
-            }
-        });
-        t.start();*/
     }
 
     @Override
     public void paint(Graphics g) {
         drawWorld(g);
         //g = this.getGraphics();
-       //
-        drawChanges(g);
+        //
+        //drawChanges(g);
     }
 
     public void drawWorld(Graphics g)

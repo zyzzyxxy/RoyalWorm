@@ -27,6 +27,7 @@ public class ClientCanvas extends JPanel {
         drawWorld(g);
     }
 
+    //Todo somethings on right not paining
     public void drawWorld(Graphics g)
     {
         for (int i = 0;i<Constants.worldWidth;i++)

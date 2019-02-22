@@ -37,7 +37,8 @@ public class GameWindow extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        List<Change> changes = (List<Change>) arg;
+        gameCanvas.repaint();
+        //List<Change> changes = (List<Change>) arg;
         /*while (!changes.isEmpty())
         {
             //gameCanvas.changes.add(changes.get(0));
@@ -52,7 +53,7 @@ public class GameWindow extends JFrame implements Observer {
             gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
         }*/
         //gameCanvas.iterator = (Iterator) arg;
-        gameCanvas.repaint();
+
 
 
        // GameEngine.changes.clear();

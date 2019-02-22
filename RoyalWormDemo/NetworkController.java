@@ -31,7 +31,21 @@ public class NetworkController{
 
 
     //Todo
-    public static void sendDirectionData(){}
+    public static void sendDirectionData(Direction dir,DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
+    {
+        String result = Integer.toString(dir.x) + Integer.toString(dir.y);
+        byte[] data = result.getBytes();
+
+
+        //hard coding
+        InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
+        port = 1233;
+
+        try {
+            datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
+        }
+        catch (Exception e){e.printStackTrace();}
+    }
     public static Direction getDirectionData()
     {
         return null;

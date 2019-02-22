@@ -7,7 +7,7 @@ public class Constants {
 
     public static int gameConstant = 10; //using to scale world and draw figures
 
-    public static int APPLESPAWN = 5;
+    public static int APPLESPAWN = 500;
 
 
     //WormArgs

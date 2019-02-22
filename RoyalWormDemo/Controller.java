@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.UnknownHostException;
 import java.util.Observable;
@@ -13,12 +15,13 @@ import java.util.Observer;
  */
 public class Controller implements Observer {
     GameEngine gameEngine;
-    DatagramSocket datagramSocket;
+    DatagramSocket datagramSocket, recieveSocket;
     GameWindow gw;
     ClientWindow clWindow;
     JFrame startFrame;
     boolean host = false;
-
+    byte[] recieveData = new byte[1024];
+    Thread recieveThread;
     public Controller() throws Exception {
 
         showStartScreen();
@@ -32,6 +35,7 @@ public class Controller implements Observer {
     public void update(Observable o, Object arg) {
         try {
             sendDataToPlayers();
+            //recieveDataFromPlayers();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
@@ -49,8 +53,18 @@ public class Controller implements Observer {
     //Todo
     private void recieveDataFromPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
+            System.out.println("asddd");
             if (!p.host) {
+                DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);
+                try {
+                    recieveSocket.receive(dp);
+                    String message = new String(dp.getData(), 0, dp.getLength());
+                    System.out.println(message);
 
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -87,6 +101,7 @@ public class Controller implements Observer {
         this.gameEngine = new GameEngine(players);
         gameEngine.addObserver(this);
         this.datagramSocket = new DatagramSocket();
+        this.recieveSocket = new DatagramSocket();
         if (host) {
             gw = new GameWindow(gameEngine);
             gw.gameCanvas.addKeyListener(new KeyAdapter() {
@@ -96,11 +111,24 @@ public class Controller implements Observer {
                     System.out.println("Key pressed" + e.getKeyCode());
                 }
             });
+            recieveThread = new Thread(){public void run(){
+                while (true&&!this.isInterrupted()){
+                try {
+                    recieveDataFromPlayers();
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
+                }
+                }
+            }};
+            recieveThread.start();
+
         } else
             clWindow = new ClientWindow();
 
         System.out.println("going here");
         gameEngine.resetGameworld();
+
+
     }
 
     public void buttonClicked(String actionCommand) throws Exception {
@@ -114,6 +142,8 @@ public class Controller implements Observer {
             System.out.println("ClientButtonClicked");
             String hostAdress = JOptionPane.showInputDialog("write host's adress");
             host = false;
+            startGame();
+            startFrame.dispose();
         }
     }
 
