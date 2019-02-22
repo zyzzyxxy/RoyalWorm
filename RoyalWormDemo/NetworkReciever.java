@@ -10,7 +10,8 @@ public class NetworkReciever extends Observable implements Runnable{
     byte[] recieveData = new byte[1024];
     int recievePort = 1230;
 
-    public NetworkReciever() throws SocketException {
+    public NetworkReciever(int port) throws SocketException {
+        recievePort = port;
         receiveSocket = new DatagramSocket(recievePort);
     }
 
