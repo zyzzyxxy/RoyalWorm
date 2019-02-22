@@ -55,8 +55,10 @@ public class ClientWindow extends Thread {
             }
         });
         clientCanvas.grabFocus();
+        clientCanvas.repaint();
         //dSocket = new DatagramSocket();
-        hostAddr = InetAddress.getByName("127.0.0.1");
+       // hostAddr = InetAddress.getByName("127.0.0.1");
+        hostAddr = InetAddress.getByName("192.168.43.88");
         recieveMessages();
     }
 
@@ -78,10 +80,10 @@ public class ClientWindow extends Thread {
             String message = new String(dp.getData(),0,dp.getLength());
 
             stringToWorld(message);
-            clientCanvas.updateClientworld(GameEngine.GameWorld);
+           // clientCanvas.updateClientworld(GameEngine.GameWorld);
             clientCanvas.updateClientworld(recievedWorld);
             clientCanvas.repaint();
-            sleep(10);
+            //sleep(10);
             }
         catch (Exception e){e.printStackTrace();}
         }
@@ -90,10 +92,10 @@ public class ClientWindow extends Thread {
     {
         int i = 0;
         while (true) {
-            recievedWorld[i] = s.substring(0, Constants.worldWidth).toCharArray();
+            recievedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
             s = s.substring(Constants.worldHeight);
             i++;
-            if (i > Constants.worldHeight - 1)
+            if (i > Constants.worldWidth - 1)
                 break;
         }
 

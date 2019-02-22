@@ -46,6 +46,9 @@ public class ClientCanvas extends JPanel {
                 GameGraphics.drawApple(p, g);
                 break;
             //For players
+            case '0':
+                GameGraphics.erase(p,g);
+                break;
             case '1':
                 GameGraphics.drawPlayer(false,1,p,g);
                 break;
@@ -57,6 +60,12 @@ public class ClientCanvas extends JPanel {
                 break;
             case '4':
                 GameGraphics.drawPlayer(false,4,p,g);
+                break;
+            case 'w':
+                GameGraphics.drawWall(p,g);
+                break;
+            case 's':
+                GameGraphics.drawSuperApple(p,g);
                 break;
         }
     }

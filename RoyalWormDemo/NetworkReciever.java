@@ -8,7 +8,7 @@ public class NetworkReciever extends Observable implements Runnable{
 
     DatagramSocket receiveSocket;
     byte[] recieveData = new byte[1024];
-    int recievePort = 1233;
+    int recievePort = 1230;
 
     public NetworkReciever() throws SocketException {
         receiveSocket = new DatagramSocket(recievePort);

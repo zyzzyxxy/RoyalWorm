@@ -38,8 +38,8 @@ public class NetworkController{
 
 
         //hard coding
-        InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
-        port = 1233;
+        InetAddress inetAddress = InetAddress.getByName("192.168.43.88");
+        port = 1230;
 
         try {
             datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
