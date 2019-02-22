@@ -1,3 +1,5 @@
+import java.util.HashMap;
+import java.util.Random;
 
 public class BoostManager {
     private HashMap<Position, Boost> boosts;

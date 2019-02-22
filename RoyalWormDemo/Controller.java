@@ -22,9 +22,12 @@ public class Controller implements Observer {
     boolean host = false;
     byte[] recieveData = new byte[1024];
     Thread recieveThread;
+    NetworkReciever nwReciever;
     public Controller() throws Exception {
-
+        nwReciever = new NetworkReciever();
+        nwReciever.addObserver(this::update);
         showStartScreen();
+
         //showStartScreen();
         //while (startFrame.isEnabled()) { }
         //startGame();
@@ -33,14 +36,52 @@ public class Controller implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        try {
-            sendDataToPlayers();
-            //recieveDataFromPlayers();
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
+        //System.out.println(o.toString());
+        if(o instanceof GameEngine) {
+            try {
+                sendDataToPlayers();
+                //recieveDataFromPlayers();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            }
+        }
+        else if(o instanceof NetworkReciever)
+        {
+            System.out.println("NetworkUpdate from controller");
+            System.out.println(arg);
+
+            Direction tempDir = getDirFromString(arg.toString());
+            //Todo fix this to be dynamic
+            for (Player p : gameEngine.playerList) {
+                if (!p.host) {
+                    p.worm.direction = tempDir;
+                }
+            }
         }
     }
 
+    private Direction getDirFromString(String arg)
+    {
+        int x,y;
+        if(arg.substring(0,1).equals("0")) {
+            x = 0;
+            if(arg.substring(1,2).equals("1")){
+                y=1;
+            }
+            else //must be negative
+                y=-1;
+
+            }
+        else {
+            y=0;
+            if (arg.substring(0,1).equals("1"))
+                x = 1;
+            else
+                x=-1;
+            }
+
+        return new Direction(x,y);
+    }
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.host) {
@@ -49,6 +90,8 @@ public class Controller implements Observer {
         }
 
     }
+
+
 
     //Todo
     private void recieveDataFromPlayers() throws UnknownHostException {
@@ -111,15 +154,7 @@ public class Controller implements Observer {
                     System.out.println("Key pressed" + e.getKeyCode());
                 }
             });
-            recieveThread = new Thread(){public void run(){
-                while (true&&!this.isInterrupted()){
-                try {
-                    recieveDataFromPlayers();
-                } catch (UnknownHostException e) {
-                    e.printStackTrace();
-                }
-                }
-            }};
+            recieveThread = new Thread(nwReciever);
             recieveThread.start();
 
         } else
