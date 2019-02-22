@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
@@ -26,6 +27,7 @@ public class GameEngine extends Observable /*implements Observer*/ {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         addPlayers(players);
+        playerList.get(1).setInetAddr("192.168.43.88");
         //startGame();
         gameTimer = new Timer(5, new ActionListener() {
             @Override

@@ -25,6 +25,10 @@ public class Player {
         this.addr = InetAddress.getByName("127.0.0.1");
 
     }
+    public void setInetAddr(String addr) throws UnknownHostException {
+        this.addr = InetAddress.getByName(addr);
+
+    }
 
 
 }
