@@ -20,10 +20,9 @@ public class Player {
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
 
         //Todo fix this to update worms in right places
-        Position position = new Position(2, 3);
-
-
-        worm = new Worm(position, new Direction(0, -1), pNumber);
+        Position position = Position.getRandomPosition();
+        Direction wormDir= Direction.getRandomDirection();
+        worm = new Worm(position, wormDir, pNumber);
         this.name = name;
         lives = Constants.startingLives;
         this.host = host;

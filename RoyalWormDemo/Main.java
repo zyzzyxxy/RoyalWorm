@@ -1,3 +1,7 @@
+/**
+ * Starts the program and let´s user choose between Host or Client -mode
+ */
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -15,29 +19,15 @@ public class Main {
 	static ClientWindow cl;
 
 	public static void main(String[] args) throws Exception {
-		//TODO everything
 		showStartScreen();
-		while(!done) {
-			//System.out.println("not done");
-		}
-		System.out.println("hajj");
-		if(host)
-		{
-			gameController = new Controller();
-		}
-		else
-		{
-			cl = new ClientWindow(hostAdress);
-		}
-
 	}
 
 
+	//Makes and displays the startscreen
 	private static void showStartScreen() throws Exception {
 		startFrame = new JFrame("Start Screen");
 		JButton hostButton = new JButton("Host");
 		JButton clientButton = new JButton("Client");
-
 		hostButton.addActionListener(e -> {
 			try {
 				buttonClicked(e.getActionCommand());
@@ -53,26 +43,32 @@ public class Main {
 			}
 		});
 		StartScreen sc = new StartScreen(hostButton, clientButton);
+		startFrame.setResizable(false);
 		startFrame.add(sc);
 		startFrame.pack();
 		startFrame.setVisible(true);
-		startFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 	}
+
+	//Handles Buttons from startscreen
 	public static void buttonClicked(String actionCommand) throws Exception {
+
 		if (actionCommand.equals("Host")) {
 			System.out.println("HostButtonClicked");
 			host = true;
 			startFrame.dispose();
 			done=true;
+			gameController = new Controller();
 		}
+
 		if (actionCommand.equals("Client")) {
 			System.out.println("ClientButtonClicked");
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
 			host = false;//test
 			startFrame.dispose();
 			done=true;
-
+			cl = new ClientWindow(hostAdress);
 		}
 	}
 

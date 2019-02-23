@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
@@ -8,18 +9,19 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
 
-public class GameEngine extends Observable /*implements Observer*/ {
+public class GameEngine extends Observable {
 
     public static char[][] GameWorld;
-    
-    private BoostManager boosts;
+
     List<Player> playerList = new ArrayList<>();
-    List<GameObject> gameObjectList = new ArrayList<>();
+    List<Boost> spawnList = new ArrayList<>();
+
+    //List<GameObject> gameObjectList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     private int appleCounter = 0; //For spawning apples
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
-
+    int gameCOunter=0;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
@@ -27,10 +29,9 @@ public class GameEngine extends Observable /*implements Observer*/ {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
-        //addPlayers(players);
-//        playerList.get(1).setInetAddr("192.168.0.136");
-        //startGame();
-        gameTimer = new Timer(5, new ActionListener() {
+        makeSpawnList();
+
+        gameTimer = new Timer(Constants.GAMESPEED, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameTick();
@@ -42,18 +43,38 @@ public class GameEngine extends Observable /*implements Observer*/ {
 
     private void gameTick() {
         updateWorms();
-        updateBoosts();
+
+        //TOdo fix this
+        if(gameCOunter%Constants.GENERALSPAWNRATE==0)
+            updateBoosts();
+
         tellObservers();
         //changes.clear();
+        gameCOunter++;
+        if(gameCOunter==100)
+            gameCOunter = 0;
     }
 
+    private void makeSpawnList()
+    {
+        spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
+    }
 
+    //Todo make use of spawnList
     private void updateBoosts() {
         if (appleCounter == Constants.APPLESPAWN) {
             boostManager.spawnApple();
             appleCounter = 0;
         } else
             appleCounter++;
+        for (Boost b:spawnList) {
+            if(b.timeToSpawn()){
+                boostManager.spawnRandom(b.type);
+                b.resetCounter();
+            }
+            else
+                b.incCounter();
+        }
 
     }
 
@@ -68,52 +89,6 @@ public class GameEngine extends Observable /*implements Observer*/ {
         }
     }
 
-
-    //Todo this method has to be rewritten when constructor gets List<Player>
-    private void addPlayers(String[] players) throws InterruptedException, UnknownHostException {
-        for (String s : players) {
-            addPlayer(s);
-        }
-        for (Player p : playerList) {
-            // p.worm.addObserver(this);
-        }
-    }
-
-    private void addPlayer(String name) throws InterruptedException, UnknownHostException {
-       /* int number = playerList.size() + 1;
-        boolean host = false;
-        Position position;
-        if (number == 1) {
-            host = true;
-            position = new Position(Constants.worldWidth / 4, Constants.worldHeight / 4);
-            playerList.add(new Player(name, number, position, true));
-        } else if (number == 2) {
-            position = new Position(Constants.worldWidth / 4, Constants.worldHeight * 3 / 4);
-            playerList.add(new Player(name, number, position, false));
-        } else if (number == 3) {
-            position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight / 4);
-            playerList.add(new Player(name, number, position, host));
-        } else if (number == 4) {
-            position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight * 3 / 4);
-            playerList.add(new Player(name, number, position, host));
-        }*/
-    }
-
-    /*
-    private void update() {
-        for (Player p : playerList) {
-           Position[] pos=  p.worm.updateBody();
-           GameWorld[pos[0].x][pos[0].y] = p.worm.type;
-           try {
-               GameWorld[pos[0].x][pos[0].y] = p.worm.type;
-           }catch (NullPointerException e)
-           {e.printStackTrace();}
-
-        }
-        setChanged();
-        notifyObservers();
-    }
-    */
 
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.x][pos.y] = c;

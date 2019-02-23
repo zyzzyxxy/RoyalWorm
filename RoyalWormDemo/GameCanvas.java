@@ -83,6 +83,9 @@ public class GameCanvas extends JPanel {
             case 's':
                 GameGraphics.drawSuperApple(p,g);
                 break;
+            case 'l':
+                GameGraphics.drawSlow(p,g);
+                break;
         }
     }
 }

@@ -2,24 +2,24 @@ import java.awt.*;
 
 public class Constants {
 
+    //GameArgs
     public static int boardWidth = 800;
     public static int boardHeight = 600;
-
     public static int gameConstant = 10; //using to scale world and draw figures
-
-    public static int APPLESPAWN = 500;
-
+    public static int APPLESPAWN = 50;
+    public static int SLOWSPAWN = 50;
+    public static int GAMESPEED = 5;
+    public static int GENERALSPAWNRATE = 20;
 
     //WormArgs
     public static int wormsize = 10;
     public static int wormspeed = 10;
     public static int wormStartingLength = 8;
-
-
-    public static int worldWidth = boardWidth / wormsize - 1;
-    public static int worldHeight = boardHeight / wormsize - 1;
-
     public static int startingLives = 3;
+
+
+    public static int worldWidth = boardWidth / wormsize;
+    public static int worldHeight = boardHeight / wormsize;
 
     //Color
     public static Color backgroundColor = Color.BLACK;
@@ -32,6 +32,4 @@ public class Constants {
 
     public static int serverPort = 1234;
     public static int clientPort = 1234;
-
-
 }
