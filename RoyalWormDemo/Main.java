@@ -24,7 +24,6 @@ public class Main {
 		if(host)
 		{
 			gameController = new Controller();
-			//gameController.startGame();
 		}
 		else
 		{
@@ -38,7 +37,7 @@ public class Main {
 		startFrame = new JFrame("Start Screen");
 		JButton hostButton = new JButton("Host");
 		JButton clientButton = new JButton("Client");
-		StartScreen sc = new StartScreen(hostButton, clientButton);
+
 		hostButton.addActionListener(e -> {
 			try {
 				buttonClicked(e.getActionCommand());
@@ -53,7 +52,7 @@ public class Main {
 				e1.printStackTrace();
 			}
 		});
-
+		StartScreen sc = new StartScreen(hostButton, clientButton);
 		startFrame.add(sc);
 		startFrame.pack();
 		startFrame.setVisible(true);
@@ -75,11 +74,6 @@ public class Main {
 			done=true;
 
 		}
-	}
-
-	private static void startGame() throws Exception {
-
-
 	}
 
 }

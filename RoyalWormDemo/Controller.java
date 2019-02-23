@@ -42,7 +42,7 @@ public class Controller implements Observer {
         nwReciever.addObserver(this::update);
         //playerReciever = new NetworkReciever(1230);
         //playerReciever.addObserver(this::update);
-        playerList.add(new Player("Host",1,"127.0.0.1" , true));
+        playerList.add(new Player("Host", 1, "127.0.0.1", true));
 
         showStartScreen();
         //showStartScreen();
@@ -53,86 +53,108 @@ public class Controller implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //System.out.println(o.toString());
-        if(o instanceof GameEngine) {
+
+        //For sending data to clients
+        if (o instanceof GameEngine) {
             try {
                 sendDataToPlayers();
-                //recieveDataFromPlayers();
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
         }
-        else if(o instanceof NetworkReciever && started)
-        {
+
+        //for getting directions
+        else if (o instanceof NetworkReciever && started) {
             System.out.println("NetworkUpdate from controller");
             System.out.println(arg);
 
             Direction tempDir = getDirFromString(arg.toString());
+            String playerAdress = getAdressFromString(arg.toString());
+            System.out.println(arg);
+            System.out.println(playerAdress);
             //Todo fix this to be dynamic
             for (Player p : gameEngine.playerList) {
-                if (!p.host) {
-                    p.worm.direction = tempDir;
+                try {
+                    if (!p.host&&p.addr.equals(InetAddress.getByName(playerAdress))) {
+                        p.updateDirection(tempDir);
+                    }
+                } catch (UnknownHostException e) {
+                    e.printStackTrace();
                 }
             }
         }
-        else if(o instanceof NetworkReciever)
-        {
+
+        //For startscreen
+        else if (o instanceof NetworkReciever) {
             System.out.println("We have contact" + arg.toString());
-            if(arg.toString().substring(0,5).equals("addme"))
-            {
+            if (arg.toString().substring(0, 5).equals("addme")) {
                 int i = 6;
                 StringBuilder name = new StringBuilder();
-                while (!arg.toString().substring(i,i+1).equals("/"))
-                {
-                    name.append(arg.toString().substring(i, i+1));
+                while (!arg.toString().substring(i, i + 1).equals("/")) {
+                    name.append(arg.toString().substring(i, i + 1));
                     i++;
                 }
-                String addr = arg.toString().substring(i+1);
+                String addr = arg.toString().substring(i + 1);
                 System.out.println(name + " : " + addr);
                 boolean alreadyInList = false;
-                for (Player p:playerList) {
-                    if(p.addr.equals(addr))
-                        alreadyInList = true;
-                }
-                if (!alreadyInList)
-                {
+                for (Player p : playerList) {
                     try {
-                        playerList.add(new Player(name.toString(),playerList.size()+1,addr,false));
+                        if (p.addr.equals(InetAddress.getByName(addr)))
+                            alreadyInList = true;
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (!alreadyInList) {
+                    try {
+                        playerList.add(new Player(name.toString(), playerList.size() + 1, addr, false));
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     }
+                    textArea.setText(textArea.getText() + "\n" + name + "  Connected");
                 }
             }
 
-        }
-        else{
+        } else {
             System.out.println(o.toString());
         }
     }
 
-    private Direction getDirFromString(String arg)
-    {
-        int x,y;
-        if(arg.substring(0,1).equals("0")) {
+    private String getAdressFromString(String str) {
+        String result = "";
+        int i = 0;
+        boolean done = false;
+        while (!done) {
+            if (str.substring(i, i + 1).equals("/")) {
+                result = str.substring(i + 1);
+                done = true;
+            }
+            i++;
+        }
+        return result;
+    }
+
+    private Direction getDirFromString(String arg) {
+        int x, y;
+        if (arg.substring(0, 1).equals("0")) {
             x = 0;
-            if(arg.substring(1,2).equals("1")){
-                y=1;
-            }
-            else //must be negative
-                y=-1;
-            }
-        else {
-            y=0;
-            if (arg.substring(0,1).equals("1"))
+            if (arg.substring(1, 2).equals("1")) {
+                y = 1;
+            } else //must be negative
+                y = -1;
+        } else {
+            y = 0;
+            if (arg.substring(0, 1).equals("1"))
                 x = 1;
             else
-                x=-1;
-            }
+                x = -1;
+        }
 
-        return new Direction(x,y);
+        return new Direction(x, y);
     }
+
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.host) {
@@ -140,7 +162,6 @@ public class Controller implements Observer {
             }
         }
     }
-
 
 
     //Todo
@@ -167,7 +188,7 @@ public class Controller implements Observer {
         startFrame.getContentPane().setLayout(new FlowLayout());
         startFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JButton hostButton = new JButton("START");
-        playerContainer.setPreferredSize(new Dimension(50,300));
+        playerContainer.setPreferredSize(new Dimension(50, 300));
 
         this.datagramSocket = new DatagramSocket();
         this.recieveSocket = new DatagramSocket();
@@ -205,14 +226,14 @@ public class Controller implements Observer {
         started = true;
         gw = new GameWindow(gameEngine);
         gw.gameCanvas.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyPressed(KeyEvent e) {
-                    hostButtonPressed(e);
-                    System.out.println("Key pressed" + e.getKeyCode());
-                }
-            });
-          //  recieveThread = new Thread(nwReciever);
-           // recieveThread.start();
+            @Override
+            public void keyPressed(KeyEvent e) {
+                hostButtonPressed(e);
+                System.out.println("Key pressed" + e.getKeyCode());
+            }
+        });
+        //  recieveThread = new Thread(nwReciever);
+        // recieveThread.start();
 
 
     }

@@ -28,7 +28,7 @@ public class GameEngine extends Observable /*implements Observer*/ {
         resetGameworld();
         playerList = playersList;
         //addPlayers(players);
-        playerList.get(1).setInetAddr("192.168.0.136");
+//        playerList.get(1).setInetAddr("192.168.0.136");
         //startGame();
         gameTimer = new Timer(5, new ActionListener() {
             @Override
