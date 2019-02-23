@@ -18,6 +18,7 @@ public class Main {
 		//TODO everything
 		showStartScreen();
 		while(!done) {
+			//System.out.println("not done");
 		}
 		System.out.println("hajj");
 		if(host)

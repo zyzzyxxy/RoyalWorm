@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Controller implements Observer {
     JFrame startFrame;
     boolean host = false;
     byte[] recieveData = new byte[1024];
-    Thread recieveThread;
+    Thread recieveThread, tempThread;
     NetworkReciever nwReciever;
     NetworkReciever playerReciever;
     String hostAdress;
@@ -39,8 +40,9 @@ public class Controller implements Observer {
 
         nwReciever = new NetworkReciever(1230);
         nwReciever.addObserver(this::update);
-        playerReciever = new NetworkReciever(1231);
-        playerReciever.addObserver(this::update);
+        //playerReciever = new NetworkReciever(1230);
+        //playerReciever.addObserver(this::update);
+        playerList.add(new Player("Host",1,"127.0.0.1" , true));
 
         showStartScreen();
         //showStartScreen();
@@ -60,7 +62,7 @@ public class Controller implements Observer {
                 e.printStackTrace();
             }
         }
-        else if(o instanceof NetworkReciever && o.equals(nwReciever))
+        else if(o instanceof NetworkReciever && started)
         {
             System.out.println("NetworkUpdate from controller");
             System.out.println(arg);
@@ -72,6 +74,41 @@ public class Controller implements Observer {
                     p.worm.direction = tempDir;
                 }
             }
+        }
+        else if(o instanceof NetworkReciever)
+        {
+            System.out.println("We have contact" + arg.toString());
+            if(arg.toString().substring(0,5).equals("addme"))
+            {
+                int i = 6;
+                StringBuilder name = new StringBuilder();
+                while (!arg.toString().substring(i,i+1).equals("/"))
+                {
+                    name.append(arg.toString().substring(i, i+1));
+                    i++;
+                }
+                String addr = arg.toString().substring(i+1);
+                System.out.println(name + " : " + addr);
+                boolean alreadyInList = false;
+                for (Player p:playerList) {
+                    if(p.addr.equals(addr))
+                        alreadyInList = true;
+                }
+                if (!alreadyInList)
+                {
+                    try {
+                        playerList.add(new Player(name.toString(),playerList.size()+1,addr,false));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (UnknownHostException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+        }
+        else{
+            System.out.println(o.toString());
         }
     }
 
@@ -102,7 +139,6 @@ public class Controller implements Observer {
                 NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.addr, p.port);
             }
         }
-
     }
 
 
@@ -132,6 +168,10 @@ public class Controller implements Observer {
         startFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JButton hostButton = new JButton("START");
         playerContainer.setPreferredSize(new Dimension(50,300));
+
+        this.datagramSocket = new DatagramSocket();
+        this.recieveSocket = new DatagramSocket();
+
         hostButton.addActionListener(e -> {
             try {
                 buttonClicked(e.getActionCommand());
@@ -140,23 +180,27 @@ public class Controller implements Observer {
             }
         });
 
+
+        TextField textField = new TextField(InetAddress.getLocalHost().toString());
         textArea = new TextArea("No players connected");
         textArea.setColumns(15);
         textArea.setRows(20);
         startFrame.add(hostButton);
+        startFrame.add(textField);
         startFrame.add(textArea);
         startFrame.pack();
         startFrame.setVisible(true);
-        startFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        recieveThread = new Thread(nwReciever);
+        recieveThread.start();
 
     }
 
     public void startGame() throws Exception {
         String[] players = {"Bob", "James"};//, "StephenHawkings", "Gulagubben"};
-        this.gameEngine = new GameEngine(players);
+        this.gameEngine = new GameEngine(playerList);
         gameEngine.addObserver(this);
-        this.datagramSocket = new DatagramSocket();
-        this.recieveSocket = new DatagramSocket();
+
 
         started = true;
         gw = new GameWindow(gameEngine);
@@ -167,8 +211,8 @@ public class Controller implements Observer {
                     System.out.println("Key pressed" + e.getKeyCode());
                 }
             });
-            recieveThread = new Thread(nwReciever);
-            recieveThread.start();
+          //  recieveThread = new Thread(nwReciever);
+           // recieveThread.start();
 
 
     }

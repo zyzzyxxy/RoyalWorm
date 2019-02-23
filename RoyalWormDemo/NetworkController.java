@@ -20,7 +20,7 @@ public class NetworkController{
 
 
         //hard coding
-        InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
+        InetAddress inetAddress = InetAddress.getByName("192.168.0.136");
         port = 1234;
 
         try {

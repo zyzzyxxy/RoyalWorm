@@ -8,27 +8,28 @@ public class NetworkReciever extends Observable implements Runnable{
 
     DatagramSocket receiveSocket;
     byte[] recieveData = new byte[1024];
-    int recievePort = 1230;
+    int recievePort = 1233;
 
     public NetworkReciever(int port) throws SocketException {
         recievePort = port;
         receiveSocket = new DatagramSocket(recievePort);
     }
 
-    public Direction recieveData()
-    {
+    public Direction recieveData() throws IOException {
             System.out.println("In network reciever");
                 DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);
-                try {
-                    receiveSocket.receive(dp);
-                    String message = new String(dp.getData(), 0, dp.getLength());
-                    System.out.println(message);
-                    setChanged();
-                    notifyObservers(message);
 
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                receiveSocket.receive(dp);
+                String message = new String(dp.getData(), 0, dp.getLength());
+                //System.out.println(message);
+
+                dp.getAddress();
+                setChanged();
+                notifyObservers(message+dp.getAddress());
+
+
+
+
 
         return null;
     }
@@ -37,7 +38,11 @@ public class NetworkReciever extends Observable implements Runnable{
     public void run() {
         while (true)
         {
-            recieveData();
+            try {
+                recieveData();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

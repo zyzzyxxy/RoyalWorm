@@ -23,11 +23,12 @@ public class GameEngine extends Observable /*implements Observer*/ {
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
-    public GameEngine(String[] players) throws Exception {
+    public GameEngine(List<Player> playersList) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
-        addPlayers(players);
-        playerList.get(1).setInetAddr("192.168.43.88");
+        playerList = playersList;
+        //addPlayers(players);
+        playerList.get(1).setInetAddr("192.168.0.136");
         //startGame();
         gameTimer = new Timer(5, new ActionListener() {
             @Override
@@ -79,7 +80,7 @@ public class GameEngine extends Observable /*implements Observer*/ {
     }
 
     private void addPlayer(String name) throws InterruptedException, UnknownHostException {
-        int number = playerList.size() + 1;
+       /* int number = playerList.size() + 1;
         boolean host = false;
         Position position;
         if (number == 1) {
@@ -95,7 +96,7 @@ public class GameEngine extends Observable /*implements Observer*/ {
         } else if (number == 4) {
             position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight * 3 / 4);
             playerList.add(new Player(name, number, position, host));
-        }
+        }*/
     }
 
     /*
