@@ -1,5 +1,7 @@
+import sun.jvm.hotspot.jdi.ThreadReferenceImpl;
+
 public class CollisionHandler {
-	
+
 
 	public static boolean collisionCheck(Position pos) 
 	{
@@ -9,7 +11,7 @@ public class CollisionHandler {
 		}
 		return false;
 	}
-	public static void collisionHandle(Worm w, Position pos) {
+	public static void collisionHandle(Worm w, Position pos) throws InterruptedException {
 		System.out.println("in CH");
 		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5') {
 			System.out.print("in if");
@@ -46,6 +48,29 @@ public class CollisionHandler {
 				case '5':
 					((Worm) w).reset();
 					((Worm) w).looseLife();
+					break;
+				case 'l':
+					((Worm) w).addToSpeed(Constants.wormspeed/2);
+					Thread t = new Thread(new Runnable() {
+						@Override
+						public void run() {
+
+							System.out.println("Running thread in CH");
+							try {
+								Thread.sleep(3000);
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+							((Worm) w).resetSpeed();
+
+						}
+					});
+					t.start();
+					if(!t.isAlive()){
+						t.join();
+						System.out.println("Joined");
+					}
+
 					break;
 			}
 		}

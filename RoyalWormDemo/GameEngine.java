@@ -15,11 +15,8 @@ public class GameEngine extends Observable {
 
     List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
-
-    //List<GameObject> gameObjectList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
-    private int appleCounter = 0; //For spawning apples
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter=0;
 
@@ -34,18 +31,22 @@ public class GameEngine extends Observable {
         gameTimer = new Timer(Constants.GAMESPEED, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameTick();
+                try {
+                    gameTick();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         //Starts the game
         gameTimer.start();
     }
 
-    private void gameTick() {
+    private void gameTick() throws InterruptedException {
         updateWorms();
 
         //TOdo fix this
-        if(gameCOunter%Constants.GENERALSPAWNRATE==0)
+        if((gameCOunter%Constants.GENERALSPAWNRATE)==0)
             updateBoosts();
 
         tellObservers();
@@ -55,18 +56,15 @@ public class GameEngine extends Observable {
             gameCOunter = 0;
     }
 
+    //What boosts will be avaliable
     private void makeSpawnList()
     {
         spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
+        spawnList.add(new Boost(Position.getRandomPosition(),'a',20));
     }
 
     //Todo make use of spawnList
     private void updateBoosts() {
-        if (appleCounter == Constants.APPLESPAWN) {
-            boostManager.spawnApple();
-            appleCounter = 0;
-        } else
-            appleCounter++;
         for (Boost b:spawnList) {
             if(b.timeToSpawn()){
                 boostManager.spawnRandom(b.type);
@@ -78,7 +76,7 @@ public class GameEngine extends Observable {
 
     }
 
-    private void updateWorms() {
+    private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
             if (p.worm.counter == p.worm.speed) {
                 p.worm.update();

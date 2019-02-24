@@ -8,7 +8,7 @@ public class Worm extends GameObject {
     int speed, length, lives;
     List<Position> body;
     Position headPos, tailPos, startPos;
-    Position[] updatedPos = new Position[2];
+    //Position[] updatedPos = new Position[2];
     int wormNumber, counter;
     char type;
     BoardCordinates position, direction;
@@ -32,7 +32,7 @@ public class Worm extends GameObject {
 
 
 
-    public void update() {
+    public void update() throws InterruptedException {
         updateBody();
     }
 
@@ -45,7 +45,7 @@ public class Worm extends GameObject {
     }
 
     //Doesnt work must update instancieted GE
-    public void updateBody() {
+    public void updateBody() throws InterruptedException {
         Position head, tail;
         head = null;
         tail = null;
@@ -111,6 +111,9 @@ public class Worm extends GameObject {
 
     public void addToSpeed(int n) {
         speed -= n;
+    }
+    public void resetSpeed() {
+        speed = Constants.wormspeed;
     }
 
     public void updateHeadPos() {

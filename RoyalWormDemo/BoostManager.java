@@ -30,8 +30,17 @@ public class BoostManager {
     public void spawnWall(){}
     public void spawn(Position key, char value) {
        // boosts.put(key, value);
+        if(value=='a')
+            applesSpawned++;
+        if(applesSpawned==20)
+        {
+            applesSpawned = 0;
+            spawnSuperApple();
+        }
+
         GameEngine.GameWorld[key.x][key.y] = value;
-        GameEngine.changes.add(new Change(key.x,key.y,value));
+        GameEngine.changes.add(new Change(key.x, key.y, value));
+
     }
     public void spawnRandom(char value) {
 

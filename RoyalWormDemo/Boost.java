@@ -14,7 +14,7 @@ public class Boost extends GameObject{
     }
     public void resetCounter()
     {
-        counter++;
+        counter=0;
     }
     public boolean timeToSpawn()
     {
