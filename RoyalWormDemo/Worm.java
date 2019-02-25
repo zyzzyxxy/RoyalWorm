@@ -32,6 +32,7 @@ public class Worm extends Observable/*extends DynamicObject*/implements Runnable
         while (true) {
             update();
             try {
+                //TODO om speed är 0?
                 Thread.sleep(1000 / speed);
             } catch (InterruptedException e) {
                 e.printStackTrace();
