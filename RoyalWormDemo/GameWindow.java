@@ -53,6 +53,22 @@ public class GameWindow extends JFrame implements Observer {
         }*/
         //gameCanvas.iterator = (Iterator) arg;
         gameCanvas.repaint();
+        //List<Change> changes = (List<Change>) arg;
+        /*while (!changes.isEmpty())
+        {
+            //gameCanvas.changes.add(changes.get(0));
+            gameCanvas.repaint();
+            //changes.remove(0);
+        }*/
+
+       /* Change ch;
+        while(((Iterator) arg).hasNext())
+        {
+            ch = ((Change) ((Iterator) arg).next());
+            gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
+        }*/
+        //gameCanvas.iterator = (Iterator) arg;
+
 
 
        // GameEngine.changes.clear();
@@ -65,7 +81,7 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas = new GameCanvas();
         gameCanvas.setFocusable(true);
         getContentPane().add(gameCanvas);
-        gameCanvas.setBackground(Color.BLACK);
+        gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

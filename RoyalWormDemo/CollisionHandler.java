@@ -32,6 +32,10 @@ public class CollisionHandler {
 			if (posValue == 's') {
 				wormToS(pos, worm);
 			}
+			
+			if (posValue == 'l') {
+				speedincrease;
+			}
 		}
 	}
 	

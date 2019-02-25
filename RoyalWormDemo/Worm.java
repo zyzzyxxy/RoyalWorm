@@ -8,7 +8,7 @@ public class Worm extends GameObject {
     int speed, length, lives;
     List<Position> body;
     Position headPos, tailPos, startPos;
-    Position[] updatedPos = new Position[2];
+    //Position[] updatedPos = new Position[2];
     int wormNumber, counter;
     char type;
     BoardCordinates position, direction;
@@ -30,7 +30,9 @@ public class Worm extends GameObject {
         body = new ArrayList<>();
     }
 
-    public void update() {
+
+
+    public void update() throws InterruptedException {
         updateBody();
     }
 
@@ -43,27 +45,33 @@ public class Worm extends GameObject {
     }
 
     //Doesnt work must update instancieted GE
-    public void updateBody() {
+    public void updateBody() throws InterruptedException {
         Position head, tail;
         head = null;
         tail = null;
-        if (CollisionHandler.collisionCheck(headPos))
-            CollisionHandler.collisionHandle(this, headPos);
-
-        body.add(headPos);
-        head = headPos;
         if (body.size() < this.length) {
+            if (CollisionHandler.collisionCheck(headPos))
+                CollisionHandler.collisionHandle(this, headPos);
+            body.add(headPos);
+            head = headPos;
             //  tailPos=body.get(0);
-            //tail = null;
+            tail = null;
             GameEngine.updateGameworld(headPos, this.type);
+            updateHeadPos();
         } else {
+            if (CollisionHandler.collisionCheck(headPos))
+                CollisionHandler.collisionHandle(this, headPos);
+
+            body.add(headPos);
+            head = headPos;
             GameEngine.updateGameworld(headPos, this.type);
             GameEngine.updateGameworld(body.get(0), '0');
-            //tail = tailPos;
+            tail = tailPos;
             body.remove(0);
             //  tailPos = body.get(0);
+            updateHeadPos();
+
         }
-        updateHeadPos();
     }
 
     public void grow() {
@@ -104,11 +112,10 @@ public class Worm extends GameObject {
     public void addToSpeed(int n) {
         speed -= n;
     }
-
-    public void stop() {
-    	speed = 0;
+    public void resetSpeed() {
+        speed = Constants.wormspeed;
     }
-    
+
     public void updateHeadPos() {
         headPos = new Position(headPos.x + direction.x, headPos.y + direction.getY());
         if (headPos.x >= Constants.worldWidth)
@@ -120,9 +127,12 @@ public class Worm extends GameObject {
         if (headPos.y < 0)
             headPos.y = Constants.worldHeight - 1;
 
+    public void stop() {
+    	speed = 0;
     }
 
     //Just for testing
+
     public void printBody() {
         for (Position p : body
         ) {

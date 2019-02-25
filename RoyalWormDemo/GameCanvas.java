@@ -15,9 +15,7 @@ public class GameCanvas extends JPanel {
     public GameCanvas()
     {
         changes = GameEngine.changes;
-        //direction = new Direction(-1,0);
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
-        setBackground(Color.BLACK);
         this.repaint();
        /* Thread t = new Thread(new Runnable() {
             @Override
@@ -30,10 +28,10 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        //drawWorld(g);
+        drawWorld(g);
         //g = this.getGraphics();
-       //
-        drawChanges(g);
+        //
+        //drawChanges(g);
     }
 
     public void drawWorld(Graphics g)
@@ -92,6 +90,9 @@ public class GameCanvas extends JPanel {
                 break;
             case 's':
                 GameGraphics.drawSuperApple(p,g);
+                break;
+            case 'l':
+                GameGraphics.drawSlow(p,g);
                 break;
         }
     }
