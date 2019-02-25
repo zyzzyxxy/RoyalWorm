@@ -34,7 +34,7 @@ public class CollisionHandler {
 			}
 			
 			if (posValue == 'l') {
-				speedincrease;
+				//speedincrease;
 			}
 		}
 	}
@@ -46,12 +46,12 @@ public class CollisionHandler {
 	
 	private static void wormToApple(Position pos, Worm worm) {
 		worm.grow();
-		GameEngine.boostManager.delete(pos);
+		//GameEngine.boostManager.delete(pos);
 	}
 
 	private static void wormToS(Position pos, Worm worm) {
 		worm.grow(10);
-		GameEngine.boostManager.delete(pos);
+		//GameEngine.boostManager.delete(pos);
 	}
 
 	//For when worm extends GameObject

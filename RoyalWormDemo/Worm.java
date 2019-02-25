@@ -126,6 +126,7 @@ public class Worm extends GameObject {
             headPos.x = Constants.worldWidth - 1;
         if (headPos.y < 0)
             headPos.y = Constants.worldHeight - 1;
+    }
 
     public void stop() {
     	speed = 0;

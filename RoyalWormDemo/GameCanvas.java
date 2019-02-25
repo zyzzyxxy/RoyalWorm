@@ -11,6 +11,8 @@ public class GameCanvas extends JPanel {
 
     //public Direction direction;
     public List<Change> changes;
+    
+    private int paintCounter = 0;
 
     public GameCanvas()
     {
@@ -28,10 +30,12 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        drawWorld(g);
-        //g = this.getGraphics();
-        //
-        //drawChanges(g);
+        if (paintCounter < 3) {
+        	drawWorld(g);
+        	paintCounter++;
+        } else {
+        	drawChanges(g);
+        }
     }
 
     public void drawWorld(Graphics g)
@@ -60,7 +64,7 @@ public class GameCanvas extends JPanel {
             }
 
         }
-        GameEngine.clearChanges();
+        changes.clear();
     }
     public void drawObject(char c, Position p, Graphics g)
     {

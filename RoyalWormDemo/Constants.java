@@ -6,12 +6,11 @@ public class Constants {
     public static int boardWidth = 800;
     public static int boardHeight = 600;
     public static int gameConstant = 10; //using to scale world and draw figures
-    public static int APPLESPAWN = 50;
+    public static int APPLESPAWN = 500;
     public static int SLOWSPAWN = 50;
     public static int GAMESPEED = 5;
     public static int GENERALSPAWNRATE = 20;
 
-    public static int APPLESPAWN = 50;
 
 
     //WormArgs

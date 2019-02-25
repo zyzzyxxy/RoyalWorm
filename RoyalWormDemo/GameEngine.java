@@ -17,7 +17,7 @@ public class GameEngine extends Observable {
     List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
     javax.swing.Timer gameTimer;
-    BoostManager boostManager = new BoostManager();
+    static BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter=0;
 
@@ -87,7 +87,7 @@ public class GameEngine extends Observable {
             }
         }
     }
-    */
+
 
 
     public static void updateGameworld(Position pos, char c) {
@@ -99,10 +99,6 @@ public class GameEngine extends Observable {
         setChanged();
         notifyObservers(changes);
         //changes.clear();
-    }
-    
-    public static void clearChanges() {
-    	changes.clear();
     }
 
     //Todo this does not reset worms
