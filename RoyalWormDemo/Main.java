@@ -3,14 +3,8 @@
  */
 
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
-
 	static JFrame startFrame;
 	static boolean host = false;
 	static boolean done = false;
@@ -21,7 +15,6 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		showStartScreen();
 	}
-
 
 	//Makes and displays the startscreen
 	private static void showStartScreen() throws Exception {

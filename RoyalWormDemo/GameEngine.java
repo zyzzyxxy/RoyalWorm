@@ -38,6 +38,7 @@ public class GameEngine extends Observable {
                 }
             }
         });
+
         //Starts the game
         gameTimer.start();
     }
