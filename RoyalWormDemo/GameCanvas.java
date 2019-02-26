@@ -1,11 +1,8 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.security.PublicKey;
-import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.JPanel;
 
 public class GameCanvas extends JPanel {
 

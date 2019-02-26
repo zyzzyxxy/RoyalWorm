@@ -15,7 +15,7 @@ public class CollisionHandler {
 		System.out.printf("posX: %d", pos.getX());
 		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
 	}
-	
+
 	public static void collisionHandle(Worm worm, Position pos) {
 		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
 			wormToWorm(worm);
@@ -34,7 +34,7 @@ public class CollisionHandler {
 			}
 			
 			if (posValue == 'l') {
-				//speedincrease;
+
 			}
 		}
 	}
