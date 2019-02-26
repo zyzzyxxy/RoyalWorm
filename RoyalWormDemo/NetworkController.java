@@ -18,24 +18,20 @@ public class NetworkController{
         }
         byte[] data = result.getBytes();
 
-
         //hard coding
-        InetAddress inetAddress = InetAddress.getByName("192.168.0.136");
+       // InetAddress inetAddress = InetAddress.getByName("192.168.0.136");
         port = 1234;
 
         try {
-            datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
+            datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
         }
         catch (Exception e){e.printStackTrace();}
     }
 
-
-    //Todo
     public static void sendDirectionData(Direction dir,DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
     {
         String result = Integer.toString(dir.x) + Integer.toString(dir.y);
         byte[] data = result.getBytes();
-
 
         //hard coding
         //InetAddress inetAddress = InetAddress.getByName("192.168.43.88");

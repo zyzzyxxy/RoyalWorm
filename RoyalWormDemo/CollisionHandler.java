@@ -48,27 +48,8 @@ public class CollisionHandler {
 					((Worm) w).looseLife();
 					break;
 				case 'l':
-					((Worm) w).addToSpeed(Constants.wormspeed/2);
-					Thread t = new Thread(new Runnable() {
-						@Override
-						public void run() {
-
-							System.out.println("Running thread in CH");
-							try {
-								Thread.sleep(3000);
-							} catch (InterruptedException e) {
-								e.printStackTrace();
-							}
-							((Worm) w).resetSpeed();
-
-						}
-					});
-					t.start();
-					if(!t.isAlive()){
-						t.join();
-						System.out.println("Joined");
-					}
-
+					//((Worm) w).addToSpeed(Constants.wormspeed/2);
+					((Worm) w).lightninhMode();
 					break;
 			}
 		}

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.Arrays;
 
 
@@ -19,21 +18,21 @@ public class ClientWindow implements Runnable {
     DatagramSocket dSocket = new DatagramSocket(recievePort);
     byte[] data = new byte[4661];
     ClientCanvas clientCanvas;
-    char[][] recievedWorld;
+    char[][] receivedWorld;
     KeyListener keyListener;
     InetAddress hostAddr;
     int portNr = 1233;
 
-    public ClientWindow(String host) throws Exception, InterruptedException {
+    public ClientWindow(String host) throws Exception {
         //Jonathans gamla
         hostAddr = InetAddress.getByName(host);
         makeFrame();
-        recievedWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        for (char[] c : recievedWorld) {
+        receivedWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        for (char[] c : receivedWorld) {
             Arrays.fill(c, '0');
         }
         System.out.println("Got this far");
-        clientCanvas = new ClientCanvas(recievedWorld);
+        clientCanvas = new ClientCanvas(receivedWorld);
         frame.add(clientCanvas);
         clientCanvas.addKeyListener(keyListener = new KeyListener() {
             @Override
@@ -82,7 +81,7 @@ public class ClientWindow implements Runnable {
 
             stringToWorld(message);
            // clientCanvas.updateClientworld(GameEngine.GameWorld);
-            clientCanvas.updateClientworld(recievedWorld);
+            clientCanvas.updateClientworld(receivedWorld);
             clientCanvas.repaint();
             //sleep(10);
             }
@@ -93,7 +92,7 @@ public class ClientWindow implements Runnable {
     {
         int i = 0;
         while (true) {
-            recievedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
+            receivedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
             s = s.substring(Constants.worldHeight);
             i++;
             if (i > Constants.worldWidth - 1)

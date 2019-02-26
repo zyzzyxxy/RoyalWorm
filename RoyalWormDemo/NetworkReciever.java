@@ -27,10 +27,6 @@ public class NetworkReciever extends Observable implements Runnable{
                 setChanged();
                 notifyObservers(message+dp.getAddress());
 
-
-
-
-
         return null;
     }
 
