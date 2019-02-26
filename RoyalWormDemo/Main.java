@@ -57,11 +57,14 @@ public class Main {
 
 		if (actionCommand.equals("Client")) {
 			System.out.println("ClientButtonClicked");
-			hostAdress = JOptionPane.showInputDialog("write host's adress");
+			hostAdress = "192.168.0.118";//JOptionPane.showInputDialog("write host's adress");
 			host = false;//test
-			startFrame.dispose();
+			//startFrame.dispose();
 			done=true;
-			cl = new ClientWindow(hostAdress);
+			String name = sc.connectToHostTextfield.getText();
+			byte[] data = ("addme:" + name).getBytes();
+			NetworkController.sendData(data,sendSocket, hostAdress,1233);
+
 		}
 	}
 
