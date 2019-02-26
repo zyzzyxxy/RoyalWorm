@@ -1,4 +1,3 @@
-
 public class CollisionHandler {
     private static int squareWidth = (Constants.boardWidth/Constants.gameConstant) - 2;
     private static int squareHeight = (Constants.boardHeight/Constants.gameConstant) - 2;
@@ -9,15 +8,15 @@ public class CollisionHandler {
 	}
 	
 	public static boolean collisionCheck(Position pos) {
-		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
+		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
 			return true;
 		}
 		System.out.printf("posX: %d", pos.getX());
 		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
 	}
 
-	public static void collisionHandle(Worm worm, Position pos) {
-		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
+	public static void collisionHandle(Worm worm, Position pos) throws InterruptedException {
+		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
 			wormToWorm(worm);
 		} else {
 			char posValue = GameEngine.GameWorld[pos.getX()][pos.getY()];
@@ -34,7 +33,26 @@ public class CollisionHandler {
 			}
 			
 			if (posValue == 'l') {
+				worm.addToSpeed(Constants.wormspeed/2);
+				Thread t = new Thread(new Runnable() {
+					@Override
+					public void run() {
 
+						System.out.println("Running thread in CH");
+						try {
+							Thread.sleep(3000);
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						worm.resetSpeed();
+
+					}
+				});
+				t.start();
+				if(!t.isAlive()){
+					t.join();
+					System.out.println("Joined");
+				}
 			}
 		}
 	}
@@ -53,21 +71,4 @@ public class CollisionHandler {
 		worm.grow(10);
 		//GameEngine.boostManager.delete(pos);
 	}
-
-	//For when worm extends GameObject
-	/*
-	public static void collisionHandle(GameObject gm, Position pos) 
-	{
-		System.out.println("in CH");
-		if(gm.type=='w') {
-			System.out.print("in if");
-		switch (GameEngine.GameWorld[pos.x][pos.y]){
-		
-			case '0': break;
-			case 'a': ((Worm)gm).grow(); System.out.print("ate apple"); break;
-			case 'w': ((Worm)gm).reset(); break;
-		}
-		}
-	}*/
-
 }

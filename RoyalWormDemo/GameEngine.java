@@ -81,13 +81,12 @@ public class GameEngine extends Observable {
         for (Player p : playerList) {
             if (p.worm.counter == p.worm.speed) {
                 p.worm.update();
-                p.worm.counter = 0;
+                p.worm.counter = 1;
             } else {
                 p.worm.counter++;
             }
         }
     }
-
 
 
     public static void updateGameworld(Position pos, char c) {
@@ -121,7 +120,6 @@ public class GameEngine extends Observable {
                 Arrays.fill(c, '0');
         }
     }
-
 
     //Just for testing
     public void printGameWorld() {

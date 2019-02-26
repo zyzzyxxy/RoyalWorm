@@ -10,6 +10,7 @@ public class Constants {
     public static int SLOWSPAWN = 50;
     public static int GAMESPEED = 5;
     public static int GENERALSPAWNRATE = 20;
+    public static boolean WallCollision = true;
 
 
 
