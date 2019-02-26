@@ -28,6 +28,7 @@ public class Constants {
     public static Color p2Color = Color.green;
     public static Color p3Color = Color.yellow;
     public static Color p4Color = Color.cyan;
+    public static Color p5Color = Color.white;
 
 
     public static int serverPort = 1234;

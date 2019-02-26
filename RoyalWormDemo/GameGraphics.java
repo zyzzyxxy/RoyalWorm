@@ -1,7 +1,16 @@
+/**
+ * This Class takes care of the graphics. May be modified for nicer graphics.
+ */
+
 import java.awt.*;
 
 public class GameGraphics {
 
+    /**
+     * Draws an apple.
+     * @param: Position and Graphics. The position to where to draw and the graphics that will be used
+     * @return Updated Graphics
+     */
     public static Graphics drawApple(Position p, Graphics graphics)
     {
         int constant = Constants.gameConstant;
@@ -46,6 +55,8 @@ public class GameGraphics {
             graphics.setColor(Constants.p3Color);
         else if(player == 4)
             graphics.setColor(Constants.p4Color);
+        else if(player == 5)
+            graphics.setColor(Constants.p5Color);
 
         if(!head) {
             //graphics.drawRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
