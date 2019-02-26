@@ -50,9 +50,12 @@ public class Worm extends GameObject {
         head = null;
         tail = null;
         
+        boolean collision = false;
+        
         if (CollisionHandler.collisionCheck(headPos)) {
-            CollisionHandler.collisionHandle(this, headPos);
+            collision = CollisionHandler.collisionHandle(this, headPos);
         }
+        if (!collision) {
         body.add(headPos);
         head = headPos;
         //  tailPos=body.get(0);
@@ -66,6 +69,7 @@ public class Worm extends GameObject {
             body.remove(0);
         }
         updateHeadPos();
+        }
     }
 
     public void grow() {

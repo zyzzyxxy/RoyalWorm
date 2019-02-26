@@ -15,13 +15,15 @@ public class CollisionHandler {
 		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
 	}
 
-	public static void collisionHandle(Worm worm, Position pos) throws InterruptedException {
+	public static boolean collisionHandle(Worm worm, Position pos) throws InterruptedException {
 		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
 			wormToWorm(worm);
+			return true;
 		} else {
 			char posValue = GameEngine.GameWorld[pos.getX()][pos.getY()];
 			if (posValue == 'W' || posValue == '1' || posValue == '2') {
 				wormToWorm(worm);
+				return true;
 			}
 			
 			if (posValue == 'a') {
@@ -55,6 +57,7 @@ public class CollisionHandler {
 				}
 			}
 		}
+		return false;
 	}
 	
 	private static void wormToWorm(Worm worm) {
