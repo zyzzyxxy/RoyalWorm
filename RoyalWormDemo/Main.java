@@ -21,6 +21,7 @@ public class Main {
 
 	//Makes and displays the startscreen
 	private static void showStartScreen() throws Exception {
+		sendSocket = new DatagramSocket();
 		startFrame = new JFrame("Start Screen");
 		JButton hostButton = new JButton("Host");
 		JButton clientButton = new JButton("Client");
@@ -60,9 +61,9 @@ public class Main {
 
 		if (actionCommand.equals("Client")) {
 			System.out.println("ClientButtonClicked");
-			hostAdress = "192.168.0.118";//JOptionPane.showInputDialog("write host's adress");
+			hostAdress = JOptionPane.showInputDialog("write host's adress");
 			host = false;//test
-			//startFrame.dispose();
+			startFrame.dispose();
 			done=true;
 			String name = sc.connectToHostTextfield.getText();
 			byte[] data = ("addme:" + name).getBytes();
