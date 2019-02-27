@@ -3,6 +3,7 @@
  */
 
 import javax.swing.*;
+import java.net.DatagramSocket;
 
 public class Main {
 	static JFrame startFrame;
@@ -11,6 +12,8 @@ public class Main {
 	static String hostAdress;
 	static Controller gameController;
 	static ClientWindow cl;
+	static DatagramSocket sendSocket;
+	static StartScreen sc;
 
 	public static void main(String[] args) throws Exception {
 		showStartScreen();
@@ -35,7 +38,7 @@ public class Main {
 				e1.printStackTrace();
 			}
 		});
-		StartScreen sc = new StartScreen(hostButton, clientButton);
+		sc = new StartScreen(hostButton, clientButton);
 		startFrame.setResizable(false);
 		startFrame.add(sc);
 		startFrame.pack();
