@@ -16,7 +16,7 @@ public class ClientWindow{
     private JFrame frame;
     int recievePort = 1234;
     DatagramSocket dSocket = new DatagramSocket(recievePort);
-    byte[] data = new byte[4900];
+    byte[] data = new byte[4800];
     ClientCanvas clientCanvas;
     char[][] receivedWorld;
     KeyListener keyListener;
@@ -38,7 +38,7 @@ public class ClientWindow{
         clientCanvas.addKeyListener(keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                
+
             }
 
             @Override

@@ -111,9 +111,10 @@ public class GameEngine extends Observable {
                 char[] c = sc.nextLine().toCharArray();
             for (int j = 0; j < Constants.worldWidth; j++) {
                 //Dont load worms
-                if(c[i]=='1'||c[i]=='2'||c[i]=='3'||c[i]=='4'||c[i]=='5')
+                if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5')
                     c[j]='0';
-                GameWorld[j][i] = c[j];
+                updateGameworld(new Position(j,i),c[j]);
+               // GameWorld[j][i] = c[j];
             }
         }
         }

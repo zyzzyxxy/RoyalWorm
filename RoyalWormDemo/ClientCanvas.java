@@ -68,7 +68,7 @@ public class ClientCanvas extends JPanel {
                 GameGraphics.drawSuperApple(p,g);
                 break;
             case 'l':
-                GameGraphics.drawSlow(p,g);
+                GameGraphics.drawLightninh(p,g);
                 break;
         }
     }

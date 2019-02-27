@@ -21,10 +21,7 @@ public class GameWindow extends JFrame implements Observer {
     JMenu File, Options, Help;
     JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
-    StartScreen startScreen;
-
     GameEngine gm;
-    JFrame startWindow;
 
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
@@ -39,27 +36,7 @@ public class GameWindow extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        //gameCanvas.repaint();
         gameCanvas.paint(gameCanvas.getGraphics());
-        //List<Change> changes = (List<Change>) arg;
-        /*while (!changes.isEmpty())
-        {
-            //gameCanvas.changes.add(changes.get(0));
-            gameCanvas.repaint();
-            //changes.remove(0);
-        }*/
-
-       /* Change ch;
-        while(((Iterator) arg).hasNext())
-        {
-            ch = ((Change) ((Iterator) arg).next());
-            gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
-        }*/
-        //gameCanvas.iterator = (Iterator) arg;
-
-
-
-       // GameEngine.changes.clear();
     }
 
 
@@ -166,7 +143,7 @@ public class GameWindow extends JFrame implements Observer {
             FileWriter fw = new FileWriter(file);
                 for (int i = 0; i < Constants.worldHeight; i++) {
                     for (int j = 0; j < Constants.worldWidth; j++){
-                        fw.write(GameEngine.GameWorld[j][1]);
+                        fw.write(GameEngine.GameWorld[j][i]);
 
                         }
                     fw.write("\n");

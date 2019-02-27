@@ -80,10 +80,10 @@ public class GameGraphics {
 
         return graphics;
     }
-    public static Graphics drawSlow(Position p, Graphics graphics)
+    public static Graphics drawLightninh(Position p, Graphics graphics)
     {
         int constant = Constants.gameConstant;
-        graphics.setColor(Color.pink);
+        graphics.setColor(Color.yellow);
         graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
         graphics.setColor(Color.BLACK);
         graphics.fillRect(p.getX() * Constants.gameConstant+2, p.getY() * Constants.gameConstant+2, Constants.gameConstant/2, Constants.gameConstant/2);
