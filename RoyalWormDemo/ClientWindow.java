@@ -58,7 +58,7 @@ public class ClientWindow implements Runnable {
         clientCanvas.repaint();
         //dSocket = new DatagramSocket();
        // hostAddr = InetAddress.getByName("127.0.0.1");
-        hostAddr = InetAddress.getByName("192.168.43.88");
+       // hostAddr = InetAddress.getByName("192.168.43.88");
         recieveMessages();
     }
 
