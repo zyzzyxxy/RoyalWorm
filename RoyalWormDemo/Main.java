@@ -68,6 +68,7 @@ public class Main {
 			String name = sc.connectToHostTextfield.getText();
 			byte[] data = ("addme:" + name).getBytes();
 			NetworkController.sendData(data,sendSocket, hostAdress,1233);
+			cl = new ClientWindow(hostAdress);
 
 		}
 	}
