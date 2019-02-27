@@ -133,7 +133,7 @@ public class GameWindow extends JFrame implements Observer {
         }
         gameCanvas.repaint();
     }
-
+/*
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -147,7 +147,30 @@ public class GameWindow extends JFrame implements Observer {
                 fw.write(new String(c));
                 fw.write("\n");
             }
+            fw.close();
         }
         gameCanvas.repaint();
-    }
+    }*/
+
+    private void saveFile() throws IOException {
+        JFileChooser jFileChooser = new JFileChooser();
+        String current = new java.io.File( "." ).getCanonicalPath();
+        jFileChooser.setCurrentDirectory(new File(current));
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            java.io.File file = jFileChooser.getSelectedFile();
+            if (!file.exists())
+                file.createNewFile();
+            FileWriter fw = new FileWriter(file);
+                for (int i = 0; i < Constants.worldHeight; i++) {
+                    for (int j = 0; j < Constants.worldWidth; j++){
+                        fw.write(GameEngine.GameWorld[j][1]);
+
+                        }
+                    fw.write("\n");
+                    }
+                fw.close();
+                }
+
+        }
+
 }
