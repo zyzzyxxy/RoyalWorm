@@ -21,10 +21,10 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        drawWorld(g);
+        //drawWorld(g);
         //g = this.getGraphics();
         //
-        //drawChanges(g);
+        drawChanges(g);
     }
 
     public void drawWorld(Graphics g)
@@ -53,6 +53,7 @@ public class GameCanvas extends JPanel {
             }
 
         }
+        GameEngine.changes.clear();
     }
     public void drawObject(char c, Position p, Graphics g)
     {

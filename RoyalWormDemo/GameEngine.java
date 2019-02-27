@@ -92,7 +92,7 @@ public class GameEngine extends Observable {
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
-        changes.clear();
+        //changes.clear();
     }
 
     //Todo this does not reset worms

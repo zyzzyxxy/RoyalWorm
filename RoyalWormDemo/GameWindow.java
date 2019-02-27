@@ -32,12 +32,15 @@ public class GameWindow extends JFrame implements Observer {
         gm.addObserver(this);
         setResizable(false);
         gameCanvas.grabFocus();
+        gameCanvas.setBackground(Color.black);
+        gameCanvas.repaint();
 
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        gameCanvas.repaint();
+        //gameCanvas.repaint();
+        gameCanvas.paint(gameCanvas.getGraphics());
         //List<Change> changes = (List<Change>) arg;
         /*while (!changes.isEmpty())
         {
