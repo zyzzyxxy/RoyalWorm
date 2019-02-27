@@ -11,7 +11,6 @@ public class CollisionHandler {
 		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
 			return true;
 		}
-		System.out.printf("posX: %d", pos.getX());
 		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
 	}
 
