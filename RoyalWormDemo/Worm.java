@@ -12,6 +12,7 @@ public class Worm extends GameObject {
     int wormNumber, counter;
     char type;
     BoardCordinates position, direction;
+    int isFast = 0;
 
 
     public Worm(Position position, Direction direction, int wormNumber) {
@@ -111,6 +112,26 @@ public class Worm extends GameObject {
 
     public void addToSpeed(int n) {
         speed -= n;
+    }
+    public void lightninhMode() {
+        isFast++;
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                System.out.println("Running thread in CH");
+                try {
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if(--isFast==0) {
+                    resetSpeed();
+                }
+            }
+        });
+        t.start();
+        speed = (int) (Constants.wormspeed/1.5);
     }
     public void resetSpeed() {
         speed = Constants.wormspeed;

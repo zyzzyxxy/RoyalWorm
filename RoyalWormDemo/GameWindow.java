@@ -21,10 +21,7 @@ public class GameWindow extends JFrame implements Observer {
     JMenu File, Options, Help;
     JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
-    StartScreen startScreen;
-
     GameEngine gm;
-    JFrame startWindow;
 
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
@@ -32,31 +29,14 @@ public class GameWindow extends JFrame implements Observer {
         gm.addObserver(this);
         setResizable(false);
         gameCanvas.grabFocus();
+        gameCanvas.setBackground(Color.black);
+        gameCanvas.repaint();
 
     }
 
     @Override
     public void update(Observable o, Object arg) {
-        gameCanvas.repaint();
-        //List<Change> changes = (List<Change>) arg;
-        /*while (!changes.isEmpty())
-        {
-            //gameCanvas.changes.add(changes.get(0));
-            gameCanvas.repaint();
-            //changes.remove(0);
-        }*/
-
-       /* Change ch;
-        while(((Iterator) arg).hasNext())
-        {
-            ch = ((Change) ((Iterator) arg).next());
-            gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
-        }*/
-        //gameCanvas.iterator = (Iterator) arg;
-
-
-
-       // GameEngine.changes.clear();
+        gameCanvas.paint(gameCanvas.getGraphics());
     }
 
 
@@ -133,7 +113,7 @@ public class GameWindow extends JFrame implements Observer {
         }
         gameCanvas.repaint();
     }
-
+/*
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -147,7 +127,30 @@ public class GameWindow extends JFrame implements Observer {
                 fw.write(new String(c));
                 fw.write("\n");
             }
+            fw.close();
         }
         gameCanvas.repaint();
-    }
+    }*/
+
+    private void saveFile() throws IOException {
+        JFileChooser jFileChooser = new JFileChooser();
+        String current = new java.io.File( "." ).getCanonicalPath();
+        jFileChooser.setCurrentDirectory(new File(current));
+        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+            java.io.File file = jFileChooser.getSelectedFile();
+            if (!file.exists())
+                file.createNewFile();
+            FileWriter fw = new FileWriter(file);
+                for (int i = 0; i < Constants.worldHeight; i++) {
+                    for (int j = 0; j < Constants.worldWidth; j++){
+                        fw.write(GameEngine.GameWorld[j][i]);
+
+                        }
+                    fw.write("\n");
+                    }
+                fw.close();
+                }
+
+        }
+
 }

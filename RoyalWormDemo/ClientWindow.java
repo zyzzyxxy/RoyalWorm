@@ -6,39 +6,39 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.util.Arrays;
 
 
 /**
 This window works also as a controller for clients recieving and sending data
  */
-public class ClientWindow implements Runnable {
+public class ClientWindow{
     private JFrame frame;
     int recievePort = 1234;
     DatagramSocket dSocket = new DatagramSocket(recievePort);
-    byte[] data = new byte[4661];
+    byte[] data = new byte[4800];
     ClientCanvas clientCanvas;
-    char[][] recievedWorld;
+    char[][] receivedWorld;
     KeyListener keyListener;
     InetAddress hostAddr;
     int portNr = 1233;
+    Thread rThread;
 
-    public ClientWindow(String host) throws Exception, InterruptedException {
+    public ClientWindow(String host) throws Exception {
         //Jonathans gamla
         hostAddr = InetAddress.getByName(host);
         makeFrame();
-        recievedWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        for (char[] c : recievedWorld) {
+        receivedWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        for (char[] c : receivedWorld) {
             Arrays.fill(c, '0');
         }
         System.out.println("Got this far");
-        clientCanvas = new ClientCanvas(recievedWorld);
+        clientCanvas = new ClientCanvas(receivedWorld);
         frame.add(clientCanvas);
         clientCanvas.addKeyListener(keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                //keyHandler(e.getKeyCode());
+
             }
 
             @Override
@@ -57,10 +57,20 @@ public class ClientWindow implements Runnable {
         });
         clientCanvas.grabFocus();
         clientCanvas.repaint();
-        //dSocket = new DatagramSocket();
-       // hostAddr = InetAddress.getByName("127.0.0.1");
-        hostAddr = InetAddress.getByName("192.168.43.88");
-        recieveMessages();
+        rThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    recieveMessages();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        rThread.start();
+
     }
 
     private void makeFrame() throws IOException {
@@ -74,17 +84,16 @@ public class ClientWindow implements Runnable {
     }
 
     public void recieveMessages() throws IOException, InterruptedException {
-        while (true ) {
+        while (true) {
             DatagramPacket dp = new DatagramPacket(data,data.length);
         try{
             dSocket.receive(dp);
+
             String message = new String(dp.getData(),0,dp.getLength());
 
             stringToWorld(message);
-           // clientCanvas.updateClientworld(GameEngine.GameWorld);
-            clientCanvas.updateClientworld(recievedWorld);
+            clientCanvas.updateClientworld(receivedWorld);
             clientCanvas.repaint();
-            //sleep(10);
             }
         catch (Exception e){e.printStackTrace();}
         }
@@ -93,7 +102,7 @@ public class ClientWindow implements Runnable {
     {
         int i = 0;
         while (true) {
-            recievedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
+            receivedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
             s = s.substring(Constants.worldHeight);
             i++;
             if (i > Constants.worldWidth - 1)
@@ -123,14 +132,4 @@ public class ClientWindow implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            recieveMessages();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

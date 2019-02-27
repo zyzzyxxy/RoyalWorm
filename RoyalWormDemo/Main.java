@@ -3,6 +3,7 @@
  */
 
 import javax.swing.*;
+import java.net.DatagramSocket;
 
 public class Main {
 	static JFrame startFrame;
@@ -11,6 +12,8 @@ public class Main {
 	static String hostAdress;
 	static Controller gameController;
 	static ClientWindow cl;
+	static DatagramSocket sendSocket;
+	static StartScreen sc;
 
 	public static void main(String[] args) throws Exception {
 		showStartScreen();
@@ -18,6 +21,7 @@ public class Main {
 
 	//Makes and displays the startscreen
 	private static void showStartScreen() throws Exception {
+		sendSocket = new DatagramSocket();
 		startFrame = new JFrame("Start Screen");
 		JButton hostButton = new JButton("Host");
 		JButton clientButton = new JButton("Client");
@@ -35,7 +39,7 @@ public class Main {
 				e1.printStackTrace();
 			}
 		});
-		StartScreen sc = new StartScreen(hostButton, clientButton);
+		sc = new StartScreen(hostButton, clientButton);
 		startFrame.setResizable(false);
 		startFrame.add(sc);
 		startFrame.pack();
@@ -61,7 +65,11 @@ public class Main {
 			host = false;//test
 			startFrame.dispose();
 			done=true;
+			String name = sc.connectToHostTextfield.getText();
+			byte[] data = ("addme:" + name).getBytes();
+			NetworkController.sendData(data,sendSocket, hostAdress,1233);
 			cl = new ClientWindow(hostAdress);
+
 		}
 	}
 

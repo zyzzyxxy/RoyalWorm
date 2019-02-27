@@ -1,12 +1,9 @@
 
-import javax.swing.*;
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.util.*;
 
 public class GameEngine extends Observable {
@@ -18,7 +15,7 @@ public class GameEngine extends Observable {
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
-    int gameCOunter=0;
+    int gameCOunter = 0;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
@@ -47,31 +44,29 @@ public class GameEngine extends Observable {
         updateWorms();
 
         //TOdo fix this
-        if((gameCOunter%Constants.GENERALSPAWNRATE)==0)
+        if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0)
             updateBoosts();
 
         tellObservers();
         //changes.clear();
         gameCOunter++;
-        if(gameCOunter==100)
+        if (gameCOunter == 100)
             gameCOunter = 0;
     }
 
-    //What boosts will be avaliable
-    private void makeSpawnList()
-    {
-        spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
-        spawnList.add(new Boost(Position.getRandomPosition(),'a',20));
+    //What boosts will be avaliable in Game
+    private void makeSpawnList() {
+        spawnList.add(new Boost(Position.getRandomPosition(), 'l', 10));
+        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 20));
     }
 
     //Todo make use of spawnList
     private void updateBoosts() {
-        for (Boost b:spawnList) {
-            if(b.timeToSpawn()){
+        for (Boost b : spawnList) {
+            if (b.timeToSpawn()) {
                 boostManager.spawnRandom(b.type);
                 b.resetCounter();
-            }
-            else
+            } else
                 b.incCounter();
         }
 
@@ -91,13 +86,13 @@ public class GameEngine extends Observable {
 
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.x][pos.y] = c;
-        changes.add(new Change(pos.x,pos.y,c));
+        changes.add(new Change(pos.x, pos.y, c));
     }
 
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
-        changes.clear();
+        //changes.clear();
     }
 
     //Todo this does not reset worms
@@ -111,13 +106,17 @@ public class GameEngine extends Observable {
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
 
-        int i = 0;
-        for (char[] c : GameWorld) {
+        for (int i = 0; i < Constants.worldHeight; i++) {
             if (sc.hasNextLine()) {
-                c = sc.nextLine().toCharArray();
-                GameWorld[i++] = c;
-            } else
-                Arrays.fill(c, '0');
+                char[] c = sc.nextLine().toCharArray();
+            for (int j = 0; j < Constants.worldWidth; j++) {
+                //Dont load worms
+                if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5')
+                    c[j]='0';
+                updateGameworld(new Position(j,i),c[j]);
+               // GameWorld[j][i] = c[j];
+            }
+        }
         }
     }
 
@@ -155,24 +154,6 @@ public class GameEngine extends Observable {
 
         System.out.println("Same?");
         System.out.println(Testing.mapsEqual(GameWorld, testWorld));
-
-
     }
 
-    /*
-    @Override
-    public synchronized void update(Observable o, Object arg) {
-        Position[] changed = (Position[])arg;
-        GameWorld[changed[0].x][changed[0].y] = ((Worm) o).type;
-        try {
-            GameWorld[changed[1].x][changed[1].y] = '0';
-        }
-        catch (Exception e){
-            System.out.println("no tail yet");
-        }
-
-        setChanged();
-        notifyObservers();
-    }
-    */
 }
