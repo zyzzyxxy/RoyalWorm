@@ -11,20 +11,25 @@ public class GameCanvas extends JPanel {
 
     //public Direction direction;
     public List<Change> changes;
+    public int paintCounter=0;
 
     public GameCanvas()
     {
         changes = GameEngine.changes;
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
+        this.setBackground(Color.black);
         this.repaint();
     }
 
     @Override
     public void paint(Graphics g) {
-        //drawWorld(g);
-        //g = this.getGraphics();
-        //
-        drawChanges(g);
+        if (paintCounter < 3) {
+            drawWorld(g);
+            paintCounter++;
+        } else {
+            drawChanges(g);
+        }
+        //drawChanges(g);
     }
 
     public void drawWorld(Graphics g)
@@ -35,6 +40,8 @@ public class GameCanvas extends JPanel {
             {
                 if(GameEngine.GameWorld[i][j]!='0')
                     drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
+                else
+                    drawObject('0', new Position(i,j), g);
 
             }
         //int i, j;
