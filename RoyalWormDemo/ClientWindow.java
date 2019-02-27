@@ -12,7 +12,7 @@ import java.util.Arrays;
 /**
 This window works also as a controller for clients recieving and sending data
  */
-public class ClientWindow implements Runnable {
+public class ClientWindow extends Thread{
     private JFrame frame;
     int recievePort = 1234;
     DatagramSocket dSocket = new DatagramSocket(recievePort);
@@ -59,7 +59,8 @@ public class ClientWindow implements Runnable {
         //dSocket = new DatagramSocket();
        // hostAddr = InetAddress.getByName("127.0.0.1");
        // hostAddr = InetAddress.getByName("192.168.43.88");
-        recieveMessages();
+        if(false)
+            recieveMessages();
     }
 
     private void makeFrame() throws IOException {
@@ -73,7 +74,7 @@ public class ClientWindow implements Runnable {
     }
 
     public void recieveMessages() throws IOException, InterruptedException {
-        while (true ) {
+        while (true && !interrupted()) {
             DatagramPacket dp = new DatagramPacket(data,data.length);
         try{
             dSocket.receive(dp);
@@ -122,14 +123,4 @@ public class ClientWindow implements Runnable {
         }
     }
 
-    @Override
-    public void run() {
-        try {
-            recieveMessages();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
