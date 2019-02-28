@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyListener;
@@ -6,6 +8,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -17,43 +21,53 @@ import java.util.Observer;
 public class GameWindow extends JFrame implements Observer {
     JMenuBar menuBar;
     JMenu File, Options, Help;
-    JMenuItem New, Save, Load, Quit, SetControllers, Gamemode, About;
+    JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
     StartScreen startScreen;
 
-
-    //Controller controller = new Controller();
     GameEngine gm;
     JFrame startWindow;
 
-    public GameWindow(GameEngine gm) throws SocketException {
+    public GameWindow(GameEngine gm) throws SocketException{
         this.gm = gm;
         makeFrame();
         gm.addObserver(this);
         setResizable(false);
         gameCanvas.grabFocus();
-        //constantly check for new directions
-        Thread dirUpdater = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true) {
-                    updateP1Direction();
-                }
-            }
-        });
-        dirUpdater.start();
-    }
-
-    //Calling for setting worm1direction
-    private void updateP1Direction()
-    {
-        gm.playerList.get(0).worm.direction = gameCanvas.direction;
-       // System.out.println(gameCanvas.hasFocus());
     }
 
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.repaint();
+        //List<Change> changes = (List<Change>) arg;
+        /*while (!changes.isEmpty())
+        {
+            //gameCanvas.changes.add(changes.get(0));
+            gameCanvas.repaint();
+            //changes.remove(0);
+        }*/
+
+       /* Change ch;
+        while(((Iterator) arg).hasNext())
+        {
+            ch = ((Change) ((Iterator) arg).next());
+            gameCanvas.repaint(ch.x*Constants.gameConstant,ch.y*Constants.gameConstant,Constants.gameConstant,Constants.gameConstant);
+        }*/
+        //gameCanvas.iterator = (Iterator) arg;
+
+
+
+       // GameEngine.changes.clear();
+    }
+    
+    public void infoMenu(){
+    	
+    
+		JFrame frame;
+		JPanel info = (JPanel)this.getContentPane();
+    	info.setBorder(new EmptyBorder(6, 6, 6, 6));
+    	
+    	
     }
 
 
@@ -63,9 +77,9 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas = new GameCanvas();
         gameCanvas.setFocusable(true);
         getContentPane().add(gameCanvas);
-//        getContentPane().add(startScreen = new StartScreen());
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
+        
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
@@ -74,15 +88,20 @@ public class GameWindow extends JFrame implements Observer {
 
     private void makeMenus()
     {
-        File = new JMenu("File"); Options = new JMenu("Options"); Help = new JMenu("Help");
+        File = new JMenu("File"); 
+       
         menuBar = new JMenuBar();
-        menuBar.add(File); menuBar.add(Options); menuBar.add(Help);
+        
+        menuBar.add(File); 
+      /*  menuBar.add(Options); 
+        menuBar.add(Help);
 
         File.add(New = new JMenuItem("New"));
         File.add(Save = new JMenuItem("Save"));
         File.add(Load = new JMenuItem("Load"));
+        File.add(Reset = new JMenuItem("Reset"));
         File.add(Quit = new JMenuItem("Quit"));
-
+        
         Options.add(SetControllers = new JMenuItem("Set Controllers"));
         Options.add(Gamemode = new JMenuItem("Game Mode"));
         Help.add(About = new JMenuItem("About"));
@@ -97,23 +116,23 @@ public class GameWindow extends JFrame implements Observer {
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
-                });
+                });*/
     }
 
+    //Handles JMenu in GameWindow
     private void menuClicked(ActionEvent e) throws IOException {
 
         System.out.println(e.getActionCommand());
-
-
         if(e.getActionCommand().equalsIgnoreCase("New")) {
-           // startScreen.setVisible(false);
-            gm.resetGameworld(); gameCanvas.repaint();
-
+            gm.resetGameworld(); 
+            gameCanvas.repaint();
         }
         if(e.getActionCommand().equalsIgnoreCase("Save"))
-            loadFile();
+            saveFile();
         if(e.getActionCommand().equalsIgnoreCase("Load"))
             loadFile();
+        if(e.getActionCommand().equalsIgnoreCase("Reset"))
+            gm.resetGameworld(); gameCanvas.repaint();
         if(e.getActionCommand().equalsIgnoreCase("Quit"))
             System.exit(0);
     }
@@ -132,7 +151,6 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.repaint();
     }
 
-    //Todo get writable option in window
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -147,12 +165,6 @@ public class GameWindow extends JFrame implements Observer {
                 fw.write("\n");
             }
         }
-        gameCanvas.repaint();
-    }
-
-    //Just for testing
-    public void loadFile(File file) throws IOException {
-        gm.loadGameworld(file);
         gameCanvas.repaint();
     }
 }
