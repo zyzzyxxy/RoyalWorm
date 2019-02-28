@@ -1,7 +1,9 @@
+import java.awt.Graphics;
+
 import sun.jvm.hotspot.jdi.ThreadReferenceImpl;
 
 public class CollisionHandler {
-
+	
 
 	public static boolean collisionCheck(Position pos) 
 	{
@@ -12,11 +14,13 @@ public class CollisionHandler {
 		return false;
 	}
 	public static void collisionHandle(Worm w, Position pos) throws InterruptedException {
+		
 		System.out.println("in CH");
+		System.out.println(Thread.activeCount());
 		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5') {
 			System.out.print("in if");
 			switch (GameEngine.GameWorld[pos.x][pos.y]) {
-
+			
 				case '0':
 					break;
 				case 'a':
@@ -28,6 +32,10 @@ public class CollisionHandler {
 				case 'w':
 					((Worm) w).reset();
 					((Worm) w).looseLife();
+					System.out.println("wall");
+					if(w.lives == 0) {
+						//askNewGame();
+					}
 					break;
 				case '1':
 					((Worm) w).reset();
@@ -49,6 +57,9 @@ public class CollisionHandler {
 					((Worm) w).reset();
 					((Worm) w).looseLife();
 					break;
+				case 'g':
+					((Worm)w).gun=true;
+					break;	
 				case 'l':
 					((Worm) w).addToSpeed(Constants.wormspeed/2);
 					Thread t = new Thread(new Runnable() {
@@ -58,6 +69,7 @@ public class CollisionHandler {
 							System.out.println("Running thread in CH");
 							try {
 								Thread.sleep(3000);
+								System.out.println(Thread.activeCount());
 							} catch (InterruptedException e) {
 								e.printStackTrace();
 							}
@@ -90,5 +102,9 @@ public class CollisionHandler {
 		}
 		}
 	}*/
+	public static void collisionHandle(Bullet bullet, Position headPos) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

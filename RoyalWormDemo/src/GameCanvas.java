@@ -11,6 +11,7 @@ public class GameCanvas extends JPanel {
 
     //public Direction direction;
     public List<Change> changes;
+    private int firstRun = 0;
 
     public GameCanvas()
     {
@@ -21,10 +22,14 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-        drawWorld(g);
+    	if (firstRun < 3) {
+    		drawWorld(g);
+    		firstRun++;
+    	}else
         //g = this.getGraphics();
         //
-        //drawChanges(g);
+      //  drawChanges(g);
+    	drawWorld(g);
     }
 
     public void drawWorld(Graphics g)
@@ -33,7 +38,7 @@ public class GameCanvas extends JPanel {
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
-                if(GameEngine.GameWorld[i][j]!='0')
+                //if(GameEngine.GameWorld[i][j]!='0')
                     drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
 
             }
@@ -51,8 +56,8 @@ public class GameCanvas extends JPanel {
             for (Change ch :changes) {
                 drawObject(ch.type,new Position(ch.x,ch.y),g);
             }
-
         }
+        changes.clear();
     }
     public void drawObject(char c, Position p, Graphics g)
     {
@@ -64,6 +69,7 @@ public class GameCanvas extends JPanel {
                 //For players
             case '0':
                 GameGraphics.erase(p,g);
+               // GameGraphics.eraseApple(p, g);
                 break;
             case '1':
                 GameGraphics.drawPlayer(false,1,p,g);
@@ -79,6 +85,7 @@ public class GameCanvas extends JPanel {
                 break;
             case 'w':
                 GameGraphics.drawWall(p,g);
+                
                 break;
             case 's':
                 GameGraphics.drawSuperApple(p,g);
@@ -86,6 +93,12 @@ public class GameCanvas extends JPanel {
             case 'l':
                 GameGraphics.drawSlow(p,g);
                 break;
+            case 'g':
+            	GameGraphics.drawGun(p, g);       	
+            	break;
+            case 'b':
+            	GameGraphics.drawBullet(p, g);       	
+            	break;
         }
     }
 }

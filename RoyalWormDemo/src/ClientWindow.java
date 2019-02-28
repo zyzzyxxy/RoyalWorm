@@ -15,7 +15,7 @@ This window works also as a controller for clients recieving and sending data
  */
 public class ClientWindow implements Runnable {
     private JFrame frame;
-    int recievePort = 1234;
+    int recievePort = 1235;
     DatagramSocket dSocket = new DatagramSocket(recievePort);
     byte[] data = new byte[4661];
     ClientCanvas clientCanvas;

@@ -267,6 +267,9 @@ public class Controller implements Observer {
             gameEngine.playerList.get(0).worm.direction.x = 1;
             gameEngine.playerList.get(0).worm.direction.y = 0;
         }
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && gameEngine.playerList.get(0).worm.hasGun()) {
+        	gameEngine.playerList.get(0).worm.fireGun();
+        }
     }
 
 

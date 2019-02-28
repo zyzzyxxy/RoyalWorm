@@ -1,5 +1,6 @@
 
 import javax.swing.*;
+
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,18 +9,20 @@ import java.io.FileNotFoundException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
-
+import java.util.TimerTask;
 public class GameEngine extends Observable {
-
+	
     public static char[][] GameWorld;
-
+    List<Bullet> bullets = new ArrayList<>();
     List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter=0;
+    int shrinkCOunter=0;
 
+    
     //Todo this constructor shall take List<Player> when controller can provide it
 
     public GameEngine(List<Player> playersList) throws Exception {
@@ -40,11 +43,12 @@ public class GameEngine extends Observable {
         });
         //Starts the game
         gameTimer.start();
+      
     }
 
     private void gameTick() throws InterruptedException {
         updateWorms();
-
+        updateBulletList();
         //TOdo fix this
         if((gameCOunter%Constants.GENERALSPAWNRATE)==0)
             updateBoosts();
@@ -54,6 +58,7 @@ public class GameEngine extends Observable {
         gameCOunter++;
         if(gameCOunter==100)
             gameCOunter = 0;
+       
     }
 
     //What boosts will be avaliable
@@ -62,6 +67,14 @@ public class GameEngine extends Observable {
         spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
         spawnList.add(new Boost(Position.getRandomPosition(),'a',20));
     }
+    
+    private void updateBulletList() throws InterruptedException {
+    	for(Player p : playerList) {
+    		for(Bullet b : p.worm.bullets)
+    		b.updatePos();
+    		}	
+    	}
+    
 
     //Todo make use of spawnList
     private void updateBoosts() {
@@ -69,6 +82,8 @@ public class GameEngine extends Observable {
             if(b.timeToSpawn()){
                 boostManager.spawnRandom(b.type);
                 b.resetCounter();
+                battleRoyal();
+                
             }
             else
                 b.incCounter();
@@ -87,7 +102,7 @@ public class GameEngine extends Observable {
         }
     }
 
-
+   
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.x][pos.y] = c;
         changes.add(new Change(pos.x,pos.y,c));
@@ -96,7 +111,6 @@ public class GameEngine extends Observable {
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
-        changes.clear();
     }
 
     //Todo this does not reset worms
@@ -157,7 +171,56 @@ public class GameEngine extends Observable {
 
 
     }
+    
+    	public void battleRoyal() {
+    		spawnWeapons();
+    		shrinkWorld();
+    	}
+    	
+    	public void spawnWeapons() {
+    		updateGameworld(new Position(50, 50), 'g');	
+    		//updateGameworld(new Position(50, 51), 'a');	
 
+    	}
+    	
+    	public void shrinkWorld() {
+    		System.out.println("BATTLE ROYAL");
+ 
+    		//Thread spawnwalls = new Thread();
+    		//spawnwalls.run();
+    		//spawnwalls.wait(5000);
+    		for(int i = 0; i<80; i++) {
+    			updateGameworld(new Position(i,0+shrinkCOunter), 'w');
+    			updateGameworld(new Position(i,59-shrinkCOunter), 'w');
+    						
+    						
+    		}
+    		for(int j = 0; j<60; j++) {
+				updateGameworld(new Position(0+shrinkCOunter,j), 'w');
+				updateGameworld(new Position(79-shrinkCOunter,j), 'w');
+				
+				
+    		}
+    		
+    		shrinkCOunter++;
+    	}
+		/*for (int row = 0; row<80; row++) {
+			if(row==0+shrinkCOunter || row==79-shrinkCOunter) {
+				for(i = 0; i<60; i++) {
+						//GameWorld[row][i] = 'w';
+						updateGameworld(new Position(row+shrinkCOunter, i+shrinkCOunter), 'w');
+				}
+			}else {
+				GameWorld[row][lastCol-shrinkCOunter] = 'w';
+				GameWorld[row][firstCol-shrinkCOunter] = 'w';
+			}
+		}	
+			shrinkCOunter++;
+		
+		
+	}*/
+    	
+    	
     /*
     @Override
     public synchronized void update(Observable o, Object arg) {

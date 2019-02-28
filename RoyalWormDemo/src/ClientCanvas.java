@@ -70,6 +70,9 @@ public class ClientCanvas extends JPanel {
             case 'l':
                 GameGraphics.drawSlow(p,g);
                 break;
+            case 'b':
+            	GameGraphics.drawBullet(p, g);
+           
         }
     }
 

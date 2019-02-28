@@ -7,11 +7,13 @@ import java.util.Observable;
 public class Worm extends GameObject {
     int speed, length, lives;
     List<Position> body;
+    List<Bullet> bullets;
     Position headPos, tailPos, startPos;
     //Position[] updatedPos = new Position[2];
     int wormNumber, counter;
     char type;
     BoardCordinates position, direction;
+    boolean gun;
 
 
     public Worm(Position position, Direction direction, int wormNumber) {
@@ -28,6 +30,8 @@ public class Worm extends GameObject {
         this.counter = 0;
         this.type = Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
+        gun = false;
+        bullets = new ArrayList<>();
     }
 
 
@@ -139,6 +143,20 @@ public class Worm extends GameObject {
             System.out.println(p.y);
         }
     }
+
+
+
+	public void fireGun() {
+		Bullet b = new Bullet(headPos, direction);
+		bullets.add(b);
+		System.out.println("Fires gun with dir " + direction);
+	}
+
+
+
+	public boolean hasGun() {
+		return gun;
+	}
 
 
 }

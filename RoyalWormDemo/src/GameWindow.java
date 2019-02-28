@@ -34,7 +34,7 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.grabFocus();
 
     }
-
+    
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.repaint();
@@ -102,7 +102,7 @@ public class GameWindow extends JFrame implements Observer {
                     }
                 });
     }
-
+    
     //Handles JMenu in GameWindow
     private void menuClicked(ActionEvent e) throws IOException {
 
@@ -118,6 +118,9 @@ public class GameWindow extends JFrame implements Observer {
             gm.resetGameworld(); gameCanvas.repaint();
         if(e.getActionCommand().equalsIgnoreCase("Quit"))
             System.exit(0);
+        if(e.getActionCommand().equalsIgnoreCase("Game Mode")){
+        	gm.battleRoyal();
+        }
     }
 
     //File must be right size for now

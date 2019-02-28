@@ -18,6 +18,21 @@ public class GameGraphics {
         }
         return graphics;
     }
+    
+    public static Graphics eraseApple(Position p, Graphics graphics){
+        int constant = Constants.gameConstant;
+        graphics.setColor(Color.BLACK);
+
+        graphics.drawOval(p.getX()*constant,p.getY()*constant,constant,constant);
+        graphics.fillOval(p.getX()*constant,p.getY()*constant,constant,constant);
+        graphics.setColor(Color.BLACK);
+
+        for(int i = 0; i<5;i++) {
+            graphics.drawArc(p.getX() * constant - constant + constant / 2, p.getY() * constant-i, 10+i, 10, 0, 90);
+        }
+        return graphics;
+    }
+    
     public static Graphics drawSuperApple(Position p, Graphics graphics)
     {
         int constant = Constants.gameConstant;
@@ -34,6 +49,8 @@ public class GameGraphics {
         }
         return graphics;
     }
+    
+    
 
 
     public static Graphics drawPlayer(boolean head, int player, Position p, Graphics graphics)
@@ -57,7 +74,7 @@ public class GameGraphics {
     }
     public static Graphics drawWall(Position p, Graphics graphics)
     {
-        graphics.setColor(Color.GRAY);
+        graphics.setColor(Color.PINK);
         graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
 
         return graphics;
@@ -79,5 +96,17 @@ public class GameGraphics {
 
         return graphics;
     }
+
+	public static Graphics drawGun(Position p, Graphics graphics) {
+		graphics.setColor(Color.GRAY);
+        graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
+       return graphics;
+	}
+	
+	public static Graphics drawBullet(Position p, Graphics graphics) {
+		graphics.setColor(Color.GRAY);
+        graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
+       return graphics;
+	}
 
 }
