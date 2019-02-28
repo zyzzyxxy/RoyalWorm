@@ -63,6 +63,7 @@ public class CollisionHandler {
 				System.out.println(p.worm.isInBody(pos));
 				if(p.worm.isInBody(pos)!=-1) {
 					p.worm.cut(pos);
+					((Ghost)w).dead=true;
 
 				}
 			}

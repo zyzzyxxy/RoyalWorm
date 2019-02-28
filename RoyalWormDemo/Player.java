@@ -11,6 +11,7 @@ public class Player {
     public boolean host;
     public InetAddress addr;
     public int port;
+    PlayerPanel playerPanel;
 
 
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
@@ -23,6 +24,7 @@ public class Player {
         lives = Constants.startingLives;
         this.host = host;
         this.addr = InetAddress.getByName(addr);
+        this.playerPanel = new PlayerPanel(name);
 
     }
 

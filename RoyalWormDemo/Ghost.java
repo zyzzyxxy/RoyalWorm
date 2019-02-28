@@ -8,6 +8,8 @@ public class Ghost extends DynamicObject {
     Position position;
     Direction direction;
     Random rnd =  new Random();
+    boolean dead=false;
+
     public Ghost(Position position) {
         super(position, 'g',Direction.getRandomDirection());
         this.counter=0;

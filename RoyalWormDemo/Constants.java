@@ -19,6 +19,7 @@ public class Constants {
 
     //Dynamics
     public static int ghostSpeed = 2;
+    public static int ghostSpawn = 50;
 
     public static int worldWidth = boardWidth / wormsize;
     public static int worldHeight = boardHeight / wormsize;

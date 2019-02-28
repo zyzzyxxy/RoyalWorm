@@ -14,11 +14,12 @@ public class GameEngine extends Observable {
 
     public static List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
-    List<DynamicObject> dObjectList = new ArrayList<>();
+    public static List<DynamicObject> dObjectList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
+    int ghostCounter = 0;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
@@ -61,8 +62,7 @@ public class GameEngine extends Observable {
     //What boosts will be avaliable in Game
     private void makeSpawnList() {
         spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
-        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 3));
-        dObjectList.add(new Ghost(Position.getRandomPosition()));
+        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 15));
     }
 
     //This method updates boost and spawns them if time
@@ -74,7 +74,11 @@ public class GameEngine extends Observable {
             } else
                 b.incCounter();
         }
-
+        if(ghostCounter==Constants.ghostSpawn) {
+            dObjectList.add(new Ghost(Position.getRandomPosition()));
+            ghostCounter=0;
+        }
+        else {ghostCounter++;}
     }
 
     //Update worms, move one step
@@ -89,12 +93,17 @@ public class GameEngine extends Observable {
         }
     }
     private void updateDynamicObjects() throws InterruptedException {
-        for (DynamicObject g: dObjectList) {
-            if (g.counter == g.speed) {
-                g.update();
-                g.counter = 0;
+        for (int i = 0; i < dObjectList.size();i++) {
+            if(dObjectList.get(i) instanceof Ghost)
+                if(((Ghost)dObjectList.get(i)).dead)
+                    dObjectList.remove(dObjectList.get(i));
+        }
+        for (int i = 0; i < dObjectList.size();i++) {
+            if (dObjectList.get(i).counter ==dObjectList.get(i).speed) {
+                dObjectList.get(i).update();
+                dObjectList.get(i).counter = 0;
             } else {
-                g.counter++;
+                dObjectList.get(i).counter++;
             }
         }
     }
@@ -133,6 +142,10 @@ public class GameEngine extends Observable {
             }
         }
         }
+    }
+    public static void removeFromDynamicList(GameObject o)
+    {
+        dObjectList.remove(o);
     }
 
 
