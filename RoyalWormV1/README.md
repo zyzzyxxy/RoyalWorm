@@ -1,2 +1,0 @@
-# RoyalWorm
-Project

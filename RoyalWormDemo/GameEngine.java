@@ -56,7 +56,7 @@ public class GameEngine extends Observable {
 
     //What boosts will be avaliable in Game
     private void makeSpawnList() {
-        spawnList.add(new Boost(Position.getRandomPosition(), 'l', 10));
+        spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
         spawnList.add(new Boost(Position.getRandomPosition(), 'a', 20));
     }
 
