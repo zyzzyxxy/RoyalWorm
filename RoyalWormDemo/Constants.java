@@ -14,9 +14,11 @@ public class Constants {
     //WormArgs
     public static int wormsize = 10;
     public static int wormspeed = 12;
-    public static int wormStartingLength = 8;
+    public static int wormStartingLength = 80;
     public static int startingLives = 3;
 
+    //Dynamics
+    public static int ghostSpeed = 2;
 
     public static int worldWidth = boardWidth / wormsize;
     public static int worldHeight = boardHeight / wormsize;

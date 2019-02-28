@@ -1,4 +1,6 @@
 
+import com.sun.org.apache.bcel.internal.generic.GotoInstruction;
+
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,8 +12,9 @@ public class GameEngine extends Observable {
 
     public static char[][] GameWorld;
 
-    List<Player> playerList = new ArrayList<>();
+    public static List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
+    List<DynamicObject> dObjectList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
@@ -44,8 +47,10 @@ public class GameEngine extends Observable {
         updateWorms();
 
         //no need to inc every counter every time
-        if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0)
+        if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
             updateBoosts();
+            updateDynamicObjects();
+        }
 
         tellObservers();
         gameCOunter++;
@@ -56,7 +61,8 @@ public class GameEngine extends Observable {
     //What boosts will be avaliable in Game
     private void makeSpawnList() {
         spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
-        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 20));
+        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 3));
+        dObjectList.add(new Ghost(Position.getRandomPosition()));
     }
 
     //This method updates boost and spawns them if time
@@ -82,6 +88,17 @@ public class GameEngine extends Observable {
             }
         }
     }
+    private void updateDynamicObjects() throws InterruptedException {
+        for (DynamicObject g: dObjectList) {
+            if (g.counter == g.speed) {
+                g.update();
+                g.counter = 0;
+            } else {
+                g.counter++;
+            }
+        }
+    }
+
 
 
     public static void updateGameworld(Position pos, char c) {

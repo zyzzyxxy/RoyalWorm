@@ -1,13 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,7 +36,6 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.paint(gameCanvas.getGraphics());
     }
 
-
     private void makeFrame() {
         makeMenus();
         setJMenuBar(menuBar);
@@ -54,8 +50,7 @@ public class GameWindow extends JFrame implements Observer {
         setVisible(true);
     }
 
-    private void makeMenus()
-    {
+    private void makeMenus() {
         File = new JMenu("File"); Options = new JMenu("Options"); Help = new JMenu("Help");
         menuBar = new JMenuBar();
         menuBar.add(File); menuBar.add(Options); menuBar.add(Help);
@@ -114,6 +109,7 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.repaint();
     }
 
+    //Saves a copys of the current map
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();

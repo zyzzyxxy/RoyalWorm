@@ -138,6 +138,32 @@ public class Worm extends GameObject {
     public void resetSpeed() {
         speed = Constants.wormspeed;
     }
+    public void cut(Position p) {
+        int i = isInBody(p);
+        if(i!=-1)
+        {
+
+            //body = body.subList(0,i);
+
+            try{
+            List<Position> bodyRests = new ArrayList<Position>(body.subList(0, i));
+            for (Position k:bodyRests) {
+                GameEngine.updateGameworld(k, '0');
+            }}catch (Exception e){e.printStackTrace();}
+            body = new ArrayList<Position>(body.subList(i, body.size()));
+            length=body.size();
+        }
+    }
+    public int isInBody(Position p) {
+        int i =0;
+        for (Position b:body ) {
+            if(p.x==b.x&&p.y==b.y)
+                return i;
+            i++;
+        }
+
+        return -1;
+    }
 
     public void updateHeadPos() {
         headPos = new Position(headPos.x + direction.x, headPos.y + direction.getY());
@@ -153,7 +179,6 @@ public class Worm extends GameObject {
     }
 
     //Just for testing
-
     public void printBody() {
         for (Position p : body
         ) {

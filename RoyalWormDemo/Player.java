@@ -1,15 +1,11 @@
-import java.awt.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Observable;
-import java.util.Observer;
 import java.lang.Thread;
 
 public class Player {
     Worm worm;
     int lives;
     String name;
-    Thread wormThread;
 
     //Network
     public boolean host;
