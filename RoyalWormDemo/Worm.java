@@ -140,6 +140,10 @@ public class Worm extends GameObject {
             System.out.println(p.y);
         }
     }
+    
+    public int getSpeed() {
+    	return speed;
+    }
 
 
 }

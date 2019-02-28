@@ -1,3 +1,5 @@
+import java.util.List;
+
 public class CollisionHandler {
     private static int squareWidth = (Constants.boardWidth/Constants.gameConstant) - 2;
     private static int squareHeight = (Constants.boardHeight/Constants.gameConstant) - 2;
@@ -8,29 +10,33 @@ public class CollisionHandler {
 	}
 	
 	public static boolean collisionCheck(Position pos) {
-		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
-			return true;
+		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
+			return Constants.WallCollision;
 		}
 		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
 	}
 
 	public static boolean collisionHandle(Worm worm, Position pos) throws InterruptedException {
-		if (Constants.WallCollision && (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight)) {
-			wormToWorm(worm);
-			return true;
+		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
+			if (Constants.WallCollision) {
+				crashCollision(worm);
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			char posValue = GameEngine.GameWorld[pos.getX()][pos.getY()];
 			if (posValue == 'W' || posValue == '1' || posValue == '2') {
-				wormToWorm(worm);
+				crashCollision(worm);
 				return true;
 			}
 			
 			if (posValue == 'a') {
-				wormToApple(pos, worm);
+				appleCollision(pos, worm);
 			}
 
 			if (posValue == 's') {
-				wormToS(pos, worm);
+				superAppleCollision(pos, worm);
 			}
 			
 			if (posValue == 'l') {
@@ -58,18 +64,37 @@ public class CollisionHandler {
 		}
 		return false;
 	}
+	private static void resetCheck() {
+		List<Player> playerList = GameEngine.getPlayerList();
+		
+		
+		if ((playerList.size() == 1) && (playerList.get(0).getWorm().getSpeed() == 0)) {
+			//TODO reset
+			System.out.print("Reset");
+		} else {
+			int counter = 0;
+			for (Player p : playerList) {
+				if (p.getWorm().getSpeed() == 0) {
+					counter++;
+				}
+			}
+			if (counter == playerList.size() - 1) {}
+			//TODO reset
+			System.out.print("Reset");
+		}
+	}
 	
-	private static void wormToWorm(Worm worm) {
+	private static void crashCollision(Worm worm) {
 		worm.stop();
 		worm.looseLife();
 	}
 	
-	private static void wormToApple(Position pos, Worm worm) {
+	private static void appleCollision(Position pos, Worm worm) {
 		worm.grow();
 		//GameEngine.boostManager.delete(pos);
 	}
 
-	private static void wormToS(Position pos, Worm worm) {
+	private static void superAppleCollision(Position pos, Worm worm) {
 		worm.grow(10);
 		//GameEngine.boostManager.delete(pos);
 	}

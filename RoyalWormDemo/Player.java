@@ -53,5 +53,7 @@ public class Player {
         this.addr = InetAddress.getByName(addr);
     }
 
-
+    public Worm getWorm() {
+    	return worm;
+    }
 }

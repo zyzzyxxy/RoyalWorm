@@ -157,6 +157,9 @@ public class GameEngine extends Observable {
 
 
     }
+    public static List<Player> getPlayerList() {
+    	return playerList;
+    }
 
     /*
     @Override
