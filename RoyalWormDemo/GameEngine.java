@@ -1,85 +1,105 @@
+
 import javax.swing.*;
+import javax.swing.Timer;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.*;
-import java.util.Timer;
 
-public class GameEngine extends Observable implements Observer{
+public class GameEngine extends Observable {
 
     public static char[][] GameWorld;
-    
-    private BoostManager boosts;
+
     List<Player> playerList = new ArrayList<>();
-    List<GameObject> gameObjectList = new ArrayList<>();
-    Timer gameTimer;
-    
-    public GameEngine(String[] players) throws Exception {
+    List<Boost> spawnList = new ArrayList<>();
+    javax.swing.Timer gameTimer;
+    BoostManager boostManager = new BoostManager();
+    public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
+    int gameCOunter=0;
+
+    //Todo this constructor shall take List<Player> when controller can provide it
+
+    public GameEngine(List<Player> playersList) throws Exception {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
-        addPlayers(players);
-        startGame();
-        boosts = new BoostManager();
+        playerList = playersList;
+        makeSpawnList();
+
+        gameTimer = new Timer(Constants.GAMESPEED, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    gameTick();
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        });
+        //Starts the game
+        gameTimer.start();
     }
-    public void startGame()
+
+    private void gameTick() throws InterruptedException {
+        updateWorms();
+
+        //TOdo fix this
+        if((gameCOunter%Constants.GENERALSPAWNRATE)==0)
+            updateBoosts();
+
+        tellObservers();
+        //changes.clear();
+        gameCOunter++;
+        if(gameCOunter==100)
+            gameCOunter = 0;
+    }
+
+    //What boosts will be avaliable
+    private void makeSpawnList()
     {
-        for(Player p: playerList)
-        {
-            p.startWorm();
-        }
+        spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
+        spawnList.add(new Boost(Position.getRandomPosition(),'a',20));
     }
 
-    private void addPlayers(String[] players) throws InterruptedException, UnknownHostException {
-        for (String s : players) {
-            addPlayer(s);
+    //Todo make use of spawnList
+    private void updateBoosts() {
+        for (Boost b:spawnList) {
+            if(b.timeToSpawn()){
+                boostManager.spawnRandom(b.type);
+                b.resetCounter();
+            }
+            else
+                b.incCounter();
         }
-        for (Player p:playerList) {
-            p.worm.addObserver(this);
-        }
+
     }
 
-    private void addPlayer(String name) throws InterruptedException, UnknownHostException {
-        int number = playerList.size()+1;
-        boolean host = false;
-        Position position;
-        if (number == 1) {
-            host = true;
-            position = new Position(Constants.worldWidth / 4, Constants.worldHeight / 4);
-            playerList.add(new Player(name, number, position, true));
-        }
-        else if (number == 2) {
-            position = new Position(Constants.worldWidth / 4, Constants.worldHeight * 3 / 4);
-            playerList.add(new Player(name, number, position, false));
-        }
-        else if (number == 3) {
-            position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight / 4);
-            playerList.add(new Player(name, number, position, host));
-        }
-        else if (number == 4) {
-            position = new Position(Constants.worldWidth * 3 / 4, Constants.worldHeight * 3 / 4);
-            playerList.add(new Player(name, number, position, host));
-        }
-    }
-
-    private void update() {
+    private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
-           Position[] pos=  p.worm.updateBody();
-           GameWorld[pos[0].x][pos[0].y] = p.worm.type;
-           try {
-               GameWorld[pos[0].x][pos[0].y] = p.worm.type;
-           }catch (NullPointerException e)
-           {e.printStackTrace();}
-
+            if (p.worm.counter == p.worm.speed) {
+                p.worm.update();
+                p.worm.counter = 0;
+            } else {
+                p.worm.counter++;
+            }
         }
-        setChanged();
-        notifyObservers();
     }
+
 
     public static void updateGameworld(Position pos, char c) {
-        GameWorld[pos.y][pos.x] = c;
+        GameWorld[pos.x][pos.y] = c;
+        changes.add(new Change(pos.x,pos.y,c));
     }
 
+    public void tellObservers() {
+        setChanged();
+        notifyObservers(changes);
+        changes.clear();
+    }
 
+    //Todo this does not reset worms
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
@@ -88,24 +108,15 @@ public class GameEngine extends Observable implements Observer{
 
     //Todo fix loading, now it loads wrong by 90 degrees
     public void loadGameworld(File file) throws FileNotFoundException {
-        @SuppressWarnings("resource")
-		Scanner sc = new Scanner(file);
-        
+        Scanner sc = new Scanner(file);
+
         int i = 0;
-   
         for (char[] c : GameWorld) {
             if (sc.hasNextLine()) {
-                c = ((String)sc.nextLine()).toCharArray();
-                //System.out.println(c);
-                GameWorld[i] = c;
-                i++;
-                
-                
+                c = sc.nextLine().toCharArray();
+                GameWorld[i++] = c;
             } else
-               Arrays.fill(c, '0');
-        }
-        for(char[] c : GameWorld) {
-        	System.out.println(c);
+                Arrays.fill(c, '0');
         }
     }
 
@@ -142,11 +153,12 @@ public class GameEngine extends Observable implements Observer{
         }
 
         System.out.println("Same?");
-        System.out.println(Testing.mapsEqual(GameWorld,testWorld));
+        System.out.println(Testing.mapsEqual(GameWorld, testWorld));
 
 
     }
 
+    /*
     @Override
     public synchronized void update(Observable o, Object arg) {
         Position[] changed = (Position[])arg;
@@ -161,4 +173,5 @@ public class GameEngine extends Observable implements Observer{
         setChanged();
         notifyObservers();
     }
+    */
 }
