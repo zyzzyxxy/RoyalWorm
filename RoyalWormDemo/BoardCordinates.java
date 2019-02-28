@@ -1,17 +1,17 @@
 public class BoardCordinates {
-    public int x;
-    public int y;
+    public double x;
+    public double y;
 
-    public BoardCordinates(int x, int y) {
+    public BoardCordinates(double x, double y) {
         this.x = x;
         this.y = y;
     }
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
 }

@@ -1,9 +1,9 @@
 import java.util.Random;
 
 public class Direction extends BoardCordinates {
-    public int x,y;
+    public double x,y;
 
-    public Direction(int x, int y) {
+    public Direction(double x, double y) {
         super(x,y);
         this.x=x;
         this.y=y;
