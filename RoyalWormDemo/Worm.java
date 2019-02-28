@@ -11,7 +11,7 @@ public class Worm extends GameObject {
     //Position[] updatedPos = new Position[2];
     int wormNumber, counter;
     char type;
-    BoardCordinates position, direction;
+    BoardCordinates position, direction, nextDirection;
     int isFast = 0;
 
 
@@ -19,6 +19,7 @@ public class Worm extends GameObject {
         super(position, Integer.toString(wormNumber).charAt(0));
         this.position = position;
         this.direction = direction;
+        this.nextDirection = direction;
         this.speed = Constants.wormspeed;
         this.length = Constants.wormStartingLength;
         this.wormNumber = wormNumber;
@@ -34,6 +35,7 @@ public class Worm extends GameObject {
 
 
     public void update() throws InterruptedException {
+        direction=nextDirection;
         updateBody();
     }
 

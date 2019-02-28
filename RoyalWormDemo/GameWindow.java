@@ -113,24 +113,6 @@ public class GameWindow extends JFrame implements Observer {
         }
         gameCanvas.repaint();
     }
-/*
-    private void saveFile() throws IOException {
-        JFileChooser jFileChooser = new JFileChooser();
-        String current = new java.io.File( "." ).getCanonicalPath();
-        jFileChooser.setCurrentDirectory(new File(current));
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            java.io.File file = jFileChooser.getSelectedFile();
-            if (!file.exists())
-                file.createNewFile();
-            FileWriter fw = new FileWriter(file);
-            for (char[] c:GameEngine.GameWorld) {
-                fw.write(new String(c));
-                fw.write("\n");
-            }
-            fw.close();
-        }
-        gameCanvas.repaint();
-    }*/
 
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();

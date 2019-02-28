@@ -255,20 +255,20 @@ public class Controller implements Observer {
     }
     private void hostButtonPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).worm.direction.y != -1) {
-            gameEngine.playerList.get(0).worm.direction.x = 0;
-            gameEngine.playerList.get(0).worm.direction.y = 1;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 1;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.direction.y != 1) {
-            gameEngine.playerList.get(0).worm.direction.x = 0;
-            gameEngine.playerList.get(0).worm.direction.y = -1;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.y = -1;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.direction.x != 1) {
-            gameEngine.playerList.get(0).worm.direction.x = -1;
-            gameEngine.playerList.get(0).worm.direction.y = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.x = -1;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.direction.x != -1) {
-            gameEngine.playerList.get(0).worm.direction.x = 1;
-            gameEngine.playerList.get(0).worm.direction.y = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 1;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
         }
     }
 

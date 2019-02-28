@@ -43,12 +43,11 @@ public class GameEngine extends Observable {
     private void gameTick() throws InterruptedException {
         updateWorms();
 
-        //TOdo fix this
+        //no need to inc every counter every time
         if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0)
             updateBoosts();
 
         tellObservers();
-        //changes.clear();
         gameCOunter++;
         if (gameCOunter == 100)
             gameCOunter = 0;
@@ -60,7 +59,7 @@ public class GameEngine extends Observable {
         spawnList.add(new Boost(Position.getRandomPosition(), 'a', 20));
     }
 
-    //Todo make use of spawnList
+    //This method updates boost and spawns them if time
     private void updateBoosts() {
         for (Boost b : spawnList) {
             if (b.timeToSpawn()) {
@@ -72,6 +71,7 @@ public class GameEngine extends Observable {
 
     }
 
+    //Update worms, move one step
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
             if (p.worm.counter == p.worm.speed) {
@@ -92,20 +92,19 @@ public class GameEngine extends Observable {
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
-        //changes.clear();
     }
 
-    //Todo this does not reset worms
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
+            for (Player p :playerList) {
+                p.worm.reset();
+            }
         }
     }
 
-    //Todo fix loading, now it loads wrong by 90 degrees
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
-
         for (int i = 0; i < Constants.worldHeight; i++) {
             if (sc.hasNextLine()) {
                 char[] c = sc.nextLine().toCharArray();
@@ -114,7 +113,6 @@ public class GameEngine extends Observable {
                 if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5')
                     c[j]='0';
                 updateGameworld(new Position(j,i),c[j]);
-               // GameWorld[j][i] = c[j];
             }
         }
         }

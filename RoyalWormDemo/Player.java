@@ -32,20 +32,20 @@ public class Player {
 
     public void updateDirection(Direction dir) {
         if (dir.y == 1 && worm.direction.y != -1) {
-            worm.direction.x = 0;
-            worm.direction.y = 1;
+            worm.nextDirection.x = 0;
+            worm.nextDirection.y = 1;
         }
         if (dir.y == -1 && worm.direction.y != 1) {
-            worm.direction.x = 0;
-            worm.direction.y = -1;
+            worm.nextDirection.x = 0;
+            worm.nextDirection.y = -1;
         }
         if (dir.x == 1 && worm.direction.x != -1) {
-            worm.direction.x = 1;
-            worm.direction.y = 0;
+            worm.nextDirection.x = 1;
+            worm.nextDirection.y = 0;
         }
         if (dir.x == -1 && worm.direction.x != 1) {
-            worm.direction.x = -1;
-            worm.direction.y = 0;
+            worm.nextDirection.x = -1;
+            worm.nextDirection.y = 0;
         }
     }
 
