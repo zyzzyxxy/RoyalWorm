@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class GameEngine extends Observable {
@@ -20,10 +21,18 @@ public class GameEngine extends Observable {
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
     int ghostCounter = 0;
+    boolean gameOver=false;
+    boolean apples,lightning,gun,ghost, royal;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
-    public GameEngine(List<Player> playersList) throws Exception {
+    public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
+        this.apples = apples;
+        this.lightning = lightning;
+        this.gun = gun;
+        this.ghost = ghost;
+        this.royal = royal;
+
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
@@ -34,7 +43,7 @@ public class GameEngine extends Observable {
             public void actionPerformed(ActionEvent e) {
                 try {
                     gameTick();
-                } catch (InterruptedException e1) {
+                } catch (InterruptedException | FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
             }
@@ -44,24 +53,41 @@ public class GameEngine extends Observable {
         gameTimer.start();
     }
 
-    private void gameTick() throws InterruptedException {
-        updateWorms();
+    private void gameTick() throws InterruptedException, FileNotFoundException {
+        if(!gameOver) {
+            updateWorms();
 
-        //no need to inc every counter every time
-        if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
-            updateBoosts();
-            updateDynamicObjects();
+            //no need to inc every counter every time
+            if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
+                updateBoosts();
+                updateDynamicObjects();
+
+            }
+
+            tellObservers();
+            gameCOunter++;
+            if (gameCOunter == 100)
+                gameCOunter = 0;
         }
-
-        tellObservers();
-        gameCOunter++;
-        if (gameCOunter == 100)
-            gameCOunter = 0;
+        else {
+            String current="";
+            try {
+                current = new File( "." ).getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Game over");
+            loadGameworld(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/RoyalWormDemo/gameover"));
+            setChanged();
+            tellObservers();
+        }
     }
 
     //What boosts will be avaliable in Game
     private void makeSpawnList() {
+        if(lightning)
         spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
+        if(apples)
         spawnList.add(new Boost(Position.getRandomPosition(), 'a', 15));
     }
 
@@ -74,7 +100,7 @@ public class GameEngine extends Observable {
             } else
                 b.incCounter();
         }
-        if(ghostCounter==Constants.ghostSpawn) {
+        if(ghostCounter==Constants.ghostSpawn&&ghost) {
             dObjectList.add(new Ghost(Position.getRandomPosition()));
             ghostCounter=0;
         }

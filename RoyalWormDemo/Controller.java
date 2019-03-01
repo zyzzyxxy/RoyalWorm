@@ -27,9 +27,9 @@ public class Controller implements Observer {
     List<Player> playerList = new ArrayList<>();
     Container playerContainer = new Container();
     TextArea textArea;
-    Checkbox royal, speed, apples,guns;
+    Checkbox royal, speed, apples,guns, ghost;
     boolean started = false;
-    boolean royalB, speedB, applesB,gunsB;
+    boolean royalB, speedB, applesB,gunsB, ghostB;
 
 
     //Constructor
@@ -167,6 +167,7 @@ public class Controller implements Observer {
         speed = new Checkbox("Speedboosts");
         apples = new Checkbox("Apples");
         guns = new Checkbox("Guns");
+        ghost = new Checkbox("Ghost");
         apples.setState(true);
 
 
@@ -195,6 +196,7 @@ public class Controller implements Observer {
         startFrame.add(speed);
         startFrame.add(apples);
         startFrame.add(guns);
+        startFrame.add(ghost);
         startFrame.pack();
         startFrame.setVisible(true);
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -205,7 +207,7 @@ public class Controller implements Observer {
 
     public void startGame() throws Exception {
         boolean[] gameMode = {royalB, speedB,applesB,gunsB};
-        this.gameEngine = new GameEngine(playerList);
+        this.gameEngine = new GameEngine(playerList,royalB,applesB,speedB,gunsB,ghostB);
         gameEngine.addObserver(this);
 
         started = true;
@@ -252,6 +254,11 @@ public class Controller implements Observer {
             gunsB=true;
         else
             gunsB=false;
+        if(ghost.getState()==true)
+            ghostB=true;
+        else
+            ghostB=false;
+
     }
     private void hostButtonPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).worm.direction.y != -1) {

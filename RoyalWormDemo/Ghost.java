@@ -42,7 +42,7 @@ public class Ghost extends DynamicObject {
 
         if(directionCounter==changeDirection) {
             direction = Direction.getRandomDirection();
-            changeDirection = rnd.nextInt(5) * 5+1;
+            changeDirection = (rnd.nextInt(5)+1) * 5;
             directionCounter=0;
         }
         else
