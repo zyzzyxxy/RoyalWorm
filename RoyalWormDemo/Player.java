@@ -6,10 +6,10 @@ import java.util.Observer;
 import java.lang.Thread;
 
 public class Player {
-    Worm worm;
-    int lives;
-    String name;
-    Thread wormThread;
+    private Worm worm;
+    private int lives;
+    private String name;
+    private Thread wormThread;
 
     //Network
     public boolean host;

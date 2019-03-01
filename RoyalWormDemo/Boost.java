@@ -1,12 +1,10 @@
 public class Boost extends GameObject{
 
-    int counter = 0;
-    int spawnRate;
+    private int counter = 0;
 
-    public Boost(Position position,char type, int spawnRate)
+    public Boost(Position position, char objChar)
     {
-        super(position,type);
-        this.spawnRate=spawnRate;
+        super(position, objChar);
     }
     public void incCounter()
     {
@@ -16,9 +14,6 @@ public class Boost extends GameObject{
     {
         counter=0;
     }
-    public boolean timeToSpawn()
-    {
-        return counter>=spawnRate;
-    }
+    
 }
 

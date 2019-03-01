@@ -10,21 +10,21 @@ import java.net.UnknownHostException;
 import java.util.*;
 
 public class GameEngine extends Observable {
-
-    public static char[][] GameWorld;
+	
+    private GameObject[][] gameWorld;
     
     private BoostManager boosts;
-    List<Player> playerList = new ArrayList<>();
-    List<Boost> spawnList = new ArrayList<>();
+    static List<Player> playerList = new ArrayList<>();
+    private List<Boost> spawnList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     static BoostManager boostManager = new BoostManager();
-    public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
+    private List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter=0;
 
-    //Todo this constructor shall take List<Player> when controller can provide it
+    //TODO this constructor shall take List<Player> when controller can provide it
 
     public GameEngine(List<Player> playersList) throws Exception {
-        GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        GameWorld = new GameObject[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
         makeSpawnList();
@@ -60,8 +60,8 @@ public class GameEngine extends Observable {
     //What boosts will be avaliable
     private void makeSpawnList()
     {
-        spawnList.add(new Boost(Position.getRandomPosition(),'l',50));
-        spawnList.add(new Boost(Position.getRandomPosition(),'a',20));
+        spawnList.add(new Speed(Position.getRandomPosition()));
+        spawnList.add(new Apple(Position.getRandomPosition()));
     }
 
     //Todo make use of spawnList
@@ -89,9 +89,9 @@ public class GameEngine extends Observable {
     }
 
 
-    public static void updateGameworld(Position pos, char c) {
-        GameWorld[pos.x][pos.y] = c;
-        changes.add(new Change(pos.x,pos.y,c));
+    public void updateGameworld(Position pos, GameObject o) {
+        GameWorld[pos.x][pos.y] = o;
+        changes.add(new Change(pos.x,pos.y,o));
     }
 
     public void tellObservers() {
@@ -100,81 +100,38 @@ public class GameEngine extends Observable {
         //changes.clear();
     }
 
-    //Todo this does not reset worms
+    //TODO this does not reset worms
     public void resetGameworld() {
-        for (char[] c : GameWorld) {
-            Arrays.fill(c, '0');
+    	int y = 0;
+        for (GameObject[] oa : GameWorld) {
+        	int x = 0;
+            for(GameObject o : oa) {
+            	o = new EmptyObject(new Position(x, y));
+            	x++;
+            }
+            y++;
         }
     }
 
-    //Todo fix loading, now it loads wrong by 90 degrees
+    //TODO fix loading, now it loads wrong by 90 degrees
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
 
         int i = 0;
-        for (char[] c : GameWorld) {
+        for (GameObject[] o : GameWorld) {
             if (sc.hasNextLine()) {
-                c = sc.nextLine().toCharArray();
-                GameWorld[i++] = c;
+                o = sc.nextLine().toCharArray();
+                GameWorld[i++] = o;
             } else
-                Arrays.fill(c, '0');
+                Arrays.fill(o, '0');
         }
     }
-
-    //Just for testing
-    public void printGameWorld() {
-        System.out.println("Gameworld:");
-        for (char[] c : GameWorld) {
-            System.out.println(new String(c));
-        }
-
-        String result = "";
-        for (char[] c : GameWorld) {
-            result += new String(c);
-        }
-        byte[] data = result.getBytes();
-        String str = new String(data);
-        System.out.println("result");
-        System.out.println(result);
-        System.out.println("str");
-        System.out.println(str);
-
-        char[][] testWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        int i = 0;
-        while (true) {
-            testWorld[i] = str.substring(0, Constants.worldHeight).toCharArray();
-            str = str.substring(Constants.worldWidth);
-            i++;
-            if (i > Constants.worldHeight - 1)
-                break;
-        }
-        for (char[] c : testWorld) {
-            System.out.println(new String(c));
-        }
-
-        System.out.println("Same?");
-        System.out.println(Testing.mapsEqual(GameWorld, testWorld));
-
-
+    
+    public GameObject getFromGameWorld(int x, int y) {
+    	return gameWorld[x][y];
     }
+    
     public static List<Player> getPlayerList() {
     	return playerList;
     }
-
-    /*
-    @Override
-    public synchronized void update(Observable o, Object arg) {
-        Position[] changed = (Position[])arg;
-        GameWorld[changed[0].x][changed[0].y] = ((Worm) o).type;
-        try {
-            GameWorld[changed[1].x][changed[1].y] = '0';
-        }
-        catch (Exception e){
-            System.out.println("no tail yet");
-        }
-
-        setChanged();
-        notifyObservers();
-    }
-    */
 }

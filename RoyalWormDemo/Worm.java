@@ -5,32 +5,29 @@ import java.util.List;
 import java.util.Observable;
 
 public class Worm extends GameObject {
-    int speed, length, lives;
-    List<Position> body;
-    Position headPos, tailPos, startPos;
-    //Position[] updatedPos = new Position[2];
-    int wormNumber, counter;
-    char type;
-    BoardCordinates position, direction;
+    private int speed, length, lives;
+    private List<Position> body;
+    private Position headPos, tailPos, startPos;
+    private int wormNumber, counter;
+    private char objChar;
+    private Position pos;
+    private Direction dir;
 
-
-    public Worm(Position position, Direction direction, int wormNumber) {
-        super(position, Integer.toString(wormNumber).charAt(0));
-        this.position = position;
-        this.direction = direction;
-        this.speed = Constants.wormspeed;
-        this.length = Constants.wormStartingLength;
+    public Worm(Position pos, Direction dir, int wormNumber) {
+        super(pos, (char) wormNumber);
+        this.pos = pos;
+        this.dir = dir;
         this.wormNumber = wormNumber;
-        this.headPos = position;
-        this.tailPos = position;
-        this.startPos = position;
-        this.lives = 3;
-        this.counter = 0;
-        this.type = Integer.toString(wormNumber).charAt(0);
+        speed = Constants.wormspeed;
+        length = Constants.wormStartingLength;
+        headPos = pos;
+        tailPos = pos;
+        startPos = pos;
+        lives = 3;
+        counter = 0;
+        objChar = (char) wormNumber;
         body = new ArrayList<>();
     }
-
-
 
     public void update() throws InterruptedException {
         updateBody();
@@ -59,12 +56,12 @@ public class Worm extends GameObject {
         body.add(headPos);
         head = headPos;
         //  tailPos=body.get(0);
-        if (body.size() < this.length) {
+        if (body.size() < length) {
             tail = null;
-            GameEngine.updateGameworld(headPos, this.type);
+            GameEngine.updateGameworld(headPos, this);
         } else {
-            GameEngine.updateGameworld(headPos, this.type);
-            GameEngine.updateGameworld(body.get(0), '0');
+            GameEngine.updateGameworld(headPos, this);
+            GameEngine.updateGameworld(body.get(0), new EmptyObject());
             tail = tailPos;
             body.remove(0);
         }
@@ -90,7 +87,7 @@ public class Worm extends GameObject {
 
     public void looseLife() {
         lives--;
-        System.out.println("Worm " + type +" have " + lives + " lives");
+        System.out.println("Worm " + objChar +" have " + lives + " lives");
     }
 
     public boolean isAlive() {
@@ -100,7 +97,7 @@ public class Worm extends GameObject {
     public void reset() {
         //Todo fix this
         for (Position p : body) {
-            GameEngine.updateGameworld(p, '0');
+            GameEngine.updateGameworld(p, new EmptyObject());
         }
         body.clear();
         length = Constants.wormStartingLength;
@@ -145,6 +142,9 @@ public class Worm extends GameObject {
     	return speed;
     }
 
+    public Direction getDirection() {
+    	return dir;
+    }
 
 }
 

@@ -5,7 +5,6 @@ public class Testing {
         return eq;
     }
 
-
     public static void printWorld(char[][] w1) {
         int zeros = 0;
         for (char[] c : w1) {
@@ -19,7 +18,6 @@ public class Testing {
         }
 
     }
-
 
     public static byte[][] toBytes(char[][] data) {
         byte[][] toRet = new byte[data.length][data[0].length];

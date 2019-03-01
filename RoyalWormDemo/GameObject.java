@@ -1,13 +1,17 @@
 public class GameObject {
     private Position position;
-    char type;
-
-    public GameObject(Position position, char type) {
+    private char objChar;
+    
+    public GameObject(Position position, char objChar) {
         this.position = position;
-        this.type = type;
+        this.objChar = objChar;
     }
 
     public Position getPosition() {
         return position;
     }
+    
+    public char getChar() {
+		return objChar;
+	}
 }

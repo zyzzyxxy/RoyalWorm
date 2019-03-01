@@ -1,7 +1,15 @@
 public class Change extends BoardCordinates {
-    char type;
-    public Change(int x, int y, char type) {
+    private GameObject object;
+    public Change(int x, int y, GameObject object) {
         super(x, y);
-        this.type = type;
+        this.setObject(object);
     }
+    
+	public GameObject getObject() {
+		return object;
+	}
+	
+	public void setObject(GameObject object) {
+		this.object = object;
+	}
 }

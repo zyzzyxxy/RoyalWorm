@@ -13,7 +13,7 @@ public class CollisionHandler {
 		if (pos.getX() < 0 || pos.getX() > squareWidth || pos.getY() < 0 || pos.getY() > squareHeight) {
 			return Constants.WallCollision;
 		}
-		return GameEngine.GameWorld[pos.getX()][pos.getY()] != '0';
+		return Main.gameController.gameEngine.getFromGameWorld(pos.getX(), pos.getY()) instanceof EmptyObject;
 	}
 
 	public static boolean collisionHandle(Worm worm, Position pos) throws InterruptedException {
