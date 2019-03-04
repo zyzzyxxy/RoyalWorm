@@ -21,7 +21,7 @@ public class GameEngine extends Observable {
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
     int ghostCounter = 0;
-    boolean gameOver=false;
+    boolean gameOver=true;
     boolean apples,lightning,gun,ghost, royal;
 
     //Todo this constructor shall take List<Player> when controller can provide it

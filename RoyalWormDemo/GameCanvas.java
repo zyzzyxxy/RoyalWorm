@@ -23,13 +23,13 @@ public class GameCanvas extends JPanel {
 
     @Override
     public void paint(Graphics g) {
-       if (paintCounter < 3) {
+      /* if (paintCounter < 3) {
             drawWorld(g);
             paintCounter++;
         } else {
             drawChanges(g);
-        }
-        //drawWorld(g);
+        }*/
+        drawWorld(g);
     }
 
     public void drawWorld(Graphics g)
