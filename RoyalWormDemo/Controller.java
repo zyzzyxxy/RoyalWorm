@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -21,18 +19,17 @@ public class Controller implements Observer {
     GameEngine gameEngine;
     DatagramSocket datagramSocket, recieveSocket;
     GameWindow gw;
-    ClientWindow clWindow;
     JFrame startFrame;
     boolean host = false;
     byte[] recieveData = new byte[1024];
-    Thread recieveThread, tempThread;
+    Thread recieveThread;
     NetworkReciever nwReciever;
-    NetworkReciever playerReciever;
-    String hostAdress;
     List<Player> playerList = new ArrayList<>();
     Container playerContainer = new Container();
     TextArea textArea;
+    Checkbox royal, speed, apples,guns, ghost;
     boolean started = false;
+    boolean royalB, speedB, applesB,gunsB, ghostB;
 
 
     //Constructor
@@ -40,14 +37,9 @@ public class Controller implements Observer {
 
         nwReciever = new NetworkReciever(1230);
         nwReciever.addObserver(this::update);
-        //playerReciever = new NetworkReciever(1230);
-        //playerReciever.addObserver(this::update);
         playerList.add(new Player("Host", 1, "127.0.0.1", true));
 
         showStartScreen();
-        //showStartScreen();
-        //while (startFrame.isEnabled()) { }
-        //startGame();
 
     }
 
@@ -163,31 +155,22 @@ public class Controller implements Observer {
         }
     }
 
-
-    //Todo
-    private void recieveDataFromPlayers() throws UnknownHostException {
-        for (Player p : gameEngine.playerList) {
-            System.out.println("asddd");
-            if (!p.host) {
-                DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);
-                try {
-                    recieveSocket.receive(dp);
-                    String message = new String(dp.getData(), 0, dp.getLength());
-                    System.out.println(message);
-
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     private void showStartScreen() throws Exception {
         startFrame = new JFrame("HOST-Screen");
         startFrame.getContentPane().setLayout(new FlowLayout());
+        startFrame.setPreferredSize(new Dimension(600,400));
+        startFrame.setResizable(false);
         startFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         JButton hostButton = new JButton("START");
+
+        royal = new Checkbox("RoyalMode");
+        speed = new Checkbox("Speedboosts");
+        apples = new Checkbox("Apples");
+        guns = new Checkbox("Guns");
+        ghost = new Checkbox("Ghost");
+        apples.setState(true);
+
+
         playerContainer.setPreferredSize(new Dimension(50, 300));
 
         this.datagramSocket = new DatagramSocket();
@@ -203,12 +186,17 @@ public class Controller implements Observer {
 
 
         TextField textField = new TextField(InetAddress.getLocalHost().toString());
-        textArea = new TextArea("No players connected");
+        textArea = new TextArea();
         textArea.setColumns(15);
         textArea.setRows(20);
         startFrame.add(hostButton);
         startFrame.add(textField);
         startFrame.add(textArea);
+        startFrame.add(royal);
+        startFrame.add(speed);
+        startFrame.add(apples);
+        startFrame.add(guns);
+        startFrame.add(ghost);
         startFrame.pack();
         startFrame.setVisible(true);
         startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -218,10 +206,9 @@ public class Controller implements Observer {
     }
 
     public void startGame() throws Exception {
-        String[] players = {"Bob", "James"};//, "StephenHawkings", "Gulagubben"};
-        this.gameEngine = new GameEngine(playerList);
+        boolean[] gameMode = {royalB, speedB,applesB,gunsB};
+        this.gameEngine = new GameEngine(playerList,royalB,applesB,speedB,gunsB,ghostB);
         gameEngine.addObserver(this);
-
 
         started = true;
         gw = new GameWindow(gameEngine);
@@ -232,16 +219,15 @@ public class Controller implements Observer {
                 System.out.println("Key pressed" + e.getKeyCode());
             }
         });
-        //  recieveThread = new Thread(nwReciever);
-        // recieveThread.start();
-
-
     }
 
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
             System.out.println("HostButtonClicked");
             host = true;
+
+            checkGameMode();
+
             startGame();
             startFrame.dispose();
         }
@@ -250,22 +236,46 @@ public class Controller implements Observer {
         }
     }
 
+    private void checkGameMode()
+    {
+        if(royal.getState()==true)
+            royalB=true;
+        else
+            royalB=false;
+        if(speed.getState()==true)
+            speedB=true;
+        else
+            speedB=false;
+        if(apples.getState()==true)
+            applesB=true;
+        else
+            applesB=false;
+        if(guns.getState()==true)
+            gunsB=true;
+        else
+            gunsB=false;
+        if(ghost.getState()==true)
+            ghostB=true;
+        else
+            ghostB=false;
+
+    }
     private void hostButtonPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).worm.direction.y != -1) {
-            gameEngine.playerList.get(0).worm.direction.x = 0;
-            gameEngine.playerList.get(0).worm.direction.y = 1;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 1;
         }
         if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.direction.y != 1) {
-            gameEngine.playerList.get(0).worm.direction.x = 0;
-            gameEngine.playerList.get(0).worm.direction.y = -1;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.y = -1;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.direction.x != 1) {
-            gameEngine.playerList.get(0).worm.direction.x = -1;
-            gameEngine.playerList.get(0).worm.direction.y = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.x = -1;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.direction.x != -1) {
-            gameEngine.playerList.get(0).worm.direction.x = 1;
-            gameEngine.playerList.get(0).worm.direction.y = 0;
+            gameEngine.playerList.get(0).worm.nextDirection.x = 1;
+            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
         }
     }
 

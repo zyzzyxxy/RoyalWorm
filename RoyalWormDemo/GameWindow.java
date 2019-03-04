@@ -1,13 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.SocketException;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -22,6 +19,7 @@ public class GameWindow extends JFrame implements Observer {
     JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
     GameCanvas gameCanvas;
     GameEngine gm;
+    Container playerContainer;
 
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
@@ -32,6 +30,7 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
 
+
     }
 
     @Override
@@ -39,23 +38,29 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.paint(gameCanvas.getGraphics());
     }
 
-
     private void makeFrame() {
         makeMenus();
         setJMenuBar(menuBar);
+        this.getContentPane().setLayout(new BorderLayout());
         gameCanvas = new GameCanvas();
         gameCanvas.setFocusable(true);
-        getContentPane().add(gameCanvas);
+        getContentPane().add(gameCanvas,BorderLayout.CENTER);
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
+
+        playerContainer = new Container();
+        playerContainer.setLayout(new FlowLayout());
+        for (Player p:GameEngine.playerList) {
+            playerContainer.add(p.playerPanel);
+        }
+        this.getContentPane().add(playerContainer,BorderLayout.NORTH);
 
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
     }
 
-    private void makeMenus()
-    {
+    private void makeMenus() {
         File = new JMenu("File"); Options = new JMenu("Options"); Help = new JMenu("Help");
         menuBar = new JMenuBar();
         menuBar.add(File); menuBar.add(Options); menuBar.add(Help);
@@ -113,25 +118,8 @@ public class GameWindow extends JFrame implements Observer {
         }
         gameCanvas.repaint();
     }
-/*
-    private void saveFile() throws IOException {
-        JFileChooser jFileChooser = new JFileChooser();
-        String current = new java.io.File( "." ).getCanonicalPath();
-        jFileChooser.setCurrentDirectory(new File(current));
-        if (jFileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
-            java.io.File file = jFileChooser.getSelectedFile();
-            if (!file.exists())
-                file.createNewFile();
-            FileWriter fw = new FileWriter(file);
-            for (char[] c:GameEngine.GameWorld) {
-                fw.write(new String(c));
-                fw.write("\n");
-            }
-            fw.close();
-        }
-        gameCanvas.repaint();
-    }*/
 
+    //Saves a copys of the current map
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();

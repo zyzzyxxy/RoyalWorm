@@ -1,25 +1,38 @@
 
+import com.sun.org.apache.bcel.internal.generic.GotoInstruction;
+
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class GameEngine extends Observable {
 
     public static char[][] GameWorld;
 
-    List<Player> playerList = new ArrayList<>();
+    public static List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
+    public static List<DynamicObject> dObjectList = new ArrayList<>();
     javax.swing.Timer gameTimer;
     BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
+    int ghostCounter = 0;
+    boolean gameOver=true;
+    boolean apples,lightning,gun,ghost, royal;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
-    public GameEngine(List<Player> playersList) throws Exception {
+    public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
+        this.apples = apples;
+        this.lightning = lightning;
+        this.gun = gun;
+        this.ghost = ghost;
+        this.royal = royal;
+
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
@@ -30,7 +43,7 @@ public class GameEngine extends Observable {
             public void actionPerformed(ActionEvent e) {
                 try {
                     gameTick();
-                } catch (InterruptedException e1) {
+                } catch (InterruptedException | FileNotFoundException e1) {
                     e1.printStackTrace();
                 }
             }
@@ -40,27 +53,45 @@ public class GameEngine extends Observable {
         gameTimer.start();
     }
 
-    private void gameTick() throws InterruptedException {
-        updateWorms();
+    private void gameTick() throws InterruptedException, FileNotFoundException {
+        if(!gameOver) {
+            updateWorms();
 
-        //TOdo fix this
-        if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0)
-            updateBoosts();
+            //no need to inc every counter every time
+            if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
+                updateBoosts();
+                updateDynamicObjects();
 
-        tellObservers();
-        //changes.clear();
-        gameCOunter++;
-        if (gameCOunter == 100)
-            gameCOunter = 0;
+            }
+
+            tellObservers();
+            gameCOunter++;
+            if (gameCOunter == 100)
+                gameCOunter = 0;
+        }
+        else {
+            String current="";
+            try {
+                current = new File( "." ).getCanonicalPath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Game over");
+            loadGameworld(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/RoyalWormDemo/gameover"));
+            setChanged();
+            tellObservers();
+        }
     }
 
     //What boosts will be avaliable in Game
     private void makeSpawnList() {
-        spawnList.add(new Boost(Position.getRandomPosition(), 'l', 10));
-        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 20));
+        if(lightning)
+        spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
+        if(apples)
+        spawnList.add(new Boost(Position.getRandomPosition(), 'a', 15));
     }
 
-    //Todo make use of spawnList
+    //This method updates boost and spawns them if time
     private void updateBoosts() {
         for (Boost b : spawnList) {
             if (b.timeToSpawn()) {
@@ -69,9 +100,14 @@ public class GameEngine extends Observable {
             } else
                 b.incCounter();
         }
-
+        if(ghostCounter==Constants.ghostSpawn&&ghost) {
+            dObjectList.add(new Ghost(Position.getRandomPosition()));
+            ghostCounter=0;
+        }
+        else {ghostCounter++;}
     }
 
+    //Update worms, move one step
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
             if (p.worm.counter == p.worm.speed) {
@@ -82,6 +118,22 @@ public class GameEngine extends Observable {
             }
         }
     }
+    private void updateDynamicObjects() throws InterruptedException {
+        for (int i = 0; i < dObjectList.size();i++) {
+            if(dObjectList.get(i) instanceof Ghost)
+                if(((Ghost)dObjectList.get(i)).dead)
+                    dObjectList.remove(dObjectList.get(i));
+        }
+        for (int i = 0; i < dObjectList.size();i++) {
+            if (dObjectList.get(i).counter ==dObjectList.get(i).speed) {
+                dObjectList.get(i).update();
+                dObjectList.get(i).counter = 0;
+            } else {
+                dObjectList.get(i).counter++;
+            }
+        }
+    }
+
 
 
     public static void updateGameworld(Position pos, char c) {
@@ -92,20 +144,19 @@ public class GameEngine extends Observable {
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
-        //changes.clear();
     }
 
-    //Todo this does not reset worms
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
+            for (Player p :playerList) {
+                p.worm.reset();
+            }
         }
     }
 
-    //Todo fix loading, now it loads wrong by 90 degrees
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
-
         for (int i = 0; i < Constants.worldHeight; i++) {
             if (sc.hasNextLine()) {
                 char[] c = sc.nextLine().toCharArray();
@@ -114,10 +165,13 @@ public class GameEngine extends Observable {
                 if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5')
                     c[j]='0';
                 updateGameworld(new Position(j,i),c[j]);
-               // GameWorld[j][i] = c[j];
             }
         }
         }
+    }
+    public static void removeFromDynamicList(GameObject o)
+    {
+        dObjectList.remove(o);
     }
 
 

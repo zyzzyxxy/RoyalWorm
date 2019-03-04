@@ -1,20 +1,17 @@
-import java.awt.*;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Observable;
-import java.util.Observer;
 import java.lang.Thread;
 
 public class Player {
     Worm worm;
     int lives;
     String name;
-    Thread wormThread;
 
     //Network
     public boolean host;
     public InetAddress addr;
     public int port;
+    PlayerPanel playerPanel;
 
 
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
@@ -27,25 +24,26 @@ public class Player {
         lives = Constants.startingLives;
         this.host = host;
         this.addr = InetAddress.getByName(addr);
+        this.playerPanel = new PlayerPanel(name);
 
     }
 
     public void updateDirection(Direction dir) {
         if (dir.y == 1 && worm.direction.y != -1) {
-            worm.direction.x = 0;
-            worm.direction.y = 1;
+            worm.nextDirection.x = 0;
+            worm.nextDirection.y = 1;
         }
         if (dir.y == -1 && worm.direction.y != 1) {
-            worm.direction.x = 0;
-            worm.direction.y = -1;
+            worm.nextDirection.x = 0;
+            worm.nextDirection.y = -1;
         }
         if (dir.x == 1 && worm.direction.x != -1) {
-            worm.direction.x = 1;
-            worm.direction.y = 0;
+            worm.nextDirection.x = 1;
+            worm.nextDirection.y = 0;
         }
         if (dir.x == -1 && worm.direction.x != 1) {
-            worm.direction.x = -1;
-            worm.direction.y = 0;
+            worm.nextDirection.x = -1;
+            worm.nextDirection.y = 0;
         }
     }
 

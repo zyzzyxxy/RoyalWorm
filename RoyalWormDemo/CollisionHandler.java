@@ -9,8 +9,9 @@ public class CollisionHandler {
 		}
 		return false;
 	}
-	public static void collisionHandle(Worm w, Position pos) throws InterruptedException {
-		System.out.println("in CH");
+	public static void collisionHandle(GameObject w, Position pos) throws InterruptedException {
+
+		if(w instanceof Worm){
 		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5') {
 			System.out.print("in if");
 			switch (GameEngine.GameWorld[pos.x][pos.y]) {
@@ -53,21 +54,21 @@ public class CollisionHandler {
 					break;
 			}
 		}
+		}
+		else if (w instanceof Ghost)
+		{
+			System.out.println("Ghost collision");
+			for (Player p:GameEngine.playerList) {
+				System.out.println(p.name);
+				System.out.println(p.worm.isInBody(pos));
+				if(p.worm.isInBody(pos)!=-1) {
+					p.worm.cut(pos);
+					((Ghost)w).dead=true;
+
+				}
+			}
+		}
+
 	}
-	//For when worm extends GameObject
-	/*
-	public static void collisionHandle(GameObject gm, Position pos) 
-	{
-		System.out.println("in CH");
-		if(gm.type=='w') {
-			System.out.print("in if");
-		switch (GameEngine.GameWorld[pos.x][pos.y]){
-		
-			case '0': break;
-			case 'a': ((Worm)gm).grow(); System.out.print("ate apple"); break;
-			case 'w': ((Worm)gm).reset(); break;
-		}
-		}
-	}*/
 
 }

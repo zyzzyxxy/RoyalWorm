@@ -11,7 +11,7 @@ public class Worm extends GameObject {
     //Position[] updatedPos = new Position[2];
     int wormNumber, counter;
     char type;
-    BoardCordinates position, direction;
+    BoardCordinates position, direction, nextDirection;
     int isFast = 0;
 
 
@@ -19,6 +19,7 @@ public class Worm extends GameObject {
         super(position, Integer.toString(wormNumber).charAt(0));
         this.position = position;
         this.direction = direction;
+        this.nextDirection = direction;
         this.speed = Constants.wormspeed;
         this.length = Constants.wormStartingLength;
         this.wormNumber = wormNumber;
@@ -34,6 +35,7 @@ public class Worm extends GameObject {
 
 
     public void update() throws InterruptedException {
+        direction=nextDirection;
         updateBody();
     }
 
@@ -121,7 +123,7 @@ public class Worm extends GameObject {
 
                 System.out.println("Running thread in CH");
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -135,6 +137,32 @@ public class Worm extends GameObject {
     }
     public void resetSpeed() {
         speed = Constants.wormspeed;
+    }
+    public void cut(Position p) {
+        int i = isInBody(p);
+        if(i!=-1)
+        {
+
+            //body = body.subList(0,i);
+
+            try{
+            List<Position> bodyRests = new ArrayList<Position>(body.subList(0, i));
+            for (Position k:bodyRests) {
+                GameEngine.updateGameworld(k, '0');
+            }}catch (Exception e){e.printStackTrace();}
+            body = new ArrayList<Position>(body.subList(i, body.size()));
+            length=body.size();
+        }
+    }
+    public int isInBody(Position p) {
+        int i =0;
+        for (Position b:body ) {
+            if(p.x==b.x&&p.y==b.y)
+                return i;
+            i++;
+        }
+
+        return -1;
     }
 
     public void updateHeadPos() {
@@ -151,7 +179,6 @@ public class Worm extends GameObject {
     }
 
     //Just for testing
-
     public void printBody() {
         for (Position p : body
         ) {
