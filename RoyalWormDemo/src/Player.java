@@ -53,5 +53,10 @@ public class Player {
         this.addr = InetAddress.getByName(addr);
     }
 
+	public boolean alive() {
+		
+		return lives>0;
+	}
+
 
 }

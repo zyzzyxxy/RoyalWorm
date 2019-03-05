@@ -127,7 +127,7 @@ public class Bullet extends GameObject {
     public void updatePos2() {
     	
     	if(continueProjection) {
-    		System.out.println(continueProjection);
+    		//System.out.println(continueProjection);
         headPos = new Position(headPos.x + dirx, headPos.y + diry);
         if (headPos.x >= Constants.worldWidth)
             headPos.x = 0;

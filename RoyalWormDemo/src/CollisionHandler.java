@@ -17,7 +17,24 @@ public class CollisionHandler {
 		
 		System.out.println("in CH");
 		System.out.println(Thread.activeCount());
-		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5') {
+		if(w instanceof Bullet) {
+			System.out.println("Its a bullet");
+			switch	(GameEngine.GameWorld[pos.x][pos.y]) {
+			case '1': 
+				((Bullet)w).setProjection();
+				((Bullet)w).getWorm().bullets.remove((Bullet)w);
+				System.out.println("removed bullet");
+				//cut
+				break;
+			case 'w':
+				((Bullet)w).setProjection();
+				((Bullet)w).getWorm().bullets.remove((Bullet)w);
+				System.out.println("removed bullet");
+				break;
+			}
+		}
+		//This is for worms
+		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5'  ) {
 			System.out.print("in if");
 			switch (GameEngine.GameWorld[pos.x][pos.y]) {
 			

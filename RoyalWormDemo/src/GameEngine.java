@@ -93,11 +93,13 @@ public class GameEngine extends Observable {
 
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
-            if (p.worm.counter == p.worm.speed) {
-                p.worm.update();
-                p.worm.counter = 0;
-            } else {
-                p.worm.counter++;
+        	if (p.alive()) {
+        		if (p.worm.counter == p.worm.speed) {
+        			p.worm.update();
+        			p.worm.counter = 0;
+        		} else {
+        			p.worm.counter++;
+        		}
             }
         }
     }
