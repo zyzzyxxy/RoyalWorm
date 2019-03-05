@@ -27,12 +27,12 @@ public class GameWindow extends JFrame implements Observer {
     JFrame startWindow;
 
     public GameWindow(GameEngine gm) throws SocketException {
-        this.gm = gm;
+       this.gm = gm;
         makeFrame();
-        gm.addObserver(this);
+       gm.addObserver(this);
         setResizable(false);
         gameCanvas.grabFocus();
-
+        
     }
     
     @Override

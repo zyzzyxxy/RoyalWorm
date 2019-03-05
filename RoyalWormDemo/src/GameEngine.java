@@ -13,7 +13,7 @@ import java.util.TimerTask;
 public class GameEngine extends Observable {
 	
     public static char[][] GameWorld;
-    List<Bullet> bullets = new ArrayList<>();
+   // List<Bullet> bullets = new ArrayList<>();
     List<Player> playerList = new ArrayList<>();
     List<Boost> spawnList = new ArrayList<>();
     javax.swing.Timer gameTimer;

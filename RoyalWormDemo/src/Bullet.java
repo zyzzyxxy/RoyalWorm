@@ -16,21 +16,25 @@ public class Bullet extends GameObject {
     private BoardCordinates direction;
     boolean gun;
     int dirx, diry;
-    
+	private boolean continueProjection;
+    Worm w;
 
-    public Bullet(Position position, BoardCordinates direction) {
+    public Bullet(Position position, BoardCordinates direction, Worm w) {
         super(position, 'b');
         this.position = position;
         this.direction = direction;
-        this.speed = Constants.wormspeed+1;
+        this.speed = Constants.wormspeed;
         this.length = 1;
         
         this.headPos = position;
         this.tailPos = position;
         this.counter = 0;
         this.type = 'b';
+        dirx = direction.getX();
+        diry = direction.getY();
         body = new ArrayList<>();
-
+        continueProjection = true;
+        this.w = w;
     }
 
 
@@ -49,6 +53,7 @@ public class Bullet extends GameObject {
 
     //Doesnt work must update instancieted GE
     public void updatePos() throws InterruptedException {
+    	if(continueProjection) {
         Position head, tail;
         head = null;
         tail = null;
@@ -76,7 +81,7 @@ public class Bullet extends GameObject {
 
         }
     }
-
+    }
     public void grow() {
         length += 1;
     }
@@ -120,7 +125,10 @@ public class Bullet extends GameObject {
     }
 
     public void updatePos2() {
-        headPos = new Position(headPos.x + direction.x, headPos.y + direction.getY());
+    	
+    	if(continueProjection) {
+    		System.out.println(continueProjection);
+        headPos = new Position(headPos.x + dirx, headPos.y + diry);
         if (headPos.x >= Constants.worldWidth)
             headPos.x = 0;
         if (headPos.y >= Constants.worldHeight)
@@ -129,7 +137,8 @@ public class Bullet extends GameObject {
             headPos.x = Constants.worldWidth - 1;
         if (headPos.y < 0)
             headPos.y = Constants.worldHeight - 1;
-
+        
+    	}
     }
 
     //Just for testing
@@ -137,11 +146,23 @@ public class Bullet extends GameObject {
     public void printBody() {
         for (Position p : body
         ) {
-
+        	
             System.out.println(p.x);
             System.out.println(p.y);
         }
     }
+    
+    public void setProjection() {
+    	continueProjection = false;
+    }
+    
+    public boolean getProjection() {
+    	return continueProjection;
+    }
+    
+   public Worm getWorm() {
+	   return w;
+   }
 
 
 

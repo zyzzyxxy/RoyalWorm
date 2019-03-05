@@ -13,7 +13,7 @@ public class CollisionHandler {
 		}
 		return false;
 	}
-	public static void collisionHandle(Worm w, Position pos) throws InterruptedException {
+	public static void collisionHandle(GameObject w, Position pos) throws InterruptedException {
 		
 		System.out.println("in CH");
 		System.out.println(Thread.activeCount());
@@ -30,12 +30,16 @@ public class CollisionHandler {
 					((Worm) w).grow(10);
 					break;
 				case 'w':
+					if(w instanceof Worm) {
 					((Worm) w).reset();
 					((Worm) w).looseLife();
 					System.out.println("wall");
-					if(w.lives == 0) {
-						//askNewGame();
 					}
+					if(w instanceof Bullet) {
+						((Bullet)w).setProjection();
+						((Bullet)w).getWorm().bullets.remove((Bullet)w);
+						System.out.println("removed bullet");
+					}	
 					break;
 				case '1':
 					((Worm) w).reset();
@@ -59,7 +63,10 @@ public class CollisionHandler {
 					break;
 				case 'g':
 					((Worm)w).gun=true;
-					break;	
+					break;
+				case 'b':
+					((Worm) w).reset();
+					((Worm) w).looseLife();
 				case 'l':
 					((Worm) w).addToSpeed(Constants.wormspeed/2);
 					Thread t = new Thread(new Runnable() {
@@ -103,8 +110,7 @@ public class CollisionHandler {
 		}
 	}*/
 	public static void collisionHandle(Bullet bullet, Position headPos) {
-		// TODO Auto-generated method stub
-		
-	}
 
+
+	}
 }

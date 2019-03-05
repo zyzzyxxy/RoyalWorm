@@ -147,7 +147,7 @@ public class Worm extends GameObject {
 
 
 	public void fireGun() {
-		Bullet b = new Bullet(headPos, direction);
+		Bullet b = new Bullet(headPos, direction, this);
 		bullets.add(b);
 		System.out.println("Fires gun with dir " + direction);
 	}
