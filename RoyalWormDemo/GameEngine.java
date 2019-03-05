@@ -18,9 +18,9 @@ public class GameEngine extends Observable {
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
     int ghostCounter = 0;
+    int shrinkCOunter = 0;
     boolean gameOver=false;
     boolean apples,lightning,gun,ghost, royal;
-    private int shrinkCOunter = 0;
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
         this.apples = apples;
@@ -79,7 +79,7 @@ public class GameEngine extends Observable {
                 e.printStackTrace();
             }
             System.out.println("Game over");
-            loadGameworld(new File(current+"/RoyalWorm/RoyalWormDemo/gameover"));
+            loadGameworld(new File(current+"/RoyalWorm/gameOver.txt"));
             setChanged();
             tellObservers();
         }
@@ -98,6 +98,10 @@ public class GameEngine extends Observable {
             gameOver=true;
         }
 
+    }
+
+    public char[][] getGameWorld() {
+        return GameWorld;
     }
 
     //What boosts will be avaliable in Game
