@@ -38,7 +38,7 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
-    public static void sendDirectionData(Direction dir,DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
+    public static void sendDirectionData(Direction dir, DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
     {
         String result = Integer.toString(dir.x) + Integer.toString(dir.y);
         byte[] data = result.getBytes();
