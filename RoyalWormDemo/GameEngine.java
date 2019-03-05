@@ -90,7 +90,7 @@ public class GameEngine extends Observable {
 
         int playersAlive=0;
         for (Player p:playerList) {
-            if(p.worm.lives>0)
+            if(p.getWormLives()>0)
                 playersAlive++;
         }
         if(playersAlive<=0)
@@ -154,12 +154,12 @@ public class GameEngine extends Observable {
     //Update worms, move one step
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
-            if(p.worm.lives>0) {
-                if (p.worm.counter == p.worm.speed) {
+            if(p.getWormLives()>0) {
+                if (p.getWormCounter() == p.getWormSpeed()) {
                     p.worm.update();
-                    p.worm.counter = 0;
+                    p.resetWormCounter();
                 } else {
-                    p.worm.counter++;
+                    p.incWormCounter();
                 }
             }
         }

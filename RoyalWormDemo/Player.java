@@ -7,10 +7,11 @@ public class Player {
     int lives;
     String name;
 
+
     //Network
-    public boolean host;
-    public InetAddress addr;
-    public int port;
+    private boolean host;
+    private InetAddress addr;
+    private int port;
     PlayerPanel playerPanel;
 
 
@@ -29,23 +30,49 @@ public class Player {
     }
 
     public void updateDirection(Direction dir) {
-        if (dir.y == 1 && worm.direction.y != -1) {
-            worm.nextDirection.x = 0;
-            worm.nextDirection.y = 1;
+        if (dir.y == 1 && worm.getDirection().y != -1) {
+            worm.setNextDirection(new Direction(0,1));
         }
-        if (dir.y == -1 && worm.direction.y != 1) {
-            worm.nextDirection.x = 0;
-            worm.nextDirection.y = -1;
+        if (dir.y == -1 && worm.getDirection().y != 1) {
+            worm.setNextDirection(new Direction(0,-1));
         }
-        if (dir.x == 1 && worm.direction.x != -1) {
-            worm.nextDirection.x = 1;
-            worm.nextDirection.y = 0;
+        if (dir.x == 1 && worm.getDirection().x != -1) {
+            worm.setNextDirection(new Direction(1,0));
         }
-        if (dir.x == -1 && worm.direction.x != 1) {
-            worm.nextDirection.x = -1;
-            worm.nextDirection.y = 0;
+        if (dir.x == -1 && worm.getDirection().x != 1) {
+            worm.setNextDirection(new Direction(-1,0));
         }
     }
+
+
+    public Worm getWorm() {
+        return worm;
+    }
+    public int getWormCounter() {
+        return worm.getCounter();
+    }
+    public void resetWormCounter() { worm.resetCounter(); }
+    public void incWormCounter() { worm.incWormCounter(); }
+    public int getWormSpeed() {
+        return worm.getSpeed();
+    }
+
+    public boolean isHost() {
+        return host;
+    }
+
+    public InetAddress getAddr() {
+        return addr;
+    }
+
+    public int getPort() {
+        return port;
+    }
+    public int getWormLives() {
+        return worm.getLives();
+    }
+
+
 
     public void setInetAddr(String addr) throws UnknownHostException {
         this.addr = InetAddress.getByName(addr);

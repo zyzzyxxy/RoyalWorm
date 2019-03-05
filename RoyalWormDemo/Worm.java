@@ -5,14 +5,44 @@ import java.util.List;
 import java.util.Observable;
 
 public class Worm extends GameObject {
-    int speed, length, lives;
-    List<Position> body;
-    Position headPos, tailPos, startPos;
-    //Position[] updatedPos = new Position[2];
-    int wormNumber, counter;
-    char type;
-    BoardCordinates position, direction, nextDirection;
-    int isFast = 0;
+    public int getSpeed() {
+        return speed;
+    }
+
+    private int speed;
+    private int length;
+
+    public int getLives() {
+        return lives;
+    }
+
+    private int lives;
+    private List<Position> body;
+    private Position headPos, tailPos, startPos;
+    private int wormNumber;
+
+    public int getCounter() {
+        return counter;
+    }
+
+    private int counter;
+    private char type;
+    private BoardCordinates position;
+
+    private BoardCordinates direction;
+
+    public BoardCordinates getDirection() {
+        return direction;
+    }
+
+
+    private BoardCordinates nextDirection;
+
+    public void setNextDirection(BoardCordinates nextDirection) {
+        this.nextDirection = nextDirection;
+    }
+
+    private int isFast = 0;
     private boolean gun;
 
 
@@ -35,19 +65,12 @@ public class Worm extends GameObject {
     }
 
 
-
     public void update() throws InterruptedException {
-        direction=nextDirection;
+        direction = nextDirection;
         updateBody();
     }
-
-    public Position getHeadPos() {
-        return headPos;
-    }
-
-    public Position getTailPos() {
-        return tailPos;
-    }
+    public void resetCounter() { counter=0; }
+    public void incWormCounter() { counter++; }
 
     //Doesnt work must update instancieted GE
     public void updateBody() throws InterruptedException {
@@ -87,17 +110,9 @@ public class Worm extends GameObject {
         length += n;
     }
 
-    public void shrink() {
-        length -= 1;
-    }
-
-    public void shrink(int n) {
-        length -= n;
-    }
-
     public void looseLife() {
         lives--;
-        System.out.println("Worm " + type +" have " + lives + " lives");
+        System.out.println("Worm " + type + " have " + lives + " lives");
     }
 
     public boolean isAlive() {
@@ -117,6 +132,7 @@ public class Worm extends GameObject {
     public void addToSpeed(int n) {
         speed -= n;
     }
+
     public void lightninhMode() {
         isFast++;
         Thread t = new Thread(new Runnable() {
@@ -129,37 +145,42 @@ public class Worm extends GameObject {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if(--isFast==0) {
+                if (--isFast == 0) {
                     resetSpeed();
                 }
             }
         });
         t.start();
-        speed = (int) (Constants.wormspeed/1.5);
+        speed = (int) (Constants.wormspeed / 1.5);
     }
+
     public void resetSpeed() {
         speed = Constants.wormspeed;
     }
+
     public void cut(Position p) {
         int i = isInBody(p);
-        if(i!=-1)
-        {
+        if (i != -1) {
 
             //body = body.subList(0,i);
 
-            try{
-            List<Position> bodyRests = new ArrayList<Position>(body.subList(0, i));
-            for (Position k:bodyRests) {
-                GameEngine.updateGameworld(k, '0');
-            }}catch (Exception e){e.printStackTrace();}
+            try {
+                List<Position> bodyRests = new ArrayList<Position>(body.subList(0, i));
+                for (Position k : bodyRests) {
+                    GameEngine.updateGameworld(k, '0');
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             body = new ArrayList<Position>(body.subList(i, body.size()));
-            length=body.size();
+            length = body.size();
         }
     }
+
     public int isInBody(Position p) {
-        int i =0;
-        for (Position b:body ) {
-            if(p.x==b.x&&p.y==b.y)
+        int i = 0;
+        for (Position b : body) {
+            if (p.x == b.x && p.y == b.y)
                 return i;
             i++;
         }
@@ -190,20 +211,19 @@ public class Worm extends GameObject {
         }
     }
 
-    
 
-	public boolean hasGun() {
-		
-		return gun;
-	}
-	
-	public void pickUpGun(){
-		gun = true;
-	}
-	
-	public void fireGun() {
-		System.out.println("FIRE!!!");
-	}
+    public boolean hasGun() {
+
+        return gun;
+    }
+
+    public void pickUpGun() {
+        gun = true;
+    }
+
+    public void fireGun() {
+        System.out.println("FIRE!!!");
+    }
 
 
 }

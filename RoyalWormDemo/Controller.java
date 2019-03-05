@@ -16,20 +16,20 @@ import java.util.Observer;
  * This class controls everything
  */
 public class Controller implements Observer {
-    GameEngine gameEngine;
-    DatagramSocket datagramSocket, recieveSocket;
-    GameWindow gw;
-    JFrame startFrame;
-    boolean host = false;
-    byte[] recieveData = new byte[1024];
-    Thread recieveThread;
-    NetworkReciever nwReciever;
-    List<Player> playerList = new ArrayList<>();
-    Container playerContainer = new Container();
-    TextArea textArea;
-    Checkbox royal, speed, apples,guns, ghost;
-    boolean started = false;
-    boolean royalB, speedB, applesB,gunsB, ghostB;
+    private GameEngine gameEngine;
+    private DatagramSocket datagramSocket, recieveSocket;
+    private GameWindow gw;
+    private JFrame startFrame;
+    private boolean host = false;
+    private byte[] recieveData = new byte[1024];
+    private Thread recieveThread;
+    private NetworkReciever nwReciever;
+    private List<Player> playerList = new ArrayList<>();
+    private Container playerContainer = new Container();
+    private TextArea textArea;
+    private Checkbox royal, speed, apples,guns, ghost;
+    private boolean started = false;
+    private boolean royalB, speedB, applesB,gunsB, ghostB;
 
 
     //Constructor
@@ -67,7 +67,7 @@ public class Controller implements Observer {
             //Todo fix this to be dynamic
             for (Player p : gameEngine.playerList) {
                 try {
-                    if (!p.host&&p.addr.equals(InetAddress.getByName(playerAdress))) {
+                    if (!p.isHost()&&p.getAddr().equals(InetAddress.getByName(playerAdress))) {
                         p.updateDirection(tempDir);
                     }
                 } catch (UnknownHostException e) {
@@ -91,7 +91,7 @@ public class Controller implements Observer {
                 boolean alreadyInList = false;
                 for (Player p : playerList) {
                     try {
-                        if (p.addr.equals(InetAddress.getByName(addr)))
+                        if (p.getAddr().equals(InetAddress.getByName(addr)))
                             alreadyInList = true;
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
@@ -149,8 +149,8 @@ public class Controller implements Observer {
 
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
-            if (!p.host) {
-                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.addr, p.port);
+            if (!p.isHost()) {
+                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.getAddr(), p.getPort());
             }
         }
     }
@@ -261,24 +261,20 @@ public class Controller implements Observer {
 
     }
     private void hostButtonPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).worm.direction.y != -1) {
-            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
-            gameEngine.playerList.get(0).worm.nextDirection.y = 1;
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().y != -1) {
+            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(0,1));
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.direction.y != 1) {
-            gameEngine.playerList.get(0).worm.nextDirection.x = 0;
-            gameEngine.playerList.get(0).worm.nextDirection.y = -1;
+        if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.getDirection().y != 1) {
+            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(0,-1));
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.direction.x != 1) {
-            gameEngine.playerList.get(0).worm.nextDirection.x = -1;
-            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.getDirection().x != 1) {
+            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(-1,0));
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.direction.x != -1) {
-            gameEngine.playerList.get(0).worm.nextDirection.x = 1;
-            gameEngine.playerList.get(0).worm.nextDirection.y = 0;
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.getDirection().x != -1) {
+            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(1,0));
         }
         if(e.getKeyCode() == KeyEvent.VK_SPACE && gameEngine.playerList.get(0).worm.hasGun()) {
-        	gameEngine.playerList.get(0).worm.fireGun();
+        	gameEngine.playerList.get(0).getWorm().fireGun();
         }
     }
 

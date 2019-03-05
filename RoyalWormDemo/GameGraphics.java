@@ -16,11 +16,9 @@ public class GameGraphics {
         int constant = Constants.gameConstant;
         graphics.setColor(Constants.appleColor);
 
-       // graphics.drawOval(p.getX() * constant+1, p.getY() * constant, constant-1, constant-1);
         graphics.fillOval(p.getX() * constant, p.getY() * constant, constant, constant);
         graphics.setColor(Color.GREEN);
         //Todo make details better :)
-        //Draw details, just for fun
         for (int i = 0; i < 5; i++) {
             graphics.drawArc(p.getX() * constant-2 , p.getY() * constant - i+5, 5 + i, 5, 0, 90);
         }
@@ -33,7 +31,6 @@ public class GameGraphics {
 
         graphics.fillOval(p.getX() * constant, p.getY() * constant, constant, constant);
         graphics.setColor(Color.GREEN);
-        //Draw details, just for fun
         for (int i = 0; i < 5; i++) {
             graphics.drawArc(p.getX() * constant-2 , p.getY() * constant - i+5, 5 + i, 5, 0, 90);
         }
@@ -53,6 +50,7 @@ public class GameGraphics {
         else if (player == 5)
             graphics.setColor(Constants.p5Color);
 
+        //Not implemented
         if (!head) {
             //graphics.drawRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
             graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
@@ -69,13 +67,14 @@ public class GameGraphics {
         return graphics;
     }
 
+
     public static Graphics erase(Position p, Graphics graphics) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
-
         return graphics;
     }
 
+    //Draws Lightning
     public static Graphics drawLightninh(Position p, Graphics graphics) {
         int[] x = {9,9,7,4,4,6,9};
         int[] y = {0,5,5,9,5,5,0};
@@ -97,6 +96,8 @@ public class GameGraphics {
 
         return graphics;
     }
+
+    //Draws a ghost
     public static Graphics drawGhost(Position p, Graphics graphics) {
         int[] x = {1,9,9,7,3,1};
         int[] y = {9,9,3,1,1,3};
@@ -105,9 +106,7 @@ public class GameGraphics {
         {
             x[i] +=p.x*Constants.gameConstant;
             y[i] +=p.y*Constants.gameConstant;
-
         }
-
 
         int n = x.length;
         Polygon polygon = new Polygon(x,y,n);

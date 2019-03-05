@@ -6,9 +6,9 @@ import java.util.Observable;
 
 public class NetworkReciever extends Observable implements Runnable{
 
-    DatagramSocket receiveSocket;
-    byte[] recieveData = new byte[1024];
-    int recievePort = 1233;
+    private DatagramSocket receiveSocket;
+    private byte[] recieveData = new byte[1024];
+    private int recievePort;
 
     public NetworkReciever(int port) throws SocketException {
         recievePort = port;

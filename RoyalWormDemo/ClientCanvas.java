@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 
 public class ClientCanvas extends JPanel {
 
@@ -10,11 +9,8 @@ public class ClientCanvas extends JPanel {
     public ClientCanvas(char[][] c)
     {
         this.clientWorld = c;
-       // this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
-
-
     }
 
     public void updateClientworld(char[][] world)
@@ -61,6 +57,9 @@ public class ClientCanvas extends JPanel {
             case '4':
                 GameGraphics.drawPlayer(false,4,p,g);
                 break;
+            case '5':
+                GameGraphics.drawPlayer(false,5,p,g);
+                break;
             case 'w':
                 GameGraphics.drawWall(p,g);
                 break;
@@ -69,6 +68,9 @@ public class ClientCanvas extends JPanel {
                 break;
             case 'l':
                 GameGraphics.drawLightninh(p,g);
+                break;
+            case 'g':
+                GameGraphics.drawGhost(p,g);
                 break;
         }
     }

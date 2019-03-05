@@ -44,13 +44,8 @@ public class GameCanvas extends JPanel {
                     drawObject('0', new Position(i,j), g);
 
             }
-        //int i, j;
-        /*for(Change ch: changes)
-        {
-            i=ch.x;j=ch.y;
-            drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
-        }*/
     }
+
     public void drawChanges(Graphics g)
     {
         if(!changes.isEmpty())
@@ -84,6 +79,9 @@ public class GameCanvas extends JPanel {
                 break;
             case '4':
                 GameGraphics.drawPlayer(false,4,p,g);
+                break;
+            case '5':
+                GameGraphics.drawPlayer(false,5,p,g);
                 break;
             case 'w':
                 GameGraphics.drawWall(p,g);
