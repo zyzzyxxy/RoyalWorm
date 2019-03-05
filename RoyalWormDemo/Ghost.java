@@ -19,7 +19,6 @@ public class Ghost extends DynamicObject {
         this.type = 'g';
         this.directionCounter=0;
         changeDirection = rnd.nextInt(5)*5;
-
     }
 
 
