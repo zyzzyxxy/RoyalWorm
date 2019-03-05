@@ -22,15 +22,17 @@ public class BoostManager {
         spawnRandom('a');
         applesSpawned++;}
     }
+
     public void spawnSuperApple()
     {
             spawnRandom('s');
     }
-    //Todo
+
+    //TODO
     public void spawnWall(){}
-    public void spawn(Position key, char value) {
+    public void spawn(Position key, GameObject object) {
        // boosts.put(key, value);
-        if(value=='a')
+        if(object instanceof Apple)
             applesSpawned++;
         if(applesSpawned==20)
         {
@@ -38,10 +40,10 @@ public class BoostManager {
             spawnSuperApple();
         }
 
-        GameEngine.GameWorld[key.x][key.y] = value;
-        GameEngine.changes.add(new Change(key.x, key.y, value));
+        Main.gameController.gameEngine.updateGameWorld(new Position(key.x, key.y), object);
 
     }
+
     public void spawnRandom(char value) {
 
         Position tempPos;
@@ -51,13 +53,4 @@ public class BoostManager {
         while (CollisionHandler.collisionCheck(tempPos));
         spawn(tempPos,value);
     }
-    /*
-    public void delete(Position key) {
-        boosts.remove(key);
-    }
-
-    public void clearAllBoosts() {
-        boosts.clear();
-    }*/
-
 }

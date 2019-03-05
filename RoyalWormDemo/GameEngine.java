@@ -19,12 +19,12 @@ public class GameEngine extends Observable {
     javax.swing.Timer gameTimer;
     static BoostManager boostManager = new BoostManager();
     private List<Change> changes = new ArrayList<>();//for sending changes for graphics
-    int gameCOunter=0;
+    int gameCounter=0;
 
     //TODO this constructor shall take List<Player> when controller can provide it
 
     public GameEngine(List<Player> playersList) throws Exception {
-        GameWorld = new GameObject[Constants.worldWidth][Constants.worldHeight];
+        gameWorld = new GameObject[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
         makeSpawnList();
@@ -47,14 +47,14 @@ public class GameEngine extends Observable {
         updateWorms();
 
         //TOdo fix this
-        if((gameCOunter%Constants.GENERALSPAWNRATE)==0)
+        if((gameCounter%Constants.GENERALSPAWNRATE)==0)
             updateBoosts();
 
         tellObservers();
         //changes.clear();
-        gameCOunter++;
-        if(gameCOunter==100)
-            gameCOunter = 0;
+        gameCounter++;
+        if(gameCounter==100)
+            gameCounter = 0;
     }
 
     //What boosts will be avaliable
@@ -89,8 +89,8 @@ public class GameEngine extends Observable {
     }
 
 
-    public void updateGameworld(Position pos, GameObject o) {
-        GameWorld[pos.x][pos.y] = o;
+    public void updateGameWorld(Position pos, GameObject o) {
+        gameWorld[pos.x][pos.y] = o;
         changes.add(new Change(pos.x,pos.y,o));
     }
 
@@ -103,7 +103,7 @@ public class GameEngine extends Observable {
     //TODO this does not reset worms
     public void resetGameworld() {
     	int y = 0;
-        for (GameObject[] oa : GameWorld) {
+        for (GameObject[] oa : gameWorld) {
         	int x = 0;
             for(GameObject o : oa) {
             	o = new EmptyObject(new Position(x, y));
@@ -118,10 +118,10 @@ public class GameEngine extends Observable {
         Scanner sc = new Scanner(file);
 
         int i = 0;
-        for (GameObject[] o : GameWorld) {
+        for (GameObject[] o : gameWorld) {
             if (sc.hasNextLine()) {
                 o = sc.nextLine().toCharArray();
-                GameWorld[i++] = o;
+                gameWorld[i++] = o;
             } else
                 Arrays.fill(o, '0');
         }

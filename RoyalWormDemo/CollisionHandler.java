@@ -25,21 +25,21 @@ public class CollisionHandler {
 				return false;
 			}
 		} else {
-			char posValue = GameEngine.GameWorld[pos.getX()][pos.getY()];
-			if (posValue == 'W' || posValue == '1' || posValue == '2') {
+			GameObject posValue = Main.gameController.gameEngine.getFromGameWorld(pos.getX(), pos.getY());
+			if (posValue instanceof Wall || posValue instanceof Worm) {
 				crashCollision(worm);
 				return true;
 			}
 			
-			if (posValue == 'a') {
+			if (posValue instanceof Apple) {
 				appleCollision(pos, worm);
 			}
 
-			if (posValue == 's') {
+			if (posValue instanceof SuperApple) {
 				superAppleCollision(pos, worm);
 			}
 			
-			if (posValue == 'l') {
+			if (posValue instanceof Speed) {
 				worm.addToSpeed(Constants.wormspeed/2);
 				Thread t = new Thread(new Runnable() {
 					@Override
@@ -91,11 +91,11 @@ public class CollisionHandler {
 	
 	private static void appleCollision(Position pos, Worm worm) {
 		worm.grow();
-		//GameEngine.boostManager.delete(pos);
+		//delete object
 	}
 
 	private static void superAppleCollision(Position pos, Worm worm) {
 		worm.grow(10);
-		//GameEngine.boostManager.delete(pos);
+		//delete object
 	}
 }

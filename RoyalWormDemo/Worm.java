@@ -58,10 +58,10 @@ public class Worm extends GameObject {
         //  tailPos=body.get(0);
         if (body.size() < length) {
             tail = null;
-            GameEngine.updateGameworld(headPos, this);
+            Main.gameController.gameEngine.updateGameWorld(headPos, this);
         } else {
-            GameEngine.updateGameworld(headPos, this);
-            GameEngine.updateGameworld(body.get(0), new EmptyObject());
+        	Main.gameController.gameEngine.updateGameWorld(headPos, this);
+        	Main.gameController.gameEngine.updateGameWorld(body.get(0), new EmptyObject());
             tail = tailPos;
             body.remove(0);
         }
