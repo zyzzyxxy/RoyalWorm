@@ -20,6 +20,7 @@ public class GameEngine extends Observable {
     int ghostCounter = 0;
     boolean gameOver=false;
     boolean apples,lightning,gun,ghost, royal;
+    private int shrinkCOunter = 0;
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
         this.apples = apples;
@@ -57,15 +58,16 @@ public class GameEngine extends Observable {
                 updateBoosts();
                 updateDynamicObjects();
                 checkForGameOver();
-                if(royal) {
-                	battleRoyal();
-                	//spawnGun();
-                }
+
+            }
+            
+            if((gameCOunter %  Constants.WALL_SPAWN_SPEED == 0) && royal) {
+            	battleRoyal();
             }
 
             tellObservers();
             gameCOunter++;
-            if (gameCOunter == 100)
+            if (gameCOunter == 1000)
                 gameCOunter = 0;
         }
         else {
