@@ -18,20 +18,40 @@ public class NetworkController{
         }
         byte[] data = result.getBytes();
 
-
         //hard coding
-        InetAddress inetAddress = InetAddress.getByName("127.0.0.1");
+       // InetAddress inetAddress = InetAddress.getByName("192.168.0.136");
         port = 1234;
+
+        try {
+            datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
+        }
+        catch (Exception e){e.printStackTrace();}
+    }
+    public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr, int port) throws UnknownHostException {
+        //char[][] to string to byte[]
+        //hard coding
+        InetAddress inetAddress = InetAddress.getByName(addr);
+        port = 1230;
 
         try {
             datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
         }
         catch (Exception e){e.printStackTrace();}
     }
+    public static void sendDirectionData(Direction dir,DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
+    {
+        String result = Integer.toString(dir.x) + Integer.toString(dir.y);
+        byte[] data = result.getBytes();
 
+        //hard coding
+        //InetAddress inetAddress = InetAddress.getByName("192.168.43.88");
+        port = 1230;
 
-    //Todo
-    public static void sendDirectionData(){}
+        try {
+            datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
+        }
+        catch (Exception e){e.printStackTrace();}
+    }
     public static Direction getDirectionData()
     {
         return null;

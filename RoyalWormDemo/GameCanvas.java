@@ -3,33 +3,64 @@ import java.awt.*;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.security.PublicKey;
+import java.util.Iterator;
+import java.util.List;
 
-public class GameCanvas extends JPanel implements KeyListener {
+public class GameCanvas extends JPanel {
 
-    public Direction direction;
+    //public Direction direction;
+    public List<Change> changes;
+    public int paintCounter=0;
 
     public GameCanvas()
     {
-        direction = new Direction(-1,0);
+        changes = GameEngine.changes;
         this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
-        setBackground(Constants.backgroundColor);
+        this.setBackground(Color.black);
         this.repaint();
     }
 
     @Override
     public void paint(Graphics g) {
+      /* if (paintCounter < 3) {
+            drawWorld(g);
+            paintCounter++;
+        } else {
+            drawChanges(g);
+        }*/
         drawWorld(g);
     }
 
     public void drawWorld(Graphics g)
     {
+        //Brute Force
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
                 if(GameEngine.GameWorld[i][j]!='0')
                     drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
+                else
+                    drawObject('0', new Position(i,j), g);
 
             }
+        //int i, j;
+        /*for(Change ch: changes)
+        {
+            i=ch.x;j=ch.y;
+            drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
+        }*/
+    }
+    public void drawChanges(Graphics g)
+    {
+        if(!changes.isEmpty())
+        {
+            for (Change ch :changes) {
+                drawObject(ch.type,new Position(ch.x,ch.y),g);
+            }
+
+        }
+        GameEngine.changes.clear();
     }
     public void drawObject(char c, Position p, Graphics g)
     {
@@ -39,6 +70,9 @@ public class GameCanvas extends JPanel implements KeyListener {
                 GameGraphics.drawApple(p, g);
                 break;
                 //For players
+            case '0':
+                GameGraphics.erase(p,g);
+                break;
             case '1':
                 GameGraphics.drawPlayer(false,1,p,g);
                 break;
@@ -51,36 +85,18 @@ public class GameCanvas extends JPanel implements KeyListener {
             case '4':
                 GameGraphics.drawPlayer(false,4,p,g);
                 break;
+            case 'w':
+                GameGraphics.drawWall(p,g);
+                break;
+            case 's':
+                GameGraphics.drawSuperApple(p,g);
+                break;
+            case 'l':
+                GameGraphics.drawLightninh(p,g);
+                break;
+            case 'g':
+                GameGraphics.drawGhost(p,g);
+                break;
         }
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-        keyAction(e);
-        System.out.println("pressed" + e.getKeyCode());
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-        keyAction(e);
-        System.out.println("pressed" + e.getKeyCode());
-
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-        System.out.println("pressed" + e.getKeyCode());
-
-    }
-    private void keyAction(KeyEvent e)
-    {
-        if(e.getKeyCode() == KeyEvent.VK_DOWN);
-            direction.x=0;direction.y=1;
-        if(e.getKeyCode() == KeyEvent.VK_UP);
-            direction.x=0;direction.y=-1;
-        if(e.getKeyCode() == KeyEvent.VK_LEFT);
-            direction.x=-1;direction.y=0;
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT);
-            direction.x=1;direction.y=0;
     }
 }

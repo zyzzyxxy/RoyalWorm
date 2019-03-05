@@ -5,36 +5,49 @@ import java.awt.event.KeyListener;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.util.Arrays;
 
-public class ClientWindow extends Thread {
+
+/**
+This window works also as a controller for clients recieving and sending data
+ */
+public class ClientWindow{
     private JFrame frame;
     int recievePort = 1234;
     DatagramSocket dSocket = new DatagramSocket(recievePort);
-    byte[] data = new byte[4661];
+    byte[] data = new byte[4800];
     ClientCanvas clientCanvas;
-    char[][] recievedWorld;
+    char[][] receivedWorld;
     KeyListener keyListener;
+    InetAddress hostAddr;
+    int portNr = 1233;
+    Thread rThread;
 
-    public ClientWindow() throws IOException {
-
+    public ClientWindow(String host) throws Exception {
+        //Jonathans gamla
+        hostAddr = InetAddress.getByName(host);
         makeFrame();
-        recievedWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        for (char[] c : recievedWorld) {
+        receivedWorld = new char[Constants.worldWidth][Constants.worldHeight];
+        for (char[] c : receivedWorld) {
             Arrays.fill(c, '0');
         }
         System.out.println("Got this far");
-        clientCanvas = new ClientCanvas(recievedWorld);
+        clientCanvas = new ClientCanvas(receivedWorld);
         frame.add(clientCanvas);
         clientCanvas.addKeyListener(keyListener = new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                keyHandler(e.getKeyCode());
+
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                keyHandler(e.getKeyCode());
+                try {
+                    keyHandler(e.getKeyCode());
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
 
             @Override
@@ -43,7 +56,21 @@ public class ClientWindow extends Thread {
             }
         });
         clientCanvas.grabFocus();
-        recieveMessages();
+        clientCanvas.repaint();
+        rThread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    recieveMessages();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        rThread.start();
+
     }
 
     private void makeFrame() throws IOException {
@@ -56,45 +83,51 @@ public class ClientWindow extends Thread {
         frame.setResizable(false);
     }
 
-    private void recieveMessages() throws IOException {
-        while (true && !interrupted()) {
+    public void recieveMessages() throws IOException, InterruptedException {
+        while (true) {
             DatagramPacket dp = new DatagramPacket(data,data.length);
+        try{
             dSocket.receive(dp);
+
             String message = new String(dp.getData(),0,dp.getLength());
 
             stringToWorld(message);
-            clientCanvas.updateClientworld(GameEngine.GameWorld);
-            clientCanvas.updateClientworld(recievedWorld);
+            clientCanvas.updateClientworld(receivedWorld);
             clientCanvas.repaint();
+            }
+        catch (Exception e){e.printStackTrace();}
         }
     }
     private void stringToWorld(String s)
     {
         int i = 0;
         while (true) {
-            recievedWorld[i] = s.substring(0, Constants.worldWidth).toCharArray();
+            receivedWorld[i] = s.substring(0, Constants.worldHeight).toCharArray();
             s = s.substring(Constants.worldHeight);
             i++;
-            if (i > Constants.worldHeight - 1)
+            if (i > Constants.worldWidth - 1)
                 break;
         }
 
     }
-    private void keyHandler(int keycode)
-    {
+    private void keyHandler(int keycode) throws Exception {
         switch (keycode)
         {
             case KeyEvent.VK_UP:
                 System.out.println("Up");
+                NetworkController.sendDirectionData(new Direction(0,-1),dSocket,hostAddr,portNr);
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("Down");
+                NetworkController.sendDirectionData(new Direction(0,1),dSocket,hostAddr,portNr);
                 break;
             case KeyEvent.VK_LEFT:
                 System.out.println("Left");
+                NetworkController.sendDirectionData(new Direction(-1,0),dSocket,hostAddr,portNr);
                 break;
             case KeyEvent.VK_RIGHT:
                 System.out.println("Right");
+                NetworkController.sendDirectionData(new Direction(1,0),dSocket,hostAddr,portNr);
                 break;
         }
     }
