@@ -13,6 +13,7 @@ public class Worm extends GameObject {
     char type;
     BoardCordinates position, direction, nextDirection;
     int isFast = 0;
+    private boolean gun;
 
 
     public Worm(Position position, Direction direction, int wormNumber) {
@@ -28,6 +29,7 @@ public class Worm extends GameObject {
         this.startPos = position;
         this.lives = 3;
         this.counter = 0;
+        gun = false;
         this.type = Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
     }
@@ -187,6 +189,21 @@ public class Worm extends GameObject {
             System.out.println(p.y);
         }
     }
+
+    
+
+	public boolean hasGun() {
+		
+		return gun;
+	}
+	
+	public void pickUpGun(){
+		gun = true;
+	}
+	
+	public void fireGun() {
+		System.out.println("FIRE!!!");
+	}
 
 
 }

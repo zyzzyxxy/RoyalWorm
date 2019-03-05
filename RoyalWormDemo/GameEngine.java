@@ -21,8 +21,10 @@ public class GameEngine extends Observable {
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
     int ghostCounter = 0;
-    boolean gameOver=true;
+    boolean gameOver=false;
     boolean apples,lightning,gun,ghost, royal;
+
+	private int shrinkCOunter = 0;
 
     //Todo this constructor shall take List<Player> when controller can provide it
 
@@ -57,10 +59,15 @@ public class GameEngine extends Observable {
         if(!gameOver) {
             updateWorms();
 
+
             //no need to inc every counter every time
             if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
                 updateBoosts();
                 updateDynamicObjects();
+                if(royal) {
+                	battleRoyal();
+                	//spawnGun();
+                }
 
             }
 
@@ -77,13 +84,35 @@ public class GameEngine extends Observable {
                 e.printStackTrace();
             }
             System.out.println("Game over");
-            loadGameworld(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/RoyalWormDemo/gameover"));
+            loadGameworld(new File("C:/Users/anton/Documents/Gitz/RoyalWorm/RoyalWormDemo/gameover"));
             setChanged();
             tellObservers();
         }
     }
 
-    //What boosts will be avaliable in Game
+    private void battleRoyal() {
+    	shrinkWalls();
+    	System.out.print("shrink that shit");
+	}
+
+	private void shrinkWalls() {
+		for(int i = 0; i<80; i++) {
+			updateGameworld(new Position(i,0+shrinkCOunter), 'w');
+			updateGameworld(new Position(i,59-shrinkCOunter), 'w');
+						
+						
+		}
+		for(int j = 0; j<60; j++) {
+			updateGameworld(new Position(0+shrinkCOunter,j), 'w');
+			updateGameworld(new Position(79-shrinkCOunter,j), 'w');
+			
+			
+		}
+		
+		shrinkCOunter++;
+	}
+
+	//What boosts will be avaliable in Game
     private void makeSpawnList() {
         if(lightning)
         spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
