@@ -1,8 +1,11 @@
-import java.awt.*;
+/**
+ * Info
+ * Params
+ * params
+ */
+
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
 
 public class Worm extends GameObject {
     private int speed, length, lives;

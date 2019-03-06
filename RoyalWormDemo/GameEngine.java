@@ -205,38 +205,4 @@ public class GameEngine extends Observable {
         dObjectList.remove(o);
     }
 
-    //Just for testing
-    public void printGameWorld() {
-        System.out.println("Gameworld:");
-        for (char[] c : GameWorld) {
-            System.out.println(new String(c));
-        }
-
-        String result = "";
-        for (char[] c : GameWorld) {
-            result += new String(c);
-        }
-        byte[] data = result.getBytes();
-        String str = new String(data);
-        System.out.println("result");
-        System.out.println(result);
-        System.out.println("str");
-        System.out.println(str);
-
-        char[][] testWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        int i = 0;
-        while (true) {
-            testWorld[i] = str.substring(0, Constants.worldHeight).toCharArray();
-            str = str.substring(Constants.worldWidth);
-            i++;
-            if (i > Constants.worldHeight - 1)
-                break;
-        }
-        for (char[] c : testWorld) {
-            System.out.println(new String(c));
-        }
-
-        System.out.println("Same?");
-        System.out.println(Testing.mapsEqual(GameWorld, testWorld));
-    }
 }

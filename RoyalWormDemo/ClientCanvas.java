@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
-import java.awt.event.ActionListener;
 import java.util.Arrays;
 
 public class ClientCanvas extends JPanel {
@@ -40,7 +39,8 @@ public class ClientCanvas extends JPanel {
             drawWorld(g);
             paintCounter++;
         } else {
-            drawChanges(g);
+            //drawChanges(g);
+            drawWorld(g);
         }
     }
 
