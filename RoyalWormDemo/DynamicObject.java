@@ -8,7 +8,6 @@ public class DynamicObject extends GameObject{
         super(position, type);
         this.direction = direction;
     }
+
     public void update() throws InterruptedException {}
-
-
 }

@@ -16,20 +16,19 @@ This window works also as a controller for clients recieving and sending data
  */
 public class ClientWindow{
     private JFrame frame;
-    int recievePort = 1234;
-    DatagramSocket dSocket = new DatagramSocket(recievePort);
-    byte[] data = new byte[4800];
-    ClientCanvas clientCanvas;
-    char[][] receivedWorld;
-    KeyListener keyListener;
-    InetAddress hostAddr;
-    int portNr = 1233;
-    Thread rThread;
+    private int recievePort = 1234;
+    private DatagramSocket dSocket = new DatagramSocket(recievePort);
+    private byte[] data = new byte[4800];
+    private ClientCanvas clientCanvas;
+    private char[][] receivedWorld;
+    private KeyListener keyListener;
+    private InetAddress hostAddr;
+    private int portNr = 1233;
+    private Thread rThread;
 
     public static List<Change> changes = new ArrayList<>();
     
     public ClientWindow(String host) throws Exception {
-        //Jonathans gamla
         hostAddr = InetAddress.getByName(host);
         makeFrame();
         receivedWorld = new char[Constants.worldWidth][Constants.worldHeight];

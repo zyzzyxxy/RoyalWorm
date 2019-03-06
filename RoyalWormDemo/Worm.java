@@ -5,16 +5,15 @@ import java.util.List;
 import java.util.Observable;
 
 public class Worm extends GameObject {
-    int speed, length, lives;
-    List<Position> body;
-    Position headPos, tailPos, startPos;
-    //Position[] updatedPos = new Position[2];
-    int wormNumber, counter;
-    char type;
-    BoardCordinates position, direction, nextDirection;
-    int isFast = 0;
+    private int speed, length, lives;
+    private List<Position> body;
+    private Position headPos, tailPos, startPos;
+    private int wormNumber, counter;
+    private char type;
+    private Position position;
+    private Direction direction, nextDirection;
+    private int isFast = 0;
     private boolean gun;
-
 
     public Worm(Position position, Direction direction, int wormNumber) {
         super(position, Integer.toString(wormNumber).charAt(0));
@@ -41,6 +40,18 @@ public class Worm extends GameObject {
         updateBody();
     }
 
+    //Moved to here from GameEngine
+    public void updater() throws InterruptedException {
+        if(lives > 0) {
+            if (counter == speed) {
+                update();
+                counter = 0;
+            } else {
+                counter++;
+            }
+        }
+    }
+    
     public Position getHeadPos() {
         return headPos;
     }
@@ -54,12 +65,14 @@ public class Worm extends GameObject {
         Position head, tail;
         head = null;
         tail = null;
+        
+        
+        
         if (body.size() < this.length) {
             if (CollisionHandler.collisionCheck(headPos))
                 CollisionHandler.collisionHandle(this, headPos);
             body.add(headPos);
             head = headPos;
-            //  tailPos=body.get(0);
             tail = null;
             GameEngine.updateGameworld(headPos, this.type);
             updateHeadPos();
@@ -105,7 +118,7 @@ public class Worm extends GameObject {
     }
 
     public void reset() {
-        //Todo fix this
+        //TODO fix this
         for (Position p : body) {
             GameEngine.updateGameworld(p, '0');
         }
@@ -159,7 +172,7 @@ public class Worm extends GameObject {
     public int isInBody(Position p) {
         int i =0;
         for (Position b:body ) {
-            if(p.x==b.x&&p.y==b.y)
+            if(p.getX() == b.getX() && p.getY() == b.getY())
                 return i;
             i++;
         }
@@ -168,15 +181,15 @@ public class Worm extends GameObject {
     }
 
     public void updateHeadPos() {
-        headPos = new Position(headPos.x + direction.x, headPos.y + direction.getY());
-        if (headPos.x >= Constants.worldWidth)
-            headPos.x = 0;
-        if (headPos.y >= Constants.worldHeight)
-            headPos.y = 0;
-        if (headPos.x < 0)
-            headPos.x = Constants.worldWidth - 1;
-        if (headPos.y < 0)
-            headPos.y = Constants.worldHeight - 1;
+        headPos = new Position(headPos.getX() + direction.getX(), headPos.getY() + direction.getY());
+        if (headPos.getX() >= Constants.worldWidth)
+            headPos.setX(0);
+        if (headPos.getY() >= Constants.worldHeight)
+            headPos.setY(0);
+        if (headPos.getX() < 0)
+            headPos.setX(Constants.worldWidth - 1);
+        if (headPos.getY() < 0)
+            headPos.setY(Constants.worldHeight - 1);
 
     }
 
@@ -185,15 +198,12 @@ public class Worm extends GameObject {
         for (Position p : body
         ) {
 
-            System.out.println(p.x);
-            System.out.println(p.y);
+            System.out.println(p.getX());
+            System.out.println(p.getY());
         }
     }
 
-    
-
 	public boolean hasGun() {
-		
 		return gun;
 	}
 	
@@ -205,7 +215,17 @@ public class Worm extends GameObject {
 		System.out.println("FIRE!!!");
 	}
 
-
+	public Direction getDirection() {
+		return direction;
+	}
+	
+	public Direction getNextDirection() {
+		return nextDirection;
+	} 
+	
+	public int getLives() {
+		return lives;
+	}
 }
 
 

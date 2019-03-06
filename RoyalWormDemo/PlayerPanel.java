@@ -2,8 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PlayerPanel extends Container {
-
-    JLabel name,lives,score,space;
+    private JLabel name,lives,score,space;
 
     public PlayerPanel(String n)
     {
@@ -18,7 +17,5 @@ public class PlayerPanel extends Container {
         this.add(score);
         this.add(space);
         this.setVisible(true);
-
     }
-
 }

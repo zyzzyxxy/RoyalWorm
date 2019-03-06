@@ -5,7 +5,6 @@ public class Testing {
         return eq;
     }
 
-
     public static void printWorld(char[][] w1) {
         int zeros = 0;
         for (char[] c : w1) {
@@ -15,11 +14,8 @@ public class Testing {
                     zeros++;
                 else
                     System.out.println(new String(c));}
-
         }
-
     }
-
 
     public static byte[][] toBytes(char[][] data) {
         byte[][] toRet = new byte[data.length][data[0].length];
@@ -31,6 +27,7 @@ public class Testing {
         }
         return toRet;
     }
+
     public static char[][] toChars(byte[][] data) {
         char[][] toRet = new char[data.length][data[0].length];
         for(int i = 0; i < toRet.length; i++) {
@@ -41,6 +38,7 @@ public class Testing {
         }
         return toRet;
     }
+
     public static byte[][] charArrayToByteArray(char[][] c_array) {
         byte[][] b_array = new byte[c_array.length][c_array[0].length];
         for(int i= 0; i < c_array.length; i++)

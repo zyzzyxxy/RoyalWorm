@@ -1,7 +1,7 @@
 public class Boost extends GameObject {
 
-    int counter = 0;
-    int spawnRate;
+    private int counter = 0;
+    private int spawnRate;
 
     public Boost(Position position, char type, int spawnRate)
     {

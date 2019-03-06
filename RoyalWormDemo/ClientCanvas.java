@@ -15,8 +15,8 @@ public class ClientCanvas extends JPanel {
         for (char[] c1 : clientWorld) {
             Arrays.fill(c1, '0');
         }
+        
         updateClientWorld(c);
-       // this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
     }
@@ -49,12 +49,12 @@ public class ClientCanvas extends JPanel {
         if(!ClientWindow.changes.isEmpty())
         {
             for (Change ch : ClientWindow.changes) {
-                drawObject(ch.type,new Position(ch.x,ch.y),g);
+                drawObject(ch.getType(),new Position(ch.getX(),ch.getY()),g);
             }
         }
     }
     
-    //Todo somethings on right not paining
+    //TODO somethings on right not paining
     public void drawWorld(Graphics g)
     {
         for (int i = 0;i<Constants.worldWidth;i++)
@@ -62,9 +62,9 @@ public class ClientCanvas extends JPanel {
             {
                 //if(clientWorld[i][j]!='0')
                     drawObject(clientWorld[i][j], new Position(i,j), g);
-
             }
     }
+
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)
@@ -99,5 +99,4 @@ public class ClientCanvas extends JPanel {
                 break;
         }
     }
-
 }

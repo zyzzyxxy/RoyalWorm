@@ -3,7 +3,7 @@ public class CollisionHandler {
 
 	public static boolean collisionCheck(Position pos) 
 	{
-		if(GameEngine.GameWorld[pos.x][pos.y]!='0') {
+		if(GameEngine.GameWorld[pos.getX()][pos.getY()]!='0') {
 			System.out.println("Collision!!");
 			return true;
 		}
@@ -12,9 +12,9 @@ public class CollisionHandler {
 	public static void collisionHandle(GameObject w, Position pos) throws InterruptedException {
 
 		if(w instanceof Worm){
-		if (w.type == '1' || w.type == '2' || w.type == '3' || w.type == '4' || w.type == '5') {
+		if (w.getType() == '1' || w.getType() == '2' || w.getType() == '3' || w.getType() == '4' || w.getType() == '5') {
 			System.out.print("in if");
-			switch (GameEngine.GameWorld[pos.x][pos.y]) {
+			switch (GameEngine.GameWorld[pos.getX()][pos.getY()]) {
 
 				case '0':
 					break;
@@ -59,11 +59,11 @@ public class CollisionHandler {
 		{
 			System.out.println("Ghost collision");
 			for (Player p:GameEngine.playerList) {
-				System.out.println(p.name);
-				System.out.println(p.worm.isInBody(pos));
-				if(p.worm.isInBody(pos)!=-1) {
-					p.worm.cut(pos);
-					((Ghost)w).dead=true;
+				System.out.println(p.getName());
+				System.out.println(p.getWorm().isInBody(pos));
+				if(p.getWorm().isInBody(pos)!=-1) {
+					p.getWorm().cut(pos);
+					((Ghost)w).setDead(true);
 				}
 			}
 		}

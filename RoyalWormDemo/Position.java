@@ -1,13 +1,11 @@
 import java.util.Random;
 
 public class Position extends BoardCordinates {
-    public int x, y;
-
+	
     public Position(int x, int y) {
-        super(x,y);
-        this.x = x;
-        this.y = y;
+        super(x, y);
     }
+    
     public static Position getRandomPosition()
     {
         Random rnd = new Random();

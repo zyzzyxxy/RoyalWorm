@@ -29,7 +29,6 @@ public class GameCanvas extends JPanel {
         } else {
             drawChanges(g);
         }
-       // drawWorld(g);
     }
 
     public void drawWorld(Graphics g)
@@ -44,24 +43,20 @@ public class GameCanvas extends JPanel {
                     drawObject('0', new Position(i,j), g);
 
             }
-        //int i, j;
-        /*for(Change ch: changes)
-        {
-            i=ch.x;j=ch.y;
-            drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
-        }*/
     }
+
     public void drawChanges(Graphics g)
     {
         if(!changes.isEmpty())
         {
             for (Change ch :changes) {
-                drawObject(ch.type,new Position(ch.x,ch.y),g);
+                drawObject(ch.getType(),new Position(ch.getX(),ch.getY()),g);
             }
 
         }
         GameEngine.changes.clear();
     }
+
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)

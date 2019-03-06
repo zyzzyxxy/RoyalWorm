@@ -2,13 +2,13 @@ import java.util.List;
 import java.util.Random;
 
 public class Ghost extends DynamicObject {
-    int speed, directionCounter, changeDirection;
-    public int counter;
-    char type;
-    Position position;
-    Direction direction;
-    Random rnd =  new Random();
-    boolean dead=false;
+    private int speed, directionCounter, changeDirection;
+    private int counter;
+    private char type;
+    private Position position;
+    private Direction direction;
+    private Random rnd =  new Random();
+    private boolean dead=false;
 
     public Ghost(Position position) {
         super(position, 'g',Direction.getRandomDirection());
@@ -18,23 +18,23 @@ public class Ghost extends DynamicObject {
         this.direction=Direction.getRandomDirection();
         this.type = 'g';
         this.directionCounter=0;
-        changeDirection = rnd.nextInt(5)*5;
+        changeDirection = rnd.nextInt(5) * 5;
     }
-
 
     public void update() throws InterruptedException {
         GameEngine.updateGameworld((Position) position, '0');
 
-        this.position.x+=direction.x;
-        this.position.y+=direction.y;
-        if (position.x >= Constants.worldWidth)
-            position.x = 0;
-        if (position.y >= Constants.worldHeight)
-            position.y = 0;
-        if (position.x < 0)
-            position.x = Constants.worldWidth - 1;
-        if (position.y < 0)
-            position.y = Constants.worldHeight - 1;
+        position.setX(position.getX() + direction.getX());
+        position.setY(position.getY() + direction.getY());
+        
+        if (position.getX() >= Constants.worldWidth)
+            position.setX(0);
+        if (position.getY() >= Constants.worldHeight)
+            position.setY(0);
+        if (position.getX() < 0)
+            position.setX(Constants.worldWidth - 1);
+        if (position.getY() < 0)
+            position.setY(Constants.worldHeight - 1);
 
         if (CollisionHandler.collisionCheck((Position) position))
             CollisionHandler.collisionHandle(this, (Position)position);
@@ -50,5 +50,15 @@ public class Ghost extends DynamicObject {
 
     }
 
+    public char getType() {
+    	return type;
+    }
+    
+	public boolean isDead() {
+		return dead;
+	}
 
+	public void setDead(boolean b) {
+		dead = b;
+	}
 }
