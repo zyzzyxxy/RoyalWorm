@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 
 /**
@@ -24,6 +26,8 @@ public class ClientWindow{
     int portNr = 1233;
     Thread rThread;
 
+    public static List<Change> changes = new ArrayList<>();
+    
     public ClientWindow(String host) throws Exception {
         //Jonathans gamla
         hostAddr = InetAddress.getByName(host);
@@ -92,7 +96,8 @@ public class ClientWindow{
             String message = new String(dp.getData(),0,dp.getLength());
 
             stringToWorld(message);
-            clientCanvas.updateClientworld(receivedWorld);
+            updateChanges();
+            clientCanvas.updateClientWorld(receivedWorld);
             clientCanvas.repaint();
             }
         catch (Exception e){e.printStackTrace();}
@@ -132,4 +137,14 @@ public class ClientWindow{
         }
     }
 
+    private void updateChanges() {
+        ClientWindow.changes.clear();
+    	for (int y = 0; y < Constants.worldHeight; y++) {
+    		for (int x = 0; x < Constants.worldWidth; x++) {
+    			if (receivedWorld[x][y] != clientCanvas.getClientWorld(x, y)) {
+    				changes.add(new Change(x, y, receivedWorld[x][y]));
+    			}
+    		}
+    	}
+    }
 }
