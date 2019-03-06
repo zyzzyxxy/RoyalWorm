@@ -83,9 +83,7 @@ public class Player {
     	return name;
     }
     
-    public Worm getWorm() {
-    	return worm;
-    }
+
     
     public PlayerPanel getPlayerPanel() {
     	return playerPanel;

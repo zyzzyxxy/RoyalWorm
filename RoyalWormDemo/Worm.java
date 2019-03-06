@@ -225,6 +225,13 @@ public class Worm extends GameObject {
 	public int getLives() {
 		return lives;
 	}
+	public int getSpeed() {
+		return speed;
+	}
+	public int getCounter() {
+		return counter;
+	}
+
 }
 
 
