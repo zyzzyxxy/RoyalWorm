@@ -6,14 +6,14 @@ import javax.swing.*;
 import java.net.DatagramSocket;
 
 public class Main {
-	static JFrame startFrame;
-	static boolean host = false;
-	static boolean done = false;
-	static String hostAdress;
-	static Controller gameController;
-	static ClientWindow cl;
-	static DatagramSocket sendSocket;
-	static StartScreen sc;
+	private static JFrame startFrame;
+	private static boolean host = false;
+	private static boolean done = false;
+	private static String hostAdress;
+	private static Controller gameController;
+	private static ClientWindow cl;
+	private static DatagramSocket sendSocket;
+	private static StartScreen sc;
 
 	public static void main(String[] args) throws Exception {
 		showStartScreen();
@@ -45,7 +45,6 @@ public class Main {
 		startFrame.pack();
 		startFrame.setVisible(true);
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 	}
 
 	//Handles Buttons from startscreen
@@ -69,8 +68,6 @@ public class Main {
 			byte[] data = ("addme:" + name).getBytes();
 			NetworkController.sendData(data,sendSocket, hostAdress,1233);
 			cl = new ClientWindow(hostAdress);
-
 		}
 	}
-
 }

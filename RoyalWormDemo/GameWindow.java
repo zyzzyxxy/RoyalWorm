@@ -12,14 +12,14 @@ import java.util.Observer;
  * The game window for the host machine
  */
 
-
 public class GameWindow extends JFrame implements Observer {
-    JMenuBar menuBar;
-    JMenu File, Options, Help;
-    JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
-    GameCanvas gameCanvas;
-    GameEngine gm;
-    Container playerContainer;
+	public GameCanvas gameCanvas;
+	
+    private JMenuBar menuBar;
+    private JMenu File, Options, Help;
+    private JMenuItem New, Save, Load,Reset, Quit, SetControllers, Gamemode, About;
+    private GameEngine gm;
+    private Container playerContainer;
 
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
@@ -29,8 +29,6 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.grabFocus();
         gameCanvas.setBackground(Color.black);
         gameCanvas.repaint();
-
-
     }
 
     @Override
@@ -50,8 +48,8 @@ public class GameWindow extends JFrame implements Observer {
 
         playerContainer = new Container();
         playerContainer.setLayout(new FlowLayout());
-        for (Player p:GameEngine.playerList) {
-            playerContainer.add(p.playerPanel);
+        for (Player p : GameEngine.playerList) {
+            playerContainer.add(p.getPlayerPanel());
         }
         this.getContentPane().add(playerContainer,BorderLayout.NORTH);
 
@@ -90,7 +88,6 @@ public class GameWindow extends JFrame implements Observer {
 
     //Handles JMenu in GameWindow
     private void menuClicked(ActionEvent e) throws IOException {
-
         System.out.println(e.getActionCommand());
         if(e.getActionCommand().equalsIgnoreCase("New")) {
             gm.resetGameworld(); gameCanvas.repaint();
@@ -138,7 +135,5 @@ public class GameWindow extends JFrame implements Observer {
                     }
                 fw.close();
                 }
-
         }
-
 }

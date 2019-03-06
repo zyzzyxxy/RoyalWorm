@@ -18,7 +18,8 @@ public class GameGraphics {
 
         graphics.fillOval(p.getX() * constant, p.getY() * constant, constant, constant);
         graphics.setColor(Color.GREEN);
-        //Todo make details better :)
+        //TODO make details better :)
+        //Draw details, just for fun
         for (int i = 0; i < 5; i++) {
             graphics.drawArc(p.getX() * constant-2 , p.getY() * constant - i+5, 5 + i, 5, 0, 90);
         }
@@ -37,7 +38,6 @@ public class GameGraphics {
         return graphics;
     }
 
-
     public static Graphics drawPlayer(boolean head, int player, Position p, Graphics graphics) {
         if (player == 1)
             graphics.setColor(Constants.p1Color);
@@ -55,7 +55,7 @@ public class GameGraphics {
             //graphics.drawRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
             graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
         } else {
-        } //Todo make headGraphics
+        } //TODO make headGraphics
 
         return graphics;
     }
@@ -79,14 +79,11 @@ public class GameGraphics {
         int[] x = {9,9,7,4,4,6,9};
         int[] y = {0,5,5,9,5,5,0};
 
-        for (int i=0;i<x.length;i++)
-        {
-            x[i] +=p.x*Constants.gameConstant;
-            y[i] +=p.y*Constants.gameConstant;
-
+        for (int i=0;i<x.length;i++) {
+            x[i] +=p.getX()*Constants.gameConstant;
+            y[i] +=p.getY()*Constants.gameConstant;
         }
-
-
+        
         int n = x.length;
         Polygon polygon = new Polygon(x,y,n);
 
@@ -97,15 +94,14 @@ public class GameGraphics {
         return graphics;
     }
 
-    //Draws a ghost
     public static Graphics drawGhost(Position p, Graphics graphics) {
         int[] x = {1,9,9,7,3,1};
         int[] y = {9,9,3,1,1,3};
 
         for (int i=0;i<x.length;i++)
         {
-            x[i] +=p.x*Constants.gameConstant;
-            y[i] +=p.y*Constants.gameConstant;
+            x[i] +=p.getX()*Constants.gameConstant;
+            y[i] +=p.getY()*Constants.gameConstant;
         }
 
         int n = x.length;
@@ -117,8 +113,8 @@ public class GameGraphics {
         graphics.fillPolygon(polygon);
         graphics.setColor(Color.ORANGE);
         int k = Constants.gameConstant;
-        graphics.fillRoundRect(p.x*k,p.y*k,4,4,4,4);
-        graphics.fillRoundRect(p.x*k+5,p.y*k,3,3,3,3);
+        graphics.fillRoundRect(p.getX()*k,p.getY()*k,4,4,4,4);
+        graphics.fillRoundRect(p.getX()*k+5,p.getY()*k,3,3,3,3);
 
         return graphics;
     }

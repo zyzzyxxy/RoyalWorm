@@ -12,7 +12,6 @@ public class StartScreen extends Container {
     public JButton hostButton;// = new JButton("Host");
     public JButton clientButton;// = new JButton("Client, Connect to:");
 
-
     public StartScreen(JButton hostButton, JButton clientButton) throws UnknownHostException {
         this.hostButton = hostButton;
         this.clientButton = clientButton;
@@ -42,7 +41,6 @@ public class StartScreen extends Container {
         add(middleContainer, BorderLayout.CENTER);
         //add(rightContainer, BorderLayout.EAST);
 
-
         middleContainer.add(hostButton);
         middleContainer.add(clientButton);
 
@@ -54,8 +52,6 @@ public class StartScreen extends Container {
                 connectToHostTextfield.setText("");
             }
         });
-
         middleContainer.add(connectToHostTextfield);
     }
-
 }

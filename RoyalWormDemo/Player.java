@@ -3,21 +3,19 @@ import java.net.UnknownHostException;
 import java.lang.Thread;
 
 public class Player {
-    Worm worm;
-    int lives;
-    String name;
+    private Worm worm;
+    private int lives;
+    private String name;
 
 
     //Network
-    private boolean host;
-    private InetAddress addr;
-    private int port;
-    PlayerPanel playerPanel;
-
+    public boolean host;
+    public InetAddress addr;
+    public int port;
+    private PlayerPanel playerPanel;
 
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
-
-        //Todo fix this to update worms in right places
+        //TODO fix this to update worms in right places
         Position position = Position.getRandomPosition();
         Direction wormDir= Direction.getRandomDirection();
         worm = new Worm(position, wormDir, pNumber);
@@ -26,21 +24,24 @@ public class Player {
         this.host = host;
         this.addr = InetAddress.getByName(addr);
         this.playerPanel = new PlayerPanel(name);
-
     }
 
     public void updateDirection(Direction dir) {
-        if (dir.y == 1 && worm.getDirection().y != -1) {
-            worm.setNextDirection(new Direction(0,1));
+        if (dir.getY() == 1 && worm.getDirection().getY() != -1) {
+            worm.getNextDirection().setX(0);
+            worm.getNextDirection().setY(1);
         }
-        if (dir.y == -1 && worm.getDirection().y != 1) {
-            worm.setNextDirection(new Direction(0,-1));
+        if (dir.getY() == -1 && worm.getDirection().getY() != 1) {
+            worm.getNextDirection().setX(0);
+            worm.getNextDirection().setY(-1);
         }
-        if (dir.x == 1 && worm.getDirection().x != -1) {
-            worm.setNextDirection(new Direction(1,0));
+        if (dir.getX() == 1 && worm.getDirection().getX() != -1) {
+            worm.getNextDirection().setX(1);
+            worm.getNextDirection().setY(0);
         }
-        if (dir.x == -1 && worm.getDirection().x != 1) {
-            worm.setNextDirection(new Direction(-1,0));
+        if (dir.getX() == -1 && worm.getDirection().getX() != 1) {
+            worm.getNextDirection().setX(-1);
+            worm.getNextDirection().setY(0);
         }
     }
 
@@ -77,6 +78,16 @@ public class Player {
     public void setInetAddr(String addr) throws UnknownHostException {
         this.addr = InetAddress.getByName(addr);
     }
-
-
+    
+    public String getName() {
+    	return name;
+    }
+    
+    public Worm getWorm() {
+    	return worm;
+    }
+    
+    public PlayerPanel getPlayerPanel() {
+    	return playerPanel;
+    }
 }

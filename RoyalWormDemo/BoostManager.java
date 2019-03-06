@@ -2,15 +2,14 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class BoostManager {
-    //private HashMap<Position, Boost> boosts;
     Random rnd = new Random();
     //Use to spawn superApples
     int applesSpawned = 0;
 
     public BoostManager() {
 
-        //boosts = new HashMap<Position, Boost>();
     }
+
     public void spawnApple()
     {
         if(applesSpawned==20)
@@ -22,26 +21,29 @@ public class BoostManager {
         spawnRandom('a');
         applesSpawned++;}
     }
+
     public void spawnSuperApple()
     {
             spawnRandom('s');
     }
-    //Todo
+
+    //TODO
     public void spawnWall(){}
     public void spawn(Position key, char value) {
-       // boosts.put(key, value);
+
         if(value=='a')
             applesSpawned++;
+        
         if(applesSpawned==20)
         {
             applesSpawned = 0;
             spawnSuperApple();
         }
 
-        GameEngine.GameWorld[key.x][key.y] = value;
-        GameEngine.changes.add(new Change(key.x, key.y, value));
-
+        GameEngine.GameWorld[key.getX()][key.getY()] = value;
+        GameEngine.changes.add(new Change(key.getX(), key.getY(), value));
     }
+
     public void spawnRandom(char value) {
 
         Position tempPos;
@@ -51,13 +53,4 @@ public class BoostManager {
         while (CollisionHandler.collisionCheck(tempPos));
         spawn(tempPos,value);
     }
-    /*
-    public void delete(Position key) {
-        boosts.remove(key);
-    }
-
-    public void clearAllBoosts() {
-        boosts.clear();
-    }*/
-
 }

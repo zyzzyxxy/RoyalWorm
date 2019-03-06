@@ -8,8 +8,7 @@ import java.util.Observer;
 
 public class NetworkController{
 
-    //Todo implement this
-
+    //TODO implement this
     public static void sendWorldData(char[][] map, DatagramSocket datagramSocket, InetAddress addr, int port) throws UnknownHostException {
         //char[][] to string to byte[]
         String result = "";
@@ -27,6 +26,7 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
+
     public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr, int port) throws UnknownHostException {
         //char[][] to string to byte[]
         //hard coding
@@ -38,9 +38,10 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
+
     public static void sendDirectionData(Direction dir, DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
     {
-        String result = Integer.toString(dir.x) + Integer.toString(dir.y);
+        String result = Integer.toString(dir.getX()) + Integer.toString(dir.getY());
         byte[] data = result.getBytes();
 
         //hard coding
@@ -52,14 +53,14 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
+
     public static Direction getDirectionData()
     {
         return null;
     }
+
     public static char[][] getWorldData()
     {
         return null;
     }
-
-
 }

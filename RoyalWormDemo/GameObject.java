@@ -1,6 +1,6 @@
 public class GameObject {
     private Position position;
-    char type;
+    private char type;
 
     public GameObject(Position position, char type) {
         this.position = position;
@@ -9,5 +9,9 @@ public class GameObject {
 
     public Position getPosition() {
         return position;
+    }
+    
+    public char getType() {
+    	return type;
     }
 }

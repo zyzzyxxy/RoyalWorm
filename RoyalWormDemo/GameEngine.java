@@ -7,20 +7,19 @@ import java.io.IOException;
 import java.util.*;
 
 public class GameEngine extends Observable {
-
     public static char[][] GameWorld;
-
     public static List<Player> playerList = new ArrayList<>();
-    List<Boost> spawnList = new ArrayList<>();
     public static List<DynamicObject> dObjectList = new ArrayList<>();
-    javax.swing.Timer gameTimer;
-    BoostManager boostManager = new BoostManager();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
-    int gameCOunter = 0;
-    int ghostCounter = 0;
-    int shrinkCOunter = 0;
-    boolean gameOver=false;
-    boolean apples,lightning,gun,ghost, royal;
+    
+    private List<Boost> spawnList = new ArrayList<>();
+    private javax.swing.Timer gameTimer;
+    private BoostManager boostManager = new BoostManager();
+    private int gameCOunter = 0;
+    private int ghostCounter = 0;
+    private int shrinkCOunter = 0;
+    private boolean gameOver=false;
+    private boolean apples,lightning,gun,ghost, royal;
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
         this.apples = apples;
@@ -51,7 +50,6 @@ public class GameEngine extends Observable {
     private void gameTick() throws InterruptedException, FileNotFoundException {
         if(!gameOver) {
             updateWorms();
-
 
             //no need to inc every counter every time
             if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
@@ -87,17 +85,15 @@ public class GameEngine extends Observable {
 
     public void checkForGameOver()
     {
-
         int playersAlive=0;
         for (Player p:playerList) {
-            if(p.getWormLives()>0)
+            if(p.getWorm().getLives() > 0)
                 playersAlive++;
         }
         if(playersAlive<=0)
         {
             gameOver=true;
         }
-
     }
 
     public char[][] getGameWorld() {
@@ -114,16 +110,12 @@ public class GameEngine extends Observable {
 		for(int i = 0; i<80; i++) {
 			updateGameworld(new Position(i,0+shrinkCOunter), 'w');
 			updateGameworld(new Position(i,59-shrinkCOunter), 'w');
-						
-						
 		}
+		
 		for(int j = 0; j<60; j++) {
 			updateGameworld(new Position(0+shrinkCOunter,j), 'w');
 			updateGameworld(new Position(79-shrinkCOunter,j), 'w');
-			
-			
 		}
-		
 		shrinkCOunter++;
 	}
 
@@ -139,7 +131,7 @@ public class GameEngine extends Observable {
     private void updateBoosts() {
         for (Boost b : spawnList) {
             if (b.timeToSpawn()) {
-                boostManager.spawnRandom(b.type);
+                boostManager.spawnRandom(b.getType());
                 b.resetCounter();
             } else
                 b.incCounter();
@@ -154,20 +146,14 @@ public class GameEngine extends Observable {
     //Update worms, move one step
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
-            if(p.getWormLives()>0) {
-                if (p.getWormCounter() == p.getWormSpeed()) {
-                    p.worm.update();
-                    p.resetWormCounter();
-                } else {
-                    p.incWormCounter();
-                }
-            }
+        	p.getWorm().updater();
         }
     }
+
     private void updateDynamicObjects() throws InterruptedException {
         for (int i = 0; i < dObjectList.size();i++) {
             if(dObjectList.get(i) instanceof Ghost)
-                if(((Ghost)dObjectList.get(i)).dead)
+                if(((Ghost)dObjectList.get(i)).isDead())
                     dObjectList.remove(dObjectList.get(i));
         }
         for (int i = 0; i < dObjectList.size();i++) {
@@ -180,11 +166,9 @@ public class GameEngine extends Observable {
         }
     }
 
-
-
     public static void updateGameworld(Position pos, char c) {
-        GameWorld[pos.x][pos.y] = c;
-        changes.add(new Change(pos.x, pos.y, c));
+        GameWorld[pos.getX()][pos.getY()] = c;
+        changes.add(new Change(pos.getX(), pos.getY(), c));
     }
 
     public void tellObservers() {
@@ -196,7 +180,7 @@ public class GameEngine extends Observable {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
             for (Player p :playerList) {
-                p.worm.reset();
+                p.getWorm().reset();
             }
         }
     }
@@ -215,11 +199,11 @@ public class GameEngine extends Observable {
         }
         }
     }
+
     public static void removeFromDynamicList(GameObject o)
     {
         dObjectList.remove(o);
     }
-
 
     //Just for testing
     public void printGameWorld() {
@@ -255,5 +239,4 @@ public class GameEngine extends Observable {
         System.out.println("Same?");
         System.out.println(Testing.mapsEqual(GameWorld, testWorld));
     }
-
 }

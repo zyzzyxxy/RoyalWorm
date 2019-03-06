@@ -31,7 +31,6 @@ public class Controller implements Observer {
     private boolean started = false;
     private boolean royalB, speedB, applesB,gunsB, ghostB;
 
-
     //Constructor
     public Controller() throws Exception {
 
@@ -45,7 +44,6 @@ public class Controller implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-
         //For sending data to clients
         if (o instanceof GameEngine) {
             try {
@@ -64,7 +62,7 @@ public class Controller implements Observer {
             String playerAdress = getAdressFromString(arg.toString());
             System.out.println(arg);
             System.out.println(playerAdress);
-            //Todo fix this to be dynamic
+            //TODO fix this to be dynamic
             for (Player p : gameEngine.playerList) {
                 try {
                     if (!p.isHost()&&p.getAddr().equals(InetAddress.getByName(playerAdress))) {
@@ -143,7 +141,6 @@ public class Controller implements Observer {
             else
                 x = -1;
         }
-
         return new Direction(x, y);
     }
 
@@ -169,7 +166,6 @@ public class Controller implements Observer {
         guns = new Checkbox("Guns");
         ghost = new Checkbox("Ghost");
         apples.setState(true);
-
 
         playerContainer.setPreferredSize(new Dimension(50, 300));
 
@@ -258,25 +254,27 @@ public class Controller implements Observer {
             ghostB=true;
         else
             ghostB=false;
-
     }
+
     private void hostButtonPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().y != -1) {
-            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(0,1));
+        if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().getY() != -1) {
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setX(0);
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setY(1);
         }
-        if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).worm.getDirection().y != 1) {
-            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(0,-1));
+        if (e.getKeyCode() == KeyEvent.VK_UP && gameEngine.playerList.get(0).getWorm().getDirection().getY() != 1) {
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setX(0);
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setY(-1);
         }
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).worm.getDirection().x != 1) {
-            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(-1,0));
+        if (e.getKeyCode() == KeyEvent.VK_LEFT && gameEngine.playerList.get(0).getWorm().getDirection().getX() != 1) {
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setX(-1);
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setY(0);
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).worm.getDirection().x != -1) {
-            gameEngine.playerList.get(0).worm.setNextDirection(new Direction(1,0));
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && gameEngine.playerList.get(0).getWorm().getDirection().getX() != -1) {
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setX(1);
+            gameEngine.playerList.get(0).getWorm().getNextDirection().setY(0);
         }
-        if(e.getKeyCode() == KeyEvent.VK_SPACE && gameEngine.playerList.get(0).worm.hasGun()) {
+        if(e.getKeyCode() == KeyEvent.VK_SPACE && gameEngine.playerList.get(0).getWorm().hasGun()) {
         	gameEngine.playerList.get(0).getWorm().fireGun();
         }
     }
-
-
 }
