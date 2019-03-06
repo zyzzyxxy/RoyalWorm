@@ -16,14 +16,13 @@ public class GameGraphics {
         int constant = Constants.gameConstant;
         graphics.setColor(Constants.appleColor);
 
-        graphics.drawOval(p.getX() * constant, p.getY() * constant, constant, constant);
+       // graphics.drawOval(p.getX() * constant+1, p.getY() * constant, constant-1, constant-1);
         graphics.fillOval(p.getX() * constant, p.getY() * constant, constant, constant);
         graphics.setColor(Color.GREEN);
         //Todo make details better :)
         //Draw details, just for fun
-
         for (int i = 0; i < 5; i++) {
-            graphics.drawArc(p.getX() * constant - constant + constant / 2, p.getY() * constant - i, 10 + i, 10, 0, 90);
+            graphics.drawArc(p.getX() * constant-2 , p.getY() * constant - i+5, 5 + i, 5, 0, 90);
         }
         return graphics;
     }
@@ -32,14 +31,11 @@ public class GameGraphics {
         int constant = Constants.gameConstant;
         graphics.setColor(Color.magenta);
 
-        graphics.drawOval(p.getX() * constant, p.getY() * constant, constant, constant);
         graphics.fillOval(p.getX() * constant, p.getY() * constant, constant, constant);
-        graphics.setColor(Color.orange);
-        //Todo make details better :)
+        graphics.setColor(Color.GREEN);
         //Draw details, just for fun
-
         for (int i = 0; i < 5; i++) {
-            graphics.drawArc(p.getX() * constant - constant + constant / 2, p.getY() * constant - i, 10 + i, 10, 0, 90);
+            graphics.drawArc(p.getX() * constant-2 , p.getY() * constant - i+5, 5 + i, 5, 0, 90);
         }
         return graphics;
     }

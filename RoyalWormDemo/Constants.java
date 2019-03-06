@@ -2,7 +2,8 @@ import java.awt.*;
 
 public class Constants {
 
-    //GameArgs
+    public static int WALL_SPAWN_SPEED = 1000;
+	//GameArgs
     public static int boardWidth = 800;
     public static int boardHeight = 600;
     public static int gameConstant = 10; //using to scale world and draw figures

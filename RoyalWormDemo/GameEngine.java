@@ -1,6 +1,3 @@
-
-import com.sun.org.apache.bcel.internal.generic.GotoInstruction;
-
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,12 +18,9 @@ public class GameEngine extends Observable {
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
     int gameCOunter = 0;
     int ghostCounter = 0;
+    int shrinkCOunter = 0;
     boolean gameOver=false;
     boolean apples,lightning,gun,ghost, royal;
-
-	private int shrinkCOunter = 0;
-
-    //Todo this constructor shall take List<Player> when controller can provide it
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
         this.apples = apples;
@@ -50,7 +44,6 @@ public class GameEngine extends Observable {
                 }
             }
         });
-
         //Starts the game
         gameTimer.start();
     }
@@ -64,32 +57,54 @@ public class GameEngine extends Observable {
             if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
                 updateBoosts();
                 updateDynamicObjects();
-                if(royal) {
-                	battleRoyal();
-                	//spawnGun();
-                }
+                checkForGameOver();
 
+            }
+            
+            if((gameCOunter %  Constants.WALL_SPAWN_SPEED == 0) && royal) {
+            	battleRoyal();
             }
 
             tellObservers();
             gameCOunter++;
-            if (gameCOunter == 100)
+            if (gameCOunter == 1000)
                 gameCOunter = 0;
         }
         else {
             String current="";
             try {
                 current = new File( "." ).getCanonicalPath();
+                System.out.println(current);
             } catch (IOException e) {
                 e.printStackTrace();
             }
             System.out.println("Game over");
-            loadGameworld(new File("C:/Users/anton/Documents/Gitz/RoyalWorm/RoyalWormDemo/gameover"));
+            loadGameworld(new File(current+"/RoyalWorm/gameOver.txt"));
             setChanged();
             tellObservers();
         }
     }
 
+    public void checkForGameOver()
+    {
+
+        int playersAlive=0;
+        for (Player p:playerList) {
+            if(p.worm.lives>0)
+                playersAlive++;
+        }
+        if(playersAlive<=0)
+        {
+            gameOver=true;
+        }
+
+    }
+
+    public char[][] getGameWorld() {
+        return GameWorld;
+    }
+
+    //What boosts will be avaliable in Game
     private void battleRoyal() {
     	shrinkWalls();
     	System.out.print("shrink that shit");
@@ -139,11 +154,13 @@ public class GameEngine extends Observable {
     //Update worms, move one step
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
-            if (p.worm.counter == p.worm.speed) {
-                p.worm.update();
-                p.worm.counter = 0;
-            } else {
-                p.worm.counter++;
+            if(p.worm.lives>0) {
+                if (p.worm.counter == p.worm.speed) {
+                    p.worm.update();
+                    p.worm.counter = 0;
+                } else {
+                    p.worm.counter++;
+                }
             }
         }
     }
