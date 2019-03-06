@@ -30,11 +30,11 @@ public class Player {
             worm.getNextDirection().setX(0);
             worm.getNextDirection().setY(1);
         }
-        if (dir.getY() == -1 && worm.getDirection().y != 1) {
+        if (dir.getY() == -1 && worm.getDirection().getY() != 1) {
             worm.getNextDirection().setX(0);
             worm.getNextDirection().setY(-1);
         }
-        if (dir.getX() == 1 && worm.getDirection().x != -1) {
+        if (dir.getX() == 1 && worm.getDirection().getX() != -1) {
             worm.getNextDirection().setX(1);
             worm.getNextDirection().setY(0);
         }
