@@ -64,6 +64,11 @@ public class GameEngine extends Observable {
         if(!gameOver) {
             updateWorms();
             updateBullets();
+            if(gameCOunter % Constants.allowedFire == 0) {
+            	for(Player p : playerList) {
+            		p.getWorm().toggleFireAllowed();
+            	}
+            }
 
             //no need to inc every counter every time
             if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
@@ -138,11 +143,21 @@ public class GameEngine extends Observable {
     }
 
 	private void spawnGun() {
+		Position tmp;
+		do {
+			tmp = randomPos();
+		}while(GameWorld[tmp.getX()][tmp.getY()] != '0');
+			
+		updateGameworld(tmp, 'p');
+	}
+	
+	public Position randomPos() {
 		Random xr = new Random();
 		Random yr = new Random();
 		int x = xr.nextInt(79);
 		int y = yr.nextInt(59);
-		updateGameworld(new Position(x, y), 'p');
+		Position tmp = new Position(x, y);
+		return tmp;
 	}
 
 	//Adds a new layer of walls inside the previous layer

@@ -17,6 +17,7 @@ public class Constants {
     public static int wormspeed = 12;
     public static int wormStartingLength = 8;
     public static int startingLives = 3;
+    public static int allowedFire = 200;
 
     //Dynamics
     public static int ghostSpeed = 20;

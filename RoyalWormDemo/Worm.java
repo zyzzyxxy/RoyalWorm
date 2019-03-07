@@ -19,6 +19,7 @@ public class Worm extends GameObject {
     private Direction direction, nextDirection;
     private int isFast = 0;
     private boolean gun;
+    private boolean fireAllowed;
 
     public Worm(Position position, Direction direction, int wormNumber) {
         super(position, Integer.toString(wormNumber).charAt(0));
@@ -34,6 +35,7 @@ public class Worm extends GameObject {
         this.lives = 3;
         this.counter = 0;
         gun = false;
+        fireAllowed = true;
         this.type = Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
         bullets = new ArrayList<>();
@@ -131,7 +133,7 @@ public class Worm extends GameObject {
     	}while(CollisionHandler.collisionCheck(tmp));
     	return tmp;
     }
-
+    
     public void addToSpeed(int n) {
         speed -= n;
     }
@@ -211,7 +213,7 @@ public class Worm extends GameObject {
 
             System.out.println(p.getX());
             System.out.println(p.getY());
-        }
+        }  
     }
 
 	public boolean hasGun() {
@@ -223,13 +225,14 @@ public class Worm extends GameObject {
 	}
 	
 	public void fireGun() {
-		if (gun) {
+		if (gun && fireAllowed) {
 			System.out.println("FIRE!!!");
 			int x = headPos.getX()+1;
 			int y = headPos.getY() +1;
 			Position tmp = new Position(x, y);
 			Bullet b = new Bullet(tmp, this);
 			bullets.add(b);
+			fireAllowed = false;
 		}
 	}
 	
@@ -258,7 +261,11 @@ public class Worm extends GameObject {
 		return bullets;
 	}
 
-}
 
+	public boolean toggleFireAllowed() {
+		fireAllowed = true;
+		return fireAllowed;
+	}
+}
 
 
