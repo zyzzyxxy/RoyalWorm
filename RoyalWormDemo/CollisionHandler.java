@@ -63,8 +63,11 @@ public class CollisionHandler {
 		}
 		}
 		else if (w instanceof Ghost)
-		{
-			System.out.println("Ghost collision");
+		{	
+			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];
+			if(comp == 'w') {
+				((Ghost)w).setDead(true);
+			}
 			for (Player p:GameEngine.playerList) {
 				System.out.println(p.getName());
 				System.out.println(p.getWorm().isInBody(pos));

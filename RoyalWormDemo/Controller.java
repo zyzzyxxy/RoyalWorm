@@ -37,9 +37,9 @@ public class Controller implements Observer {
         nwReciever = new NetworkReciever(1230);
         nwReciever.addObserver(this::update);
         playerList.add(new Player("Host", 1, "127.0.0.1", true));
-
+        
         showStartScreen();
-
+        
     }
 
     @Override

@@ -96,7 +96,7 @@ public class GameEngine extends Observable {
                 e.printStackTrace();
             }
             System.out.println("Game over");
-            loadGameworld(new File(current+"/RoyalWorm/gameOver.txt"));
+            loadGameworld(new File("C:/Users/anton/Documents/Gitz/RoyalWormgameOver.txt"));
             setChanged();
             tellObservers();
         }
