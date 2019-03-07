@@ -6,6 +6,7 @@
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Worm extends GameObject {
     private int speed, length, lives;
@@ -102,13 +103,31 @@ public class Worm extends GameObject {
     }
 
     public void reset() {
-        //TODO fix this
+        //Todo fix this
         for (Position p : body) {
             GameEngine.updateGameworld(p, '0');
         }
         body.clear();
         length = Constants.wormStartingLength;
-        headPos = startPos;
+        
+        Position tmp = generateRandomPos(); 
+        headPos = validPos();
+    }
+    
+    public Position generateRandomPos() {
+    	Random rn = new Random();
+    	int x = rn.nextInt(79);
+    	int y = rn.nextInt(59);
+    	Position tmp = new Position(x, y);
+    	return tmp;
+    }
+    
+    public Position validPos() {
+    	Position tmp;
+    	do {
+    		tmp = generateRandomPos();
+    	}while(CollisionHandler.collisionCheck(tmp));
+    	return tmp;
     }
 
     public void addToSpeed(int n) {
