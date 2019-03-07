@@ -119,4 +119,18 @@ public class GameGraphics {
         return graphics;
     }
 
+	public static Graphics drawBullet(Position p, Graphics graphics) {
+		 graphics.setColor(Color.GRAY);
+	     graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
+	     return graphics;
+		
+	}
+	
+
+	public static Graphics drawGun(Position p, Graphics graphics) {
+		 graphics.setColor(Color.LIGHT_GRAY);
+	     graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
+	     return graphics;	
+	}
+
 }

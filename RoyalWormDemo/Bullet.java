@@ -13,15 +13,13 @@ public class Bullet extends DynamicObject {
    private boolean projection;
 
     public Bullet(Position position, Worm w) {
-        super(position, 'b',w.getDir());
-        this.counter=0;
-        dirX = w.getDir().getX();
-        dirY = w.getDir().getY();
+        super(position, 'b',w.getDirection());
+        dirX = w.getDirection().getX();
+        dirY = w.getDirection().getY();
         this.speed = Constants.bulletSpeed;
         this.position = position;
-        this.direction=w.getDir();
+        this.direction=w.getDirection();
         this.type = 'b';
-        this.directionCounter=0;
         projection = true;
        // changeDirection = rnd.nextInt(5)*5;
     }
@@ -31,16 +29,16 @@ public class Bullet extends DynamicObject {
     	if(projection) {
         GameEngine.updateGameworld((Position) position, '0');
         
-        this.position.x+=dirX;
-        this.position.y+=dirY;
-        if (position.x >= Constants.worldWidth)
-            position.x = 0;
-        if (position.y >= Constants.worldHeight)
-            position.y = 0;
-        if (position.x < 0)
-            position.x = Constants.worldWidth - 1;
-        if (position.y < 0)
-            position.y = Constants.worldHeight - 1;
+        position.setX(position.getX() + dirX);
+        position.setY(position.getY() + dirY);
+        if (position.getX() >= Constants.worldWidth)
+            position.setX(0);
+        if (position.getY() >= Constants.worldHeight)
+            position.setY(0);
+        if (position.getX() < 0)
+            position.setX(Constants.worldWidth - 1);
+        if (position.getY() < 0)
+            position.setY(Constants.worldHeight - 1);
 
         if (CollisionHandler.collisionCheck((Position) position))
             CollisionHandler.collisionHandle(this, (Position)position);
@@ -58,6 +56,11 @@ public class Bullet extends DynamicObject {
 	
 	public Bullet thisBullet() {
 		return this;
+	}
+
+
+	public void resetProjection() {
+		projection = true;
 	}
 
 

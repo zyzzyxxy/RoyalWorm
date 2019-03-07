@@ -95,6 +95,12 @@ public class GameCanvas extends JPanel {
             case 'g':
                 GameGraphics.drawGhost(p,g);
                 break;
+            case 'b':
+            	GameGraphics.drawBullet(p,g);
+            	break;
+            case 'p': //p as in pistol
+            	GameGraphics.drawGun(p,g);
+            	break;
         }
     }
 }

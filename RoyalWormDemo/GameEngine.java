@@ -63,6 +63,7 @@ public class GameEngine extends Observable {
     private void gameTick() throws InterruptedException, FileNotFoundException {
         if(!gameOver) {
             updateWorms();
+            updateBullets();
 
             //no need to inc every counter every time
             if ((gameCOunter % Constants.GENERALSPAWNRATE) == 0) {
@@ -96,7 +97,24 @@ public class GameEngine extends Observable {
         }
     }
 
-    public void checkForGameOver()
+	public void updateBullets() throws InterruptedException {
+		for(Player p : playerList) {
+			System.out.println("In PlayerList");
+			//System.out.println(p.getWorm().getBullets().size());
+			for(Bullet b : p.getWorm().getBullets()) {
+				//p.getWorm().getBullets().remove(b); This should be here but crashes the game. Makes no significant differense though.
+				if(b.getProjection()) {
+				System.out.println(b.getPosition().getX());
+				if(gameCOunter % Constants.bulletSpeed == 0)
+						b.update();
+						updateGameworld(b.getPosition(), 'b');
+						
+				}
+			}
+		}
+	}
+
+	public void checkForGameOver()
     {
         int playersAlive=0;
         for (Player p:playerList) {
@@ -115,8 +133,16 @@ public class GameEngine extends Observable {
 
     //What boosts will be avaliable in Game
     private void battleRoyal() {
+    	spawnGun();
     	shrinkWalls();
-    	System.out.print("shrink that shit");
+    }
+
+	private void spawnGun() {
+		Random xr = new Random();
+		Random yr = new Random();
+		int x = xr.nextInt(79);
+		int y = yr.nextInt(59);
+		updateGameworld(new Position(x, y), 'p');
 	}
 
 	//Adds a new layer of walls inside the previous layer

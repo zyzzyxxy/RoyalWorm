@@ -52,6 +52,13 @@ public class CollisionHandler {
 					//((Worm) w).addToSpeed(Constants.wormspeed/2);
 					((Worm) w).lightninhMode();
 					break;
+				case 'p':
+					((Worm) w).pickUpGun();
+					break;
+				case 'b':
+					((Worm) w).reset();
+					((Worm) w).looseLife();
+					break;
 			}
 		}
 		}
@@ -66,6 +73,21 @@ public class CollisionHandler {
 					((Ghost)w).setDead(true);
 				}
 			}
+		}
+		else if(w instanceof Bullet) {
+			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];
+			//((Bullet)w).endProjection();
+			if(comp =='w' || comp == 'b'|| comp == '1' || comp == '2' || comp == '3' || comp == '4' || comp == '5'){
+				((Bullet)w).endProjection();
+			}
+			else 
+			
+			for (Player p:GameEngine.playerList) {
+				if(p.getWorm().isInBody(pos)!=-1) {
+					p.getWorm().cut(pos);
+				}
+			}
+
 		}
 
 	}

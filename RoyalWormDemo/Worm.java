@@ -11,6 +11,7 @@ import java.util.Random;
 public class Worm extends GameObject {
     private int speed, length, lives;
     private List<Position> body;
+    private List<Bullet> bullets;
     private Position headPos, tailPos, startPos;
     private int wormNumber, counter;
     private char type;
@@ -35,6 +36,7 @@ public class Worm extends GameObject {
         gun = false;
         this.type = Integer.toString(wormNumber).charAt(0);
         body = new ArrayList<>();
+        bullets = new ArrayList<>();
     }
 
 
@@ -221,7 +223,18 @@ public class Worm extends GameObject {
 	}
 	
 	public void fireGun() {
-		System.out.println("FIRE!!!");
+		if (gun) {
+			System.out.println("FIRE!!!");
+			int x = headPos.getX()+1;
+			int y = headPos.getY() +1;
+			Position tmp = new Position(x, y);
+			Bullet b = new Bullet(tmp, this);
+			bullets.add(b);
+		}
+	}
+	
+	public void removeBullet(Bullet b) {
+		bullets.remove(b);
 	}
 
 	public Direction getDirection() {
@@ -240,6 +253,9 @@ public class Worm extends GameObject {
 	}
 	public int getCounter() {
 		return counter;
+	}
+	public List<Bullet> getBullets(){
+		return bullets;
 	}
 
 }
