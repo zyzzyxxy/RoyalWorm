@@ -69,31 +69,19 @@ public class Worm extends GameObject {
         Position head, tail;
         head = null;
         tail = null;
-        
-        
-        
+        if (CollisionHandler.collisionCheck(headPos))
+            CollisionHandler.collisionHandle(this, headPos);
+    	body.add(headPos);
+    	head = headPos;
+    	GameEngine.updateGameworld(headPos, this.type);
         if (body.size() < this.length) {
-            if (CollisionHandler.collisionCheck(headPos))
-                CollisionHandler.collisionHandle(this, headPos);
-            body.add(headPos);
-            head = headPos;
             tail = null;
-            GameEngine.updateGameworld(headPos, this.type);
-            updateHeadPos();
         } else {
-            if (CollisionHandler.collisionCheck(headPos))
-                CollisionHandler.collisionHandle(this, headPos);
-
-            body.add(headPos);
-            head = headPos;
-            GameEngine.updateGameworld(headPos, this.type);
             GameEngine.updateGameworld(body.get(0), '0');
             tail = tailPos;
             body.remove(0);
-            //  tailPos = body.get(0);
-            updateHeadPos();
-
         }
+        updateHeadPos();
     }
 
     public void grow() {
