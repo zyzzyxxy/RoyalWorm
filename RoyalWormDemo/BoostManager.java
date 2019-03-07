@@ -12,19 +12,6 @@ public class BoostManager {
     int applesSpawned = 0;
 
     public BoostManager() {
-
-    }
-
-    public void spawnApple()
-    {
-        if(applesSpawned==20)
-        {
-            applesSpawned = 0;
-            spawnSuperApple();
-        }
-        else {
-        spawnRandom('a');
-        applesSpawned++;}
     }
 
     public void spawnSuperApple()
@@ -34,6 +21,7 @@ public class BoostManager {
 
     //TODO
     public void spawnWall(){}
+
     public void spawn(Position key, char value) {
 
         if(value=='a')
