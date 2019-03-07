@@ -1,3 +1,10 @@
+/**
+ *This class gives us a tuple of ints that can be used for positioning and direction".
+ *
+ * @Param two ints, x,y
+ * @Return an instance of BoardCordinates.
+ * */
+
 public class BoardCordinates {
     private int x, y;
 

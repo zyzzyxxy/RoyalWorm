@@ -1,3 +1,15 @@
+/**
+ *This class takes care of the logics of the game.
+ *
+ * It´s observable and can notify changes to i.e. a gui or a network controller.
+ * It has a timer that ticks, dictating the speed of the game
+ *
+ * @Param Player list of the players that should be included
+ * @Param booleans for every game mode avaliable.
+ * @Return an instance of GameEngine that runs.
+ * */
+
+
 import javax.swing.Timer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +59,7 @@ public class GameEngine extends Observable {
         gameTimer.start();
     }
 
+    //This method is called every time the GameTimer ticks, takes care of updating the gamecomponents.
     private void gameTick() throws InterruptedException, FileNotFoundException {
         if(!gameOver) {
             updateWorms();
@@ -106,6 +119,7 @@ public class GameEngine extends Observable {
     	System.out.print("shrink that shit");
 	}
 
+	//Adds a new layer of walls inside the previous layer
 	private void shrinkWalls() {
 		for(int i = 0; i<80; i++) {
 			updateGameworld(new Position(i,0+shrinkCOunter), 'w');
@@ -150,6 +164,7 @@ public class GameEngine extends Observable {
         }
     }
 
+    //Updates dynamic objects in dObjectlist
     private void updateDynamicObjects() throws InterruptedException {
         for (int i = 0; i < dObjectList.size();i++) {
             if(dObjectList.get(i) instanceof Ghost)
@@ -166,16 +181,19 @@ public class GameEngine extends Observable {
         }
     }
 
+    //updates gameworld and add changes to changes-list
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.getX()][pos.getY()] = c;
         changes.add(new Change(pos.getX(), pos.getY(), c));
     }
 
+    //notifies observers
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
     }
 
+    //empties the world and reset worms
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
@@ -185,6 +203,7 @@ public class GameEngine extends Observable {
         }
     }
 
+    //Loads a world file, must be right format
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         for (int i = 0; i < Constants.worldHeight; i++) {
@@ -200,6 +219,7 @@ public class GameEngine extends Observable {
         }
     }
 
+    //removes a GameObject from the dynamic list
     public static void removeFromDynamicList(GameObject o)
     {
         dObjectList.remove(o);

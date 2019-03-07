@@ -1,4 +1,9 @@
-import java.util.HashMap;
+/**
+ *This class takes care of the spawning of Boosts
+ *
+ * @Return an instance of BoostManager.
+ * */
+
 import java.util.Random;
 
 public class BoostManager {
