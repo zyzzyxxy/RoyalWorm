@@ -1,3 +1,12 @@
+/**
+ *Creates a boost that is a pickup in game, keeping track of its spawnrate.
+ *
+ * @Param the position of the object
+ * @Param the type as a char
+ * @Param spawnRate as an int
+ * @Return an instance of Boost.
+ * */
+
 public class Boost extends GameObject {
 
     private int counter = 0;
