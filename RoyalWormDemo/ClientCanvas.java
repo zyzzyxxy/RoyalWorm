@@ -1,3 +1,10 @@
+/**
+ *Canvas for painting the gameComponents of the client
+ *
+ * @Param the gameWorld. Need not to be fillew with contents from start, but must have the right size.
+ * @Return an instance of ClienCanvas.
+ * */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
@@ -8,6 +15,7 @@ public class ClientCanvas extends JPanel {
     private char[][] clientWorld;
     private int paintCounter = 0;
 
+    //Constructor
     public ClientCanvas(char[][] c)
     {
     	clientWorld = new char[Constants.worldWidth][Constants.worldHeight];
@@ -20,6 +28,7 @@ public class ClientCanvas extends JPanel {
         setBackground(Constants.backgroundColor);
     }
 
+    //Updates the world map for the client
     public void updateClientWorld(char[][] world)
     {
     	for (int y = 0; y < Constants.worldHeight; y++) {
@@ -43,7 +52,7 @@ public class ClientCanvas extends JPanel {
             drawWorld(g);
         }
     }
-
+    //Paints the canvas using changesList
     public void drawChanges(Graphics g)
     {
         if(!ClientWindow.changes.isEmpty())
@@ -65,6 +74,7 @@ public class ClientCanvas extends JPanel {
             }
     }
 
+    //Used to determing what to draw
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)

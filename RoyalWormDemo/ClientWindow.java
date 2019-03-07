@@ -1,3 +1,11 @@
+/**
+ *This window works also as a controller for clients recieving and sending data
+ *
+ * @Param host Adress as a string
+ * @Return A window containging a canvas, ready to paint recieved data and to send directions back to Host.
+ * */
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -10,10 +18,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
-/**
-This window works also as a controller for clients recieving and sending data
- */
 public class ClientWindow{
     private JFrame frame;
     private int recievePort = 1234;
