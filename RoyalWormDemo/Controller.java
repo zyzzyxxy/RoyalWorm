@@ -11,7 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * This class controls everything
+ * This class controls everything from the Host side. It alsoe contains the GameEngine responsible for creating and running the game.
  */
 public class Controller implements Observer {
     private GameEngine gameEngine;
@@ -40,6 +40,17 @@ public class Controller implements Observer {
         
     }
 
+    /**
+     * Manages the nessecery data updates that takes place when new data is presented from GameEngine or from another player
+     *
+     * When GameEngine has been updated this method sends the updates to all players
+     *
+     * When the Controller recieves data from another player this method checks for the content and takes the action Nessecery
+     * (either adding a player if game not running else updates the direction of the worm of the player whom sent the data)
+     *
+     * @param o The observed object
+     * @param arg The argument this object gives to it´s observers
+     */
     @Override
     public void update(Observable o, Object arg) {
         //For sending data to clients
@@ -109,6 +120,7 @@ public class Controller implements Observer {
         }
     }
 
+    //this method is used when adding players to extract the adress
     private String getAdressFromString(String str) {
         String result = "";
         int i = 0;
@@ -123,6 +135,7 @@ public class Controller implements Observer {
         return result;
     }
 
+    //this method is used when getting a direction from another player
     private Direction getDirFromString(String arg) {
         int x, y;
         if (arg.substring(0, 1).equals("0")) {
@@ -141,6 +154,7 @@ public class Controller implements Observer {
         return new Direction(x, y);
     }
 
+    //Sends data to all players connected as clients
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.isHost()) {
@@ -149,6 +163,7 @@ public class Controller implements Observer {
         }
     }
 
+    //Shows the setupscreen before game begins
     private void showStartScreen() throws Exception {
         startFrame = new JFrame("HOST-Screen");
         startFrame.getContentPane().setLayout(new FlowLayout());
@@ -198,6 +213,7 @@ public class Controller implements Observer {
 
     }
 
+    //Starts the game
     public void startGame() throws Exception {
         boolean[] gameMode = {royalB, speedB,applesB,gunsB};
         this.gameEngine = new GameEngine(playerList,royalB,applesB,speedB,gunsB,ghostB);
@@ -214,6 +230,7 @@ public class Controller implements Observer {
         });
     }
 
+    //Checks the gamemodes and starts the game
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
             System.out.println("HostButtonClicked");
@@ -229,6 +246,7 @@ public class Controller implements Observer {
         }
     }
 
+    //Checks what game modes will be activated in the game
     private void checkGameMode()
     {
         if(royal.getState()==true)
@@ -253,6 +271,7 @@ public class Controller implements Observer {
             ghostB=false;
     }
 
+    //For controlling the host´s worm
     private void hostKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().getY() != -1) {
             gameEngine.playerList.get(0).getWorm().getNextDirection().setX(0);
