@@ -123,19 +123,19 @@ public class ClientWindow{
         {
             case KeyEvent.VK_UP:
                 System.out.println("Up");
-                NetworkController.sendDirectionData(new Direction(0,-1),dSocket,hostAddr,portNr);
+                NetworkController.sendDirectionData(new Direction(0,-1),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_DOWN:
                 System.out.println("Down");
-                NetworkController.sendDirectionData(new Direction(0,1),dSocket,hostAddr,portNr);
+                NetworkController.sendDirectionData(new Direction(0,1),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_LEFT:
                 System.out.println("Left");
-                NetworkController.sendDirectionData(new Direction(-1,0),dSocket,hostAddr,portNr);
+                NetworkController.sendDirectionData(new Direction(-1,0),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_RIGHT:
                 System.out.println("Right");
-                NetworkController.sendDirectionData(new Direction(1,0),dSocket,hostAddr,portNr);
+                NetworkController.sendDirectionData(new Direction(1,0),dSocket,hostAddr);
                 break;
         }
     }

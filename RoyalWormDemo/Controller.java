@@ -144,7 +144,7 @@ public class Controller implements Observer {
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.isHost()) {
-                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.getAddr(), p.getPort());
+                NetworkController.sendWorldData(gameEngine.GameWorld, datagramSocket, p.getAddr());
             }
         }
     }

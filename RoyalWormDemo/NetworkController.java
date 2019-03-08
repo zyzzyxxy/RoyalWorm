@@ -1,3 +1,7 @@
+/**
+ * Contains static methods for sending data
+ */
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
@@ -5,35 +9,54 @@ import java.net.UnknownHostException;
 
 public class NetworkController{
 
-    public static void sendWorldData(char[][] map, DatagramSocket datagramSocket, InetAddress addr, int port) throws UnknownHostException {
+    /**
+     * Converts a char[][] to a byte array and sends the information to the specified adress
+     *
+     * @param map - the gameWorld to be sent as a char[][]
+     * @param datagramSocket the DatagramSocket to use
+     * @param addr the InetAdress wich the data should be sent to
+     */
+    public static void sendWorldData(char[][] map, DatagramSocket datagramSocket, InetAddress addr) throws UnknownHostException {
         String result = "";
         for (char[] c:map ) {
             result+=new String(c);
         }
         byte[] data = result.getBytes();
-        port = 1234;
+        int port = 1234;
 
         try {
             datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
         }
         catch (Exception e){e.printStackTrace();}
     }
-
-    public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr, int port) throws UnknownHostException {
+    /**
+     * Sends the data given to the specified adress
+     *
+     * @param data - the data to be sent
+     * @param datagramSocket the DatagramSocket to use
+     * @param addr the InetAdress wich the data should be sent to
+     */
+    public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr) throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getByName(addr);
-        port = 1230;
+        int port = 1230;
 
         try {
             datagramSocket.send(new DatagramPacket(data,data.length,inetAddress,port));
         }
         catch (Exception e){e.printStackTrace();}
     }
-
-    public static void sendDirectionData(Direction dir, DatagramSocket datagramSocket, InetAddress addr, int port) throws Exception
+    /**
+     * Sends the direction as a byte[] to the specified adress
+     *
+     * @param dir - the data to be sent
+     * @param datagramSocket the DatagramSocket to use
+     * @param addr the InetAdress wich the data should be sent to
+     */
+    public static void sendDirectionData(Direction dir, DatagramSocket datagramSocket, InetAddress addr) throws Exception
     {
         String result = Integer.toString(dir.getX()) + Integer.toString(dir.getY());
         byte[] data = result.getBytes();
-        port = 1230;
+        int port = 1230;
 
         try {
             datagramSocket.send(new DatagramPacket(data,data.length,addr,port));
