@@ -2,23 +2,15 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.util.Arrays;
-import java.util.Observable;
-import java.util.Observer;
 
 public class NetworkController{
 
-    //TODO implement this
     public static void sendWorldData(char[][] map, DatagramSocket datagramSocket, InetAddress addr, int port) throws UnknownHostException {
-        //char[][] to string to byte[]
         String result = "";
         for (char[] c:map ) {
             result+=new String(c);
         }
         byte[] data = result.getBytes();
-
-        //hard coding
-       // InetAddress inetAddress = InetAddress.getByName("192.168.0.136");
         port = 1234;
 
         try {
@@ -28,8 +20,6 @@ public class NetworkController{
     }
 
     public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr, int port) throws UnknownHostException {
-        //char[][] to string to byte[]
-        //hard coding
         InetAddress inetAddress = InetAddress.getByName(addr);
         port = 1230;
 
@@ -43,9 +33,6 @@ public class NetworkController{
     {
         String result = Integer.toString(dir.getX()) + Integer.toString(dir.getY());
         byte[] data = result.getBytes();
-
-        //hard coding
-        //InetAddress inetAddress = InetAddress.getByName("192.168.43.88");
         port = 1230;
 
         try {
@@ -54,13 +41,4 @@ public class NetworkController{
         catch (Exception e){e.printStackTrace();}
     }
 
-    public static Direction getDirectionData()
-    {
-        return null;
-    }
-
-    public static char[][] getWorldData()
-    {
-        return null;
-    }
 }

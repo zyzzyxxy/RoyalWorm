@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO Clarify how this will work
-
 /**
  * This class controls everything
  */
@@ -62,7 +60,6 @@ public class Controller implements Observer {
             String playerAdress = getAdressFromString(arg.toString());
             System.out.println(arg);
             System.out.println(playerAdress);
-            //TODO fix this to be dynamic
             for (Player p : gameEngine.playerList) {
                 try {
                     if (!p.isHost()&&p.getAddr().equals(InetAddress.getByName(playerAdress))) {
@@ -211,7 +208,7 @@ public class Controller implements Observer {
         gw.gameCanvas.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                hostButtonPressed(e);
+                hostKeyPressed(e);
                 System.out.println("Key pressed" + e.getKeyCode());
             }
         });
@@ -256,7 +253,7 @@ public class Controller implements Observer {
             ghostB=false;
     }
 
-    private void hostButtonPressed(KeyEvent e) {
+    private void hostKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().getY() != -1) {
             gameEngine.playerList.get(0).getWorm().getNextDirection().setX(0);
             gameEngine.playerList.get(0).getWorm().getNextDirection().setY(1);

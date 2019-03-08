@@ -21,8 +21,6 @@ public class NetworkReciever extends Observable implements Runnable{
 
                 receiveSocket.receive(dp);
                 String message = new String(dp.getData(), 0, dp.getLength());
-                //System.out.println(message);
-
                 dp.getAddress();
                 setChanged();
                 notifyObservers(message+dp.getAddress());
