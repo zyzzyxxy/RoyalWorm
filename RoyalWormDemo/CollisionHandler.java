@@ -20,9 +20,11 @@ public class CollisionHandler {
 					break;
 				case 'a':
 					((Worm) w).grow();
+					((Worm) w).setScore(((Worm) w).getScore()+5);
 					break;
 				case 's':
 					((Worm) w).grow(10);
+					((Worm) w).setScore(((Worm) w).getScore()+10);
 					break;
 				case 'w':
 					((Worm) w).reset();
@@ -51,9 +53,11 @@ public class CollisionHandler {
 				case 'l':
 					//((Worm) w).addToSpeed(Constants.wormspeed/2);
 					((Worm) w).lightninhMode();
+					((Worm) w).setScore(((Worm) w).getScore()+1);
 					break;
 				case 'p':
 					((Worm) w).pickUpGun();
+					((Worm) w).setScore(((Worm) w).getScore()+3);
 					break;
 				case 'b':
 					((Worm) w).reset();

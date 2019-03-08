@@ -104,12 +104,10 @@ public class GameEngine extends Observable {
 
 	public void updateBullets() throws InterruptedException {
 		for(Player p : playerList) {
-			System.out.println("In PlayerList");
 			//System.out.println(p.getWorm().getBullets().size());
 			for(Bullet b : p.getWorm().getBullets()) {
 				//p.getWorm().getBullets().remove(b); This should be here but crashes the game. Makes no significant differense though.
 				if(b.getProjection()) {
-				System.out.println(b.getPosition().getX());
 				if(gameCOunter % Constants.bulletSpeed == 0)
 						b.update();
 						updateGameworld(b.getPosition(), 'b');
@@ -192,7 +190,7 @@ public class GameEngine extends Observable {
                 b.incCounter();
         }
         if(ghostCounter==Constants.ghostSpawn&&ghost) {
-            dObjectList.add(new Ghost(Position.getRandomPosition()));
+            dObjectList.add(new Ghost(randomPos()));
             ghostCounter=0;
         }
         else {ghostCounter++;}
