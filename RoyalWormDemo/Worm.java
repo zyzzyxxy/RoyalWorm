@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Worm extends GameObject {
-    private int speed, length, lives;
+    private int speed, length, lives, score;
     private List<Position> body;
     private List<Bullet> bullets;
     private Position headPos, tailPos, startPos;
@@ -257,8 +257,14 @@ public class Worm extends GameObject {
 	public int getCounter() {
 		return counter;
 	}
+	public int getScore() {
+		return score;
+	}
 	public List<Bullet> getBullets(){
 		return bullets;
+	}
+	public void setScore(int s) {
+		score = s;
 	}
 
 
@@ -266,6 +272,7 @@ public class Worm extends GameObject {
 		fireAllowed = true;
 		return fireAllowed;
 	}
+
 }
 
 

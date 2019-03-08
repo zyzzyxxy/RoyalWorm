@@ -83,9 +83,13 @@ public class Player {
     	return name;
     }
     
+    public void updatePlayerPanel() {
+    	playerPanel.update();
+    }
 
     
     public PlayerPanel getPlayerPanel() {
+    	playerPanel.update();
     	return playerPanel;
     }
 }

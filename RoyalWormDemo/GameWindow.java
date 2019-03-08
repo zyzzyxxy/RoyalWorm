@@ -34,6 +34,9 @@ public class GameWindow extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.paint(gameCanvas.getGraphics());
+        for (Player p : GameEngine.playerList) {
+            playerContainer.add(p.getPlayerPanel());
+        }
     }
 
     private void makeFrame() {

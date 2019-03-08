@@ -43,7 +43,7 @@ public class BoostManager {
         do {
             tempPos = new Position(rnd.nextInt(Constants.worldWidth), rnd.nextInt(Constants.worldHeight));
         }
-        while (CollisionHandler.collisionCheck(tempPos));
+        while (GameEngine.GameWorld[tempPos.getX()][tempPos.getY()] != '0');
         spawn(tempPos,value);
     }
 }
