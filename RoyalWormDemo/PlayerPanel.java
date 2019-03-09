@@ -7,11 +7,10 @@ public class PlayerPanel extends Container {
     
     public PlayerPanel(String n)
     {
-    	sc = 0;
-    	li = 3;
+
         name = new JLabel(n);
-        lives = new JLabel("Lives: " + li);
-        score = new JLabel("Score: " + sc);
+        lives = new JLabel("Lives: 3" );
+        score = new JLabel("Score: 0");
         space = new JLabel("      ");
         this.setLayout(new FlowLayout());
         this.setSize(new Dimension(50,50));
@@ -24,12 +23,9 @@ public class PlayerPanel extends Container {
     
     
     
-    public void update() {
-    	for(Player p : GameEngine.playerList) {
-    		int setLives = p.getWorm().getLives();
-    		int setScore = p.getWorm().getScore();
-    		lives.setText("Lives: " + setLives);
-    		score.setText("Score: " + setScore);
-    	}
+    public void update(int livess, int scoree) {
+    		lives.setText("Lives: " + livess);
+    		score.setText("Score: " + scoree);
+    	
     }
 }

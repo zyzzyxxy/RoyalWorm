@@ -82,14 +82,10 @@ public class Player {
     public String getName() {
     	return name;
     }
-    
-    public void updatePlayerPanel() {
-    	playerPanel.update();
-    }
 
     
     public PlayerPanel getPlayerPanel() {
-    	playerPanel.update();
+    	playerPanel.update(getWorm().getLives(), getWorm().getScore());
     	return playerPanel;
     }
 }

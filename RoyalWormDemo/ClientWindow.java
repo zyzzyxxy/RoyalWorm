@@ -29,6 +29,7 @@ public class ClientWindow{
     private InetAddress hostAddr;
     private int portNr = 1233;
     private Thread rThread;
+	private Container playerContainer;
 
     public static List<Change> changes = new ArrayList<>();
     
@@ -84,6 +85,8 @@ public class ClientWindow{
         frame = new JFrame("Client Window");
         frame.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         frame.setLocationRelativeTo(null);
+        //playerContainer.add(GameEngine.playerList.get(0).getPlayerPanel());
+        //frame.add(GameEngine.playerList.get(0).getPlayerPanel());
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
