@@ -1,10 +1,10 @@
+/**
+ * A panel used as a canvas to draw the gameworld and the objects in it
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.security.PublicKey;
-import java.util.Iterator;
 import java.util.List;
 
 public class GameCanvas extends JPanel {
@@ -21,6 +21,11 @@ public class GameCanvas extends JPanel {
         this.repaint();
     }
 
+    /**
+     * The method used when painting
+     *
+     * @param g the graphics that will be used
+     */
     @Override
     public void paint(Graphics g) {
        if (paintCounter < 3) {
@@ -31,6 +36,12 @@ public class GameCanvas extends JPanel {
         }
     }
 
+    /**
+     * This method is a brute force that checks all positions in the world every time and paint the world accordingly.
+     * Should not be used if not necessary, as it is inefficient.
+     *
+     * @param g the graphics that will be used
+     */
     public void drawWorld(Graphics g)
     {
         //Brute Force
@@ -45,6 +56,11 @@ public class GameCanvas extends JPanel {
             }
     }
 
+    /**
+     * Only draws the changes that has been provided. A better way to go for painting than drawWorld.
+     *
+     * @param g the graphics that will be used
+     */
     public void drawChanges(Graphics g)
     {
         if(!changes.isEmpty())
@@ -57,6 +73,13 @@ public class GameCanvas extends JPanel {
         GameEngine.changes.clear();
     }
 
+    /**
+     * Draws the object given to it at it´s place
+     *
+     * @param c the character is the type of object
+     * @param p the position to paint
+     * @param g the graphics that will be used
+     */
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)
