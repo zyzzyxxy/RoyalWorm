@@ -83,10 +83,8 @@ public class ClientWindow{
 
     private void makeFrame() throws IOException {
         frame = new JFrame("Client Window");
-        frame.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
+        frame.setPreferredSize(new Dimension(Constants.boardWidth+20,Constants.boardHeight+40)); //clientWindow isn't an exact copy of gameWindow (A bit smaller). Thus the addition to dimensions.
         frame.setLocationRelativeTo(null);
-        //playerContainer.add(GameEngine.playerList.get(0).getPlayerPanel());
-        //frame.add(GameEngine.playerList.get(0).getPlayerPanel());
         frame.pack();
         frame.setVisible(true);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

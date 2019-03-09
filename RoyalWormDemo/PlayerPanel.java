@@ -20,12 +20,9 @@ public class PlayerPanel extends Container {
         this.add(space);
         this.setVisible(true);
     }
-    
-    
-    
+      
     public void update(int livess, int scoree) {
     		lives.setText("Lives: " + livess);
-    		score.setText("Score: " + scoree);
-    	
+    		score.setText("Score: " + scoree);  	
     }
 }
