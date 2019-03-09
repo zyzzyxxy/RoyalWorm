@@ -1,11 +1,11 @@
 /**
  *This class takes care of the logics of the game.
  *
- * ItÂ´s observable and can notify changes to i.e. a gui or a network controller.
+ * It´s observable and can notify changes to i.e. a gui or a network controller.
  * It has a timer that ticks, dictating the speed of the game
  *
  * @Param Player list of the players that should be included
- * @Param booleans for every game mode avaliable.
+ * @Param booleans for every game mode available.
  * @Return an instance of GameEngine that runs.
  * */
 
@@ -17,11 +17,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-/**
- * This class is responsible for the game logic and makes the game tick. Each tick, (or gametick) the game updates. 
- * @author anton
- *
- */
+
 public class GameEngine extends Observable {
     public static char[][] GameWorld;
     public static List<Player> playerList = new ArrayList<>();
@@ -74,11 +70,9 @@ public class GameEngine extends Observable {
         //Starts the game
         gameTimer.start();
     }
-
-    //This method is called every time the GameTimer ticks, takes care of updating the gamecomponents.
     
     /**
-     * Marks whenever a gametick has passed, updating worms, bullets, boosts, ghosts and walls.
+     * This method is called every time the GameTimer ticks, takes care of updating the game components.
      * @throws InterruptedException
      * @throws FileNotFoundException
      */
@@ -278,7 +272,6 @@ public class GameEngine extends Observable {
         changes.add(new Change(pos.getX(), pos.getY(), c));
     }
     
-    //notifies observers
     /**
      * Notifies observers.
      */
@@ -287,9 +280,8 @@ public class GameEngine extends Observable {
         notifyObservers(changes);
     }
 
-    //empties the world and reset worms
     /**
-     * Resets gameWorld with an empty space. 
+     * Empties the world and reset worms.
      */
     public void resetGameworld() {
         for (char[] c : GameWorld) {
@@ -300,7 +292,6 @@ public class GameEngine extends Observable {
         }
     }
 
-    //Loads a world file, must be right format
     /**
      * Loads a game map. 
      * @param file of the map.
