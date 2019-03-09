@@ -271,20 +271,26 @@ public class GameEngine extends Observable {
     /**
      * Updates gameWorld. 
      * @param pos for a position in gameWorld.
-     * @param c corrensponds what type of object that is stored in the position.
+     * @param c corresponds what type of object that is stored in the position.
      */
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.getX()][pos.getY()] = c;
         changes.add(new Change(pos.getX(), pos.getY(), c));
     }
-
+    
     //notifies observers
+    /**
+     * Notifies observers.
+     */
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
     }
 
     //empties the world and reset worms
+    /**
+     * Resets gameWorld with an empty space. 
+     */
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
@@ -295,6 +301,11 @@ public class GameEngine extends Observable {
     }
 
     //Loads a world file, must be right format
+    /**
+     * Loads a game map. 
+     * @param file of the map.
+     * @throws FileNotFoundException
+     */
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         for (int i = 0; i < Constants.worldHeight; i++) {
@@ -310,7 +321,10 @@ public class GameEngine extends Observable {
         }
     }
 
-    //removes a GameObject from the dynamic list
+    /**
+     * Removes a GameObject from the dynamic list
+     * @param o is the GameObject being removed. 
+     */
     public static void removeFromDynamicList(GameObject o)
     {
         dObjectList.remove(o);
