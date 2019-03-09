@@ -112,10 +112,10 @@ public class GameCanvas extends JPanel {
             case 's':
                 GameGraphics.drawSuperApple(p,g);
                 break;
-            case 'l':
+            case 'l': //l as in lightning
                 GameGraphics.drawLightninh(p,g);
                 break;
-            case 'g':
+            case 'g': //g as in ghost
                 GameGraphics.drawGhost(p,g);
                 break;
             case 'b':

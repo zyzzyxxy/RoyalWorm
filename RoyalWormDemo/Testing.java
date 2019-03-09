@@ -1,3 +1,10 @@
+/**
+ * This class conatins methods that can be used to test stuff in the program.
+ *
+ * It has been used as a convinient way of adding methods for testing diffeent things, like if a map still is the same after
+ * sending it over the network and so on.
+ */
+
 public class Testing {
 
     public static boolean mapsEqual(char[][] w1, char[][] w2) {

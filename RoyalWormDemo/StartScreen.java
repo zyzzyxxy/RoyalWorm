@@ -1,3 +1,7 @@
+/**
+ * A container filled with  host and clientbuttons and a textfield for writing clientName
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
