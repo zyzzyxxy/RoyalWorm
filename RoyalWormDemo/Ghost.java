@@ -1,4 +1,7 @@
-import java.util.List;
+/**
+ * An enemy, this is a gameobject with a very simple ai that changes direction at random inside a timespan.
+ */
+
 import java.util.Random;
 
 public class Ghost extends DynamicObject {
@@ -10,6 +13,7 @@ public class Ghost extends DynamicObject {
     private Random rnd =  new Random();
     private boolean dead=false;
 
+    //Constructor
     public Ghost(Position position) {
         super(position, 'g',Direction.getRandomDirection());
         this.counter=0;

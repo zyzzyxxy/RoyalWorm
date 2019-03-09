@@ -11,7 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * This class controls everything from the Host side. It alsoe contains the GameEngine responsible for creating and running the game.
+ * This class controls everything from the Host side. It also contains the GameEngine responsible for creating and running the game.
  */
 public class Controller implements Observer {
     private GameEngine gameEngine;
@@ -41,7 +41,7 @@ public class Controller implements Observer {
     }
 
     /**
-     * Manages the nessecery data updates that takes place when new data is presented from GameEngine or from another player
+     * Manages the necessary data updates that takes place when new data is presented from GameEngine or from another player
      *
      * When GameEngine has been updated this method sends the updates to all players
      *

@@ -1,3 +1,7 @@
+/**
+ * Class used by GameObjects tha have positions
+ */
+
 import java.util.Random;
 
 public class Position extends BoardCordinates {
@@ -5,7 +9,12 @@ public class Position extends BoardCordinates {
     public Position(int x, int y) {
         super(x, y);
     }
-    
+
+    /**
+     * Method for getting a random position
+     *
+     * @return a random position
+     */
     public static Position getRandomPosition()
     {
         Random rnd = new Random();

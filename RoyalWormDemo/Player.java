@@ -1,6 +1,11 @@
+/**
+ * Holds the information about one player. Including it´s adress which to send data to and it´s worm.
+ * This class is instantiated whenever we add a player to the game
+ */
+
+
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.lang.Thread;
 
 public class Player {
     private Worm worm;
@@ -14,8 +19,8 @@ public class Player {
     public int port;
     private PlayerPanel playerPanel;
 
+    //Constructor
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
-        //TODO fix this to update worms in right places
         Position position = Position.getRandomPosition();
         Direction wormDir= Direction.getRandomDirection();
         worm = new Worm(position, wormDir, pNumber);
@@ -26,6 +31,11 @@ public class Player {
         this.playerPanel = new PlayerPanel(name);
     }
 
+    /**
+     *Updates players worm to a direction if necessary conditions is met. Worm cannot i.e change from right to left in an instant
+     *
+     * @param dir The direction to update the worm into.
+     */
     public void updateDirection(Direction dir) {
         if (dir.getY() == 1 && worm.getDirection().getY() != -1) {
             worm.getNextDirection().setX(0);
@@ -44,7 +54,6 @@ public class Player {
             worm.getNextDirection().setY(0);
         }
     }
-
 
     public Worm getWorm() {
         return worm;
@@ -72,7 +81,6 @@ public class Player {
     public int getWormLives() {
         return worm.getLives();
     }
-
 
 
     public void setInetAddr(String addr) throws UnknownHostException {

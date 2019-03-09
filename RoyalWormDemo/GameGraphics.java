@@ -9,8 +9,9 @@ public class GameGraphics {
     /**
      * Draws an apple.
      *
+     * @param p for Position. The position to where to draw
+     * @param graphics the graphics that will be used
      * @return Updated Graphics
-     * @param: Position and Graphics. The position to where to draw and the graphics that will be used
      */
     public static Graphics drawApple(Position p, Graphics graphics) {
         int constant = Constants.gameConstant;
@@ -26,6 +27,13 @@ public class GameGraphics {
         return graphics;
     }
 
+    /**
+     * Draws an super-apple. Lika apple but other colors.
+     *
+     * @param p for Position. The position to where to draw
+     * @param graphics the graphics that will be used
+     * @return Updated Graphics
+     */
     public static Graphics drawSuperApple(Position p, Graphics graphics) {
         int constant = Constants.gameConstant;
         graphics.setColor(Color.magenta);
@@ -38,6 +46,14 @@ public class GameGraphics {
         return graphics;
     }
 
+    /**
+     * Draws the worm of a player
+     *
+     * @param head as a boolean. This can be used to paint the head of the worm
+     * @param p for position, where to draw
+     * @param graphics the graphics that will be used
+     * @return Updated Graphics
+     */
     public static Graphics drawPlayer(boolean head, int player, Position p, Graphics graphics) {
         if (player == 1)
             graphics.setColor(Constants.p1Color);
