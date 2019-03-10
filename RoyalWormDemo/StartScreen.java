@@ -1,5 +1,8 @@
 /**
- * A container filled with  host and clientbuttons and a textfield for writing clientName
+ * A container filled with  host and clientbuttons and a textfield for writing clientName.
+ *
+ * @author Johan Ericsson
+ * @version 2019-03-01
  */
 
 import javax.swing.*;
@@ -13,9 +16,16 @@ public class StartScreen extends Container {
 
     public JTextField infoTextfield = new JTextField();
     public JTextField connectToHostTextfield = new JTextField("Write your name here");
-    public JButton hostButton;// = new JButton("Host");
-    public JButton clientButton;// = new JButton("Client, Connect to:");
+    public JButton hostButton;
+    public JButton clientButton;
 
+    /**
+     * Constructor
+     *
+     * @param hostButton    the Button to use
+     * @param clientButton  the Button to use
+     * @throws UnknownHostException
+     */
     public StartScreen(JButton hostButton, JButton clientButton) throws UnknownHostException {
         this.hostButton = hostButton;
         this.clientButton = clientButton;
@@ -23,6 +33,11 @@ public class StartScreen extends Container {
 
     }
 
+    /**
+     * Populates the  screen
+     * 
+     * @throws UnknownHostException
+     */
     private void makeStartScreen() throws UnknownHostException {
         this.setPreferredSize(new Dimension(350,250));
         this.setLocation(0,0);
