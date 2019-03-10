@@ -17,6 +17,8 @@ import java.util.Observer;
 
 /**
  * The game window for the host machine
+ * @author Anton Eliasson Gustafsson
+ * @version 2019-03-09
  */
 public class GameWindow extends JFrame implements Observer {
 	public GameCanvas gameCanvas;
@@ -96,6 +98,7 @@ public class GameWindow extends JFrame implements Observer {
         Options.add(Gamemode = new JMenuItem("Game Mode"));
         Help.add(About = new JMenuItem("About"));
 
+        //Adding actionListener to all JMenuItems
         Component[][] components = {File.getMenuComponents(),Options.getMenuComponents(),Help.getMenuComponents()};
         for(int i=0; i < components.length;i++)
             for(int j=0; j < components[i].length;j++)

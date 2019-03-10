@@ -2,7 +2,7 @@ package Windows;
 /**
  * Starts the program and lets a user choose between Host or Client -mode
  *@author Anton Eliasson Gustafsson 
- *@version 2019-03.10
+ *@version 2019-03-10
  */
 
 import javax.swing.*;
@@ -67,7 +67,7 @@ public class GameStartWindow {
 	 * @throws Exception
 	 */
 	public static void buttonClicked(String actionCommand) throws Exception {
-		//If a player choose to play as host, a Controller is instantiated. 
+		//If a player choosees to play as host, a Controller is instantiated. 
 		if (actionCommand.equals("Host")) {
 			host = true;
 			startFrame.dispose();
@@ -76,7 +76,7 @@ public class GameStartWindow {
 		}
 		
 		if (actionCommand.equals("Client")) {
-			//If a player choose to play as a client, it sends data to a host so that the host knows a player has joined 
+			//If a player chooses to play as a client -> send data to a host so that the host knows a player has joined 
 			//and creates a ClientWindow. 
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
 			host = false;

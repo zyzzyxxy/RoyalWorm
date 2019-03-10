@@ -3,7 +3,7 @@ package Canvas;
  * @author Johan Ericsson, Anton Eliasson Gustafsson
  * @version 2019-03-09
  *
- * A panel that displays info about a player.
+ * A panel that displays info (name, lives and score) about a player.
  */
 
 import javax.swing.*;
@@ -13,6 +13,10 @@ public class PlayerPanel extends Container {
     private JLabel name,lives,score,space;
     private int sc, li;
     
+    /**
+     * Instantiates a PlayerPanel for a player.
+     * @param n is the name of the player. 
+     */
     public PlayerPanel(String n)
     {
         name = new JLabel(n);
@@ -27,7 +31,11 @@ public class PlayerPanel extends Container {
         this.add(space);
         this.setVisible(true);
     }
-      
+      /**
+       * Updates a players PlayerPanel.
+       * @param livess updates a player's lives.
+       * @param scoree updates a player's score.
+       */
     public void update(int livess, int scoree) {
     		lives.setText("Lives: " + livess);
     		score.setText("Score: " + scoree);  	

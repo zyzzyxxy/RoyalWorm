@@ -1,6 +1,6 @@
 package Canvas;
 /**
- *  * @author Johan Ericsson, Anton Eliasson Gustavsson
+ *  * @author Johan Ericsson, Anton Eliasson Gustafsson
  *  * @Version 2019-03-06
  * This Class takes care of the graphics. May be modified for nicer graphics.
  */
@@ -108,7 +108,12 @@ public class GameGraphics {
         return graphics;
     }
 
-    //Draws Lightning
+    /**
+     * Draws a Lightning.
+     * @param p for position, where to draw.
+     * @param graphics the graphics that will be used.
+     * @return Updated Graphics.
+     */
     public static Graphics drawLightninh(Position p, Graphics graphics) {
         int[] x = {9,9,7,4,4,6,9};
         int[] y = {0,5,5,9,5,5,0};
@@ -128,6 +133,12 @@ public class GameGraphics {
         return graphics;
     }
 
+    /**
+     * Draws a Ghost. 
+     * @param p for position, where to draw.
+     * @param graphics the graphics that will be used.
+     * @return Updated Graphics.
+     */
     public static Graphics drawGhost(Position p, Graphics graphics) {
         int[] x = {1,9,9,7,3,1};
         int[] y = {9,9,3,1,1,3};
@@ -153,6 +164,12 @@ public class GameGraphics {
         return graphics;
     }
 
+    /**
+     * Draws a Bullet. 
+     * @param p for position, where to draw.
+     * @param graphics the graphics that will be used.
+     * @return Updated Graphics.
+     */
 	public static Graphics drawBullet(Position p, Graphics graphics) {
 		 graphics.setColor(Color.GRAY);
 	     graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
@@ -160,7 +177,12 @@ public class GameGraphics {
 		
 	}
 	
-
+    /**
+     * Draws a Gun. 
+     * @param p for position, where to draw.
+     * @param graphics the graphics that will be used.
+     * @return Updated Graphics.
+     */
 	public static Graphics drawGun(Position p, Graphics graphics) {
 		 graphics.setColor(Color.LIGHT_GRAY);
 	     graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);

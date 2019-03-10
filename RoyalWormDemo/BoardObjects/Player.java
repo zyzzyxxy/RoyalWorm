@@ -1,8 +1,10 @@
 package BoardObjects;
 /**
- * Holds the information about one player. Including it´s adress which to send data to and it´s worm.
- * This class is instantiated whenever we add a player to the game
- */
+* Holds the information about one player. Including it´s adress which to send data to and it´s worm.
+* This class is instantiated whenever we add a player to the game
+* @author Anton Eliasson Gustafsson
+* @version 2019-03-07 
+*/
 
 
 import java.net.InetAddress;
