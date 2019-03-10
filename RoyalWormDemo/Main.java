@@ -1,5 +1,7 @@
 /**
- * Starts the program 
+ * Starts the program. Calls to a window where a player choose to play as host or client. 
+ *@author Anton Eliasson Gustafsson
+ *@Version 2019-03-10
  */
 
 public class Main {

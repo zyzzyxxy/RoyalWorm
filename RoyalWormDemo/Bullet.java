@@ -1,13 +1,20 @@
-import java.util.Random;
+/** 
+ * Bullets can be used when a player picks up a gun. A player fires bullets from a gun with space bar. 
+ * @author Anton Eliasson Gustafsson & Martin Hagentoft
+ * @version 2019-03-01
+ */
 
 public class Bullet extends DynamicObject {
-	
 	private int speed;
     private Position position;
     private int dirX, dirY;
     private boolean projection;
-    private Worm worm;
-
+    private Worm w;
+/**
+ * Instantiates a bullet. 
+ * @param position from where the bullet is being projected. 
+ * @param w as in Worm, from which the bullet is coming from. 
+ */
     public Bullet(Position position, Worm w) {
         super(position, 'b',w.getDirection());
         dirX = w.getDirection().getX();
@@ -15,10 +22,12 @@ public class Bullet extends DynamicObject {
         this.speed = Constants.bulletSpeed;
         this.position = position;
         projection = true;
-        worm = w;
+        this.w = w;
     }
     
-
+   /**
+    * Updates a bullet's position if projected. 
+    */
     public void update() throws InterruptedException {
     	if(projection) {
         GameEngine.updateGameworld((Position) position, '0');
@@ -40,30 +49,32 @@ public class Bullet extends DynamicObject {
 
     }
     
+    /**
+     * 
+     * @return projection.
+     */
+    
     public boolean getProjection() {
     	return projection;
     }
-
+    /**
+     * Ends the projection of a bullet.
+     */
 	public void endProjection() {
 		projection = false;
 	}
-	
-	public Bullet thisBullet() {
-		return this;
-	}
-
-
-	public void resetProjection() {
-		projection = true;
-	}
-
-
+	/**
+	 * 
+	 * @return speed. 
+	 */
 	public int getSpeed() {
 		return speed;
 	}
-	
-	public Worm getWorm() {
-		return worm;
+	/** 
+	 * @return the worm that be bullet is being projected from. 
+	 */
+	public Worm getWorm(){
+		return w;
 	}
 
 

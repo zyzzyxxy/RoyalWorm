@@ -1,5 +1,10 @@
 import java.awt.*;
-
+/**
+ * 
+ * This class has stored public constants used in the game. 
+ *@author Anton Eliasson Gustafsson & Martin Hagentoft
+ *@version 2019-03-01
+ */
 public class Constants {
 
     public static int WALL_SPAWN_SPEED = 1000;
