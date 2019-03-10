@@ -6,6 +6,7 @@ public class Bullet extends DynamicObject {
     private Position position;
     private int dirX, dirY;
     private boolean projection;
+    private Worm worm;
 
     public Bullet(Position position, Worm w) {
         super(position, 'b',w.getDirection());
@@ -14,6 +15,7 @@ public class Bullet extends DynamicObject {
         this.speed = Constants.bulletSpeed;
         this.position = position;
         projection = true;
+        worm = w;
     }
     
 
@@ -58,6 +60,10 @@ public class Bullet extends DynamicObject {
 
 	public int getSpeed() {
 		return speed;
+	}
+	
+	public Worm getWorm() {
+		return worm;
 	}
 
 
