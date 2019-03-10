@@ -1,7 +1,8 @@
 package Canvas;
 /**
- *  * @author Johan Ericsson, Anton Eliasson Gustafsson
- *  * @Version 2019-03-06
+ * @author Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @Version 2019-03-06
  * This Class takes care of the graphics. May be modified for nicer graphics.
  */
 

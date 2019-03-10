@@ -1,7 +1,8 @@
 package Positions;
 /**
 * Class used by GameObjects tha have positions
-* @author Anton Eliasson Gustafsson, Johan Ericsson
+* @author Anton Eliasson Gustafsson
+* @author Johan Ericsson
 * @version 2019-03-03 
 */
 

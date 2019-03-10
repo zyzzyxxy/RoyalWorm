@@ -5,7 +5,9 @@ import Positions.Position;
 /**
  * 
  * Boosts are objects that players might pick up
- * @author Johan Ericsson & Anton Eliasson Gustafsson & Martin Hagentoft
+ * @author Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @author Martin Hagentoft
  * @version 2019-03-01
  */
 

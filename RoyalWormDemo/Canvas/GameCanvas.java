@@ -1,7 +1,9 @@
 package Canvas;
 /**
  * A panel used as a canvas to draw the gameWorld and the objects in it
- * @author Johan Ericsson & Jonathan Uhre & Anton Eliasson Gustafsson
+ * @author Johan Ericsson
+ * @author Jonathan Uhre
+ * @author Anton Eliasson Gustafsson
  * @version 2019-03-09
  */
 

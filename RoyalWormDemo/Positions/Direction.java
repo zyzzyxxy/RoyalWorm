@@ -3,7 +3,9 @@ import java.util.Random;
 /**
  *  
  * Direction 
- * @author Anton Eliasson Gustafsson, Martin Hagentoft, Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @author Martin Hagentoft
+ * @author Johan Ericsson
  * @version 2019-03-09
  * 
  */

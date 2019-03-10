@@ -9,7 +9,9 @@ import Positions.Position;
 
 /**
  * Checks and Handles collisions between GameObjects
- * @author Anton Eliasson Gustafsson & Jonathan Uhre & Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @author Jonathan Uhre
+ * @author Johan Ericsson
  * @version 2019-03-09
  */
 

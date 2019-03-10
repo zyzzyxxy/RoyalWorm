@@ -3,8 +3,11 @@ import java.awt.*;
 /**
  * 
  * This class has stored public constants used in the game. 
- *@author Johan Ericsson & Anton Eliasson Gustafsson & Martin Hagentoft & Jonathan Uhre
- *@version 2019-03-01
+ * @author Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @author Martin Hagentoft
+ * @author Jonathan Uhre
+ * @version 2019-03-01
  */
 public class Constants {
 

@@ -1,7 +1,9 @@
 package Canvas;
 /**
  * A panel used as a canvas to draw the clientWorld and the objects in it
- * @author Anton Eliasson Gustafsson & Johan Ericsson & Jonathan Uhre
+ * @author Anton Eliasson Gustafsson
+ * @author Johan Ericsson
+ * @author Jonathan Uhre
  * @version 2019-03-09
  */
 

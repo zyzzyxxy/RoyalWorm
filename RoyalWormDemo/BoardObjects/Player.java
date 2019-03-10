@@ -2,7 +2,9 @@ package BoardObjects;
 /**
 * Holds the information about one player. Including it�s address which to send data to and it´s worm.
 * This class is instantiated whenever we add a player to the game
-* @author Johan Ericsson, Anton Eliasson Gustafsson, Jonathan Uhre
+* @author Johan Ericsson
+* @author Anton Eliasson Gustafsson
+* @author Jonathan Uhre
 * @version 2019-03-07 
 */
 

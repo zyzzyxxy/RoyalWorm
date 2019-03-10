@@ -3,7 +3,8 @@ package Network;
  * A class for that can be instantiated and run in a thread. Receives data and
  * notifies it´s observers sending the data as an argument.
  *
- * @author Johan Ericsson, Martin Hagentoft
+ * @author Johan Ericsson
+ * @author Martin Hagentoft
  * @Version 2019-03-06
  */
 

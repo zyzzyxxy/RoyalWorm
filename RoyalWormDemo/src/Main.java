@@ -4,8 +4,9 @@ import Windows.GameStartWindow;
 
 /**
  * Starts the program. Calls to a window where a player choose to play as host or client. 
- *@author Anton Eliasson Gustafsson, Johan Ericsson
- *@Version 2019-03-10
+ * @author Anton Eliasson Gustafsson
+ * @author Johan Ericsson
+ * @Version 2019-03-10
  */
 
 public class Main {

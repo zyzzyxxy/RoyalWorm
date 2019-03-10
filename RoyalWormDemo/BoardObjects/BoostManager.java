@@ -2,7 +2,9 @@ package BoardObjects;
 /**
  * This class takes care of the spawning of Boosts.
  * It can spawn a boost in a specific location or spawn it at random unoccupied location
- * @author Anton Eliasson Gustafsson, Jonathan Uhre, Johan Ericsson
+ * @author Anton Eliasson Gustafsson
+ * @author Jonathan Uhre
+ * @author Johan Ericsson
  * @version 2019-03-10
  */
 
