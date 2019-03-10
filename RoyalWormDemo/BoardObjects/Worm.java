@@ -61,6 +61,9 @@ public class Worm extends GameObject {
     }
 
 
+    /**
+     * Updates the direction and body of the Worm.
+     */
     public void update() throws InterruptedException {
         direction = nextDirection;
         updateBody();
@@ -96,18 +99,22 @@ public class Worm extends GameObject {
         }
     }
     
+    /**
+     * @return The worms head position
+     */
     public Position getHeadPos() {
         return headPos;
     }
 
+    /**
+     * @return The worms tail position.
+     */
     public Position getTailPos() {
         return tailPos;
     }
 
     /**
      * Updates worms body. Adding a new head in direction and taking away a bit in the tail
-     *
-     * @throws InterruptedException
      */
     public void updateBody() throws InterruptedException {
         Position head, tail;
@@ -128,14 +135,21 @@ public class Worm extends GameObject {
         updateHeadPos();
     }
 
+    /**
+     * Increase the worms length and increase score accordingly.
+     * 
+     * @param n The length to add.
+     */
     public void grow(int n) {
         length += n;
         score += n;
     }
 
+    /**
+     * Decrease the worms life by 1.
+     */
     public void loseLife() {
         lives--;
-        System.out.println("Worm " + type + " have " + lives + " lives");
     }
 
     public boolean isAlive() {
@@ -143,10 +157,9 @@ public class Worm extends GameObject {
     }
 
     /**
-     * resets the worm
+     * Resets the worm
      */
     public void reset() {
-        //Todo fix this
         for (Position p : body) {
             GameEngine.updateGameworld(p, '0');
         }
@@ -159,6 +172,9 @@ public class Worm extends GameObject {
         loseLife();
     }
     
+    /**
+     * @return A random Position.
+     */
     public Position generateRandomPos() {
     	Random rn = new Random();
     	int x = rn.nextInt(79);
@@ -167,6 +183,9 @@ public class Worm extends GameObject {
     	return tmp;
     }
     
+    /**
+     * @return A valid spawn position.
+     */
     public Position validPos() {
     	Position tmp;
     	do {
@@ -204,6 +223,9 @@ public class Worm extends GameObject {
         score += 1;
     }
 
+    /**
+     * Resets the worms speed.
+     */
     public void resetSpeed() {
         speed = Constants.wormspeed;
     }
@@ -235,7 +257,7 @@ public class Worm extends GameObject {
     /**
      * Checks if a position is in the worms body
      *
-     * @param p the position to be checked
+     * @param p the position to check.
      * @return the index of the position if it is in body, else -1.
      */
     public int isInBody(Position p) {
@@ -249,7 +271,9 @@ public class Worm extends GameObject {
         return -1;
     }
 
-
+    /**
+     * Updates the head position of the worm according to the direction the worm is moving.
+     */
     public void updateHeadPos() {
         headPos = new Position(headPos.getX() + direction.getX(), headPos.getY() + direction.getY());
         if (headPos.getX() >= Constants.worldWidth)
@@ -260,13 +284,18 @@ public class Worm extends GameObject {
             headPos.setX(Constants.worldWidth - 1);
         if (headPos.getY() < 0)
             headPos.setY(Constants.worldHeight - 1);
-
     }
 
+    /**
+     * @return True if the worm has picked up a gun boost.
+     */
 	public boolean hasGun() {
 		return gun;
 	}
 	
+	/**
+	 * Sets gun to true and increases score.
+	 */
 	public void pickUpGun(){
 		gun = true;
 		score += 3;
@@ -287,37 +316,72 @@ public class Worm extends GameObject {
 		}
 	}
 	
+	/**
+	 * @param b The bullet to remove.
+	 */
 	public void removeBullet(Bullet b) {
 		bullets.remove(b);
 	}
 
+	/**
+	 * @return The worms direction.
+	 */
 	public Direction getDirection() {
 		return direction;
 	}
 	
+	/**
+	 * @return The next direction worm will set.
+	 */
 	public Direction getNextDirection() {
 		return nextDirection;
 	} 
 	
+	/**
+	 * @return The amount of lives the worm has left.
+	 */
 	public int getLives() {
 		return lives;
 	}
+	
+	/**
+	 * @return The worms speed.
+	 */
 	public int getSpeed() {
 		return speed;
 	}
+	
+	/**
+	 * @return The worms counter.
+	 */
 	public int getCounter() {
 		return counter;
 	}
+	
+	/**
+	 * @return The worms score.
+	 */
 	public int getScore() {
 		return score;
 	}
+	
+	/**
+	 * @return The worms bullets.
+	 */
 	public List<Bullet> getBullets(){
 		return bullets;
 	}
+	
+	/**
+	 * @param s The score to set.
+	 */
 	public void setScore(int s) {
 		score = s;
 	}
 
+	/**
+	 * @return True if gun is allowed to fire.
+	 */
 	public boolean toggleFireAllowed() {
 		fireAllowed = true;
 		return fireAllowed;
