@@ -1,4 +1,6 @@
 /**
+ *  * @author Johan Ericsson, Anton Eliasson Gustavsson
+ *  * @Version 2019-03-06
  * This Class takes care of the graphics. May be modified for nicer graphics.
  */
 
@@ -75,7 +77,13 @@ public class GameGraphics {
 
         return graphics;
     }
-
+    /**
+     * Draws a wall
+     *
+     * @param p for position, where to draw
+     * @param graphics the graphics that will be used
+     * @return Updated Graphics
+     */
     public static Graphics drawWall(Position p, Graphics graphics) {
         graphics.setColor(Color.GRAY);
         graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);
@@ -83,7 +91,13 @@ public class GameGraphics {
         return graphics;
     }
 
-
+    /**
+     * Erases a square, painting it in the same color as background
+     *
+     * @param p for position, where to draw
+     * @param graphics the graphics that will be used
+     * @return Updated Graphics
+     */
     public static Graphics erase(Position p, Graphics graphics) {
         graphics.setColor(Color.BLACK);
         graphics.fillRect(p.getX() * Constants.gameConstant, p.getY() * Constants.gameConstant, Constants.gameConstant, Constants.gameConstant);

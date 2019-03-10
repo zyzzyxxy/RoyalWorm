@@ -5,9 +5,6 @@
 import javax.swing.*;
 import java.net.DatagramSocket;
 
-
-
-
 public class GameStartWindow {
 	
 	private static JFrame startFrame;
