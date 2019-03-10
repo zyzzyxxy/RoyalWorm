@@ -1,7 +1,10 @@
 /**
- * Info
- * Params
- * params
+ * @author Johan Ericsson, Anton Eliasson Gustavsson, Jonathan Uhre
+ * @Version 2019-03-09
+ *
+ * A worm class. This is the worm that will be present on the gameboard. It contains info about
+ * the lives, speed and score of the worm.
+ *
  */
 
 import java.util.ArrayList;
@@ -21,6 +24,15 @@ public class Worm extends GameObject {
     private boolean gun;
     private boolean fireAllowed;
 
+
+    /**
+     * Constructor
+     *
+     * @param position      the startposition of the worm
+     * @param direction     the direction that the worm will be starting with
+     * @param wormNumber    this number indicates what worm and what player is assigned to that worm.
+     *                      For instance host will have worm 1 and it will be blue.
+     */
     public Worm(Position position, Direction direction, int wormNumber) {
         super(position, Integer.toString(wormNumber).charAt(0));
         this.position = position;
@@ -49,7 +61,11 @@ public class Worm extends GameObject {
     public void resetCounter() { counter=0; }
     public void incWormCounter() { counter++; }
 
-    //Moved to here from GameEngine
+    /**
+     * Checks if time to update
+     *
+     * @throws InterruptedException
+     */
     public void updater() throws InterruptedException {
         if(lives > 0) {
             if (counter == speed) {
@@ -69,7 +85,11 @@ public class Worm extends GameObject {
         return tailPos;
     }
 
-    //Doesnt work must update instancieted GE
+    /**
+     * Updates worms body. Adding a new head in direction and taking away a bit in the tail
+     *
+     * @throws InterruptedException
+     */
     public void updateBody() throws InterruptedException {
         Position head, tail;
         head = null;
@@ -103,6 +123,9 @@ public class Worm extends GameObject {
         return lives > 0;
     }
 
+    /**
+     * resets the worm
+     */
     public void reset() {
         //Todo fix this
         for (Position p : body) {
@@ -137,6 +160,9 @@ public class Worm extends GameObject {
         speed -= n;
     }
 
+    /**
+     * Makes the worm fast for 5 seconds
+     */
     public void lightningMode() {
         isFast++;
         Thread t = new Thread(new Runnable() {
@@ -163,6 +189,11 @@ public class Worm extends GameObject {
         speed = Constants.wormspeed;
     }
 
+    /**
+     * Cuts the worm keeping the part with head
+     *
+     * @param p the position to cut the worm
+     */
     public void cut(Position p) {
         int i = isInBody(p);
         if (i != -1) {
@@ -182,6 +213,12 @@ public class Worm extends GameObject {
         }
     }
 
+    /**
+     * Checks if a position is in the worms body
+     *
+     * @param p the position to be checked
+     * @return the index of the position if it is in body, else -1.
+     */
     public int isInBody(Position p) {
         int i =0;
         for (Position b:body ) {
@@ -192,6 +229,7 @@ public class Worm extends GameObject {
 
         return -1;
     }
+
 
     public void updateHeadPos() {
         headPos = new Position(headPos.getX() + direction.getX(), headPos.getY() + direction.getY());
@@ -206,16 +244,6 @@ public class Worm extends GameObject {
 
     }
 
-    //Just for testing
-    public void printBody() {
-        for (Position p : body
-        ) {
-
-            System.out.println(p.getX());
-            System.out.println(p.getY());
-        }  
-    }
-
 	public boolean hasGun() {
 		return gun;
 	}
@@ -224,7 +252,10 @@ public class Worm extends GameObject {
 		gun = true;
 		score += 3;
 	}
-	
+
+    /**
+     * Fires the gun, shooting a bullet in the direction of the worm
+     */
 	public void fireGun() {
 		if (gun && fireAllowed) {
 			System.out.println("FIRE!!!");
@@ -267,8 +298,7 @@ public class Worm extends GameObject {
 	public void setScore(int s) {
 		score = s;
 	}
-
-
+	
 	public boolean toggleFireAllowed() {
 		fireAllowed = true;
 		return fireAllowed;

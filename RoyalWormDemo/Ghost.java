@@ -5,9 +5,8 @@
 import java.util.Random;
 
 public class Ghost extends DynamicObject {
-    private int speed, directionCounter, changeDirection;
+    private int directionCounter, changeDirection;
     private int counter;
-    private char type;
     private Position position;
     private Direction direction;
     private Random rnd =  new Random();
@@ -20,10 +19,8 @@ public class Ghost extends DynamicObject {
     public Ghost(Position position) {
         super(position, 'g',Direction.getRandomDirection());
         this.counter=0;
-        this.speed = Constants.ghostSpeed;
         this.position = position;
         this.direction=Direction.getRandomDirection();
-        this.type = 'g';
         this.directionCounter=0;
         changeDirection = rnd.nextInt(5) * 5;
     }

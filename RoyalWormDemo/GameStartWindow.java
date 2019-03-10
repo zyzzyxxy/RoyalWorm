@@ -60,7 +60,7 @@ public class GameStartWindow {
 		if (actionCommand.equals("Client")) {
 			System.out.println("ClientButtonClicked");
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
-			host = false;//test
+			host = false;
 			startFrame.dispose();
 			done=true;
 			String name = sc.connectToHostTextfield.getText();
