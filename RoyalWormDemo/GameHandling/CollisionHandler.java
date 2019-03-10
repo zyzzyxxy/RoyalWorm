@@ -18,7 +18,7 @@ public class CollisionHandler {
     /**
      * Checks if there is an object on the selected position.
      *
-     * @param pos The position to be checked for collision.
+     * @param pos The position to check for collision.
      * @return True if there is a collision, false if it isn't.
      */
 	public static boolean collisionCheck(Position pos) 

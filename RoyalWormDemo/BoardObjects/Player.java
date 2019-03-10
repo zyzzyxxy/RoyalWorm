@@ -1,8 +1,8 @@
 package BoardObjects;
 /**
-* Holds the information about one player. Including it´s adress which to send data to and it´s worm.
+* Holds the information about one player. Including it�s address which to send data to and it´s worm.
 * This class is instantiated whenever we add a player to the game
-* @author Johan Ericsson, Anton Eliasson Gustafsson
+* @author Johan Ericsson, Anton Eliasson Gustafsson, Jonathan Uhre
 * @version 2019-03-07 
 */
 
@@ -26,7 +26,14 @@ public class Player {
     public int port;
     private PlayerPanel playerPanel;
 
-    //Constructor
+    /**
+     * Constructor for player. Sets the required information for a player.
+     * 
+     * @param name Player name
+     * @param pNumber Player number
+     * @param addr Player IP address
+     * @param host Boolean to set host.
+     */
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
         Position position = Position.getRandomPosition();
         Direction wormDir= Direction.getRandomDirection();
