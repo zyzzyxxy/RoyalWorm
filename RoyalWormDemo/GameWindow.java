@@ -11,7 +11,6 @@ import java.util.Observer;
 /**
  * The game window for the host machine
  */
-
 public class GameWindow extends JFrame implements Observer {
 	public GameCanvas gameCanvas;
 	
@@ -21,6 +20,11 @@ public class GameWindow extends JFrame implements Observer {
     private GameEngine gm;
     private Container playerContainer;
 
+    /**
+     * Constructor for GameWindow. Saves a reference to GameEngine and initiates the JFrame.
+     * 
+     * @param gm The gameWorld for the program.
+     */
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;
         makeFrame();
@@ -31,14 +35,20 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.repaint();
     }
 
+    /**
+     * Draws the observed change.
+     */
     @Override
     public void update(Observable o, Object arg) {
         gameCanvas.paint(gameCanvas.getGraphics());
-        	for(Player p : GameEngine.playerList)
-            playerContainer.add(p.getPlayerPanel());
+    	for(Player p : GameEngine.playerList)
+    		playerContainer.add(p.getPlayerPanel());
         
     }
 
+    /**
+     * Initiates the JFrame.
+     */
     private void makeFrame() {
         makeMenus();
         setJMenuBar(menuBar);
@@ -61,6 +71,9 @@ public class GameWindow extends JFrame implements Observer {
         setVisible(true);
     }
 
+    /**
+     * Creates a JMenu containing options with actionListeners.
+     */
     private void makeMenus() {
         File = new JMenu("File"); Options = new JMenu("Options"); Help = new JMenu("Help");
         menuBar = new JMenuBar();
@@ -76,7 +89,6 @@ public class GameWindow extends JFrame implements Observer {
         Options.add(Gamemode = new JMenuItem("Game Mode"));
         Help.add(About = new JMenuItem("About"));
 
-        //Adding actionListener to all JMenuItems
         Component[][] components = {File.getMenuComponents(),Options.getMenuComponents(),Help.getMenuComponents()};
         for(int i=0; i < components.length;i++)
             for(int j=0; j < components[i].length;j++)
@@ -89,7 +101,10 @@ public class GameWindow extends JFrame implements Observer {
                 });
     }
 
-    //Handles JMenu in GameWindow
+
+    /**
+     * Handles JMenu in GameWindow with the use of ActionEvent.
+     */
     private void menuClicked(ActionEvent e) throws IOException {
         System.out.println(e.getActionCommand());
         if(e.getActionCommand().equalsIgnoreCase("New")) {
@@ -105,9 +120,9 @@ public class GameWindow extends JFrame implements Observer {
             System.exit(0);
     }
 
-    //File must be right size for now
-    //public just for testing!
-    //Todo make dynamic
+    /**
+     * Loads a file containing a gameWorld.
+     */
     private void loadFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -119,7 +134,9 @@ public class GameWindow extends JFrame implements Observer {
         gameCanvas.repaint();
     }
 
-    //Saves a copys of the current map
+    /**
+     * Saves a copy of the current gameWorld.
+     */
     private void saveFile() throws IOException {
         JFileChooser jFileChooser = new JFileChooser();
         String current = new java.io.File( "." ).getCanonicalPath();
@@ -132,7 +149,6 @@ public class GameWindow extends JFrame implements Observer {
                 for (int i = 0; i < Constants.worldHeight; i++) {
                     for (int j = 0; j < Constants.worldWidth; j++){
                         fw.write(GameEngine.GameWorld[j][i]);
-
                         }
                     fw.write("\n");
                     }

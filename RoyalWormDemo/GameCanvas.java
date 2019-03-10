@@ -1,5 +1,5 @@
 /**
- * A panel used as a canvas to draw the gameworld and the objects in it
+ * A panel used as a canvas to draw the gameWorld and the objects in it
  */
 
 import javax.swing.*;
@@ -13,18 +13,21 @@ public class GameCanvas extends JPanel {
     public List<Change> changes;
     public int paintCounter=0;
 
+    /**
+     * Constructor for GameCanvas. It initiate a reference to changes and sets canvas size and background.
+     */
     public GameCanvas()
     {
         changes = GameEngine.changes;
-        this.setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
-        this.setBackground(Color.black);
-        this.repaint();
+        setPreferredSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
+        setBackground(Color.black);
+        repaint();
     }
 
     /**
      * The method used when painting
      *
-     * @param g the graphics that will be used
+     * @param g The Graphics that will be used
      */
     @Override
     public void paint(Graphics g) {
@@ -37,22 +40,17 @@ public class GameCanvas extends JPanel {
     }
 
     /**
-     * This method is a brute force that checks all positions in the world every time and paint the world accordingly.
+     * This method is a brute force that paints the entire canvas according to GameWorld.
      * Should not be used if not necessary, as it is inefficient.
      *
      * @param g the graphics that will be used
      */
     public void drawWorld(Graphics g)
     {
-        //Brute Force
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
-                if(GameEngine.GameWorld[i][j]!='0')
-                    drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
-                else
-                    drawObject('0', new Position(i,j), g);
-
+            	drawObject(GameEngine.GameWorld[i][j], new Position(i,j), g);
             }
     }
 
@@ -74,7 +72,7 @@ public class GameCanvas extends JPanel {
     }
 
     /**
-     * Draws the object given to it at itÂ´s place
+     * Draws the object given to it at it´s place
      *
      * @param c the character is the type of object
      * @param p the position to paint

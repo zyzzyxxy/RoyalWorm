@@ -6,12 +6,18 @@ import java.util.Random;
 
 public class Position extends BoardCordinates {
 	
+	/**
+	 * Constructor to position.
+	 * 
+	 * @param x The X value of the coordinate.
+	 * @param y The Y value of the coordinate.
+	 */
     public Position(int x, int y) {
         super(x, y);
     }
 
     /**
-     * Method for getting a random position
+     * Method for getting a random position.
      *
      * @return a random position
      */

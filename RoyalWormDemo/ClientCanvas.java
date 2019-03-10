@@ -1,9 +1,6 @@
 /**
- *Canvas for painting the gameComponents of the client
- *
- * @Param the gameWorld. Need not to be fillew with contents from start, but must have the right size.
- * @Return an instance of ClienCanvas.
- * */
+ * A panel used as a canvas to draw the clientWorld and the objects in it
+ */
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,20 +12,24 @@ public class ClientCanvas extends JPanel {
     private char[][] clientWorld;
     private int paintCounter = 0;
 
-    //Constructor
-    public ClientCanvas(char[][] c)
+    /**
+     * Constructor for ClientCanvas. Copies world to clientWorld and sets canvas size and background.
+     * 
+     * @param world The gameWorld received from host. It has to match the size of the clientWorld (Constants.worldWidth x Constants.worldHeight).
+     */
+    public ClientCanvas(char[][] world)
     {
     	clientWorld = new char[Constants.worldWidth][Constants.worldHeight];
-        for (char[] c1 : clientWorld) {
-            Arrays.fill(c1, '0');
-        }
-        
-        updateClientWorld(c);
+        updateClientWorld(world);
         setSize(new Dimension(Constants.boardWidth,Constants.boardHeight));
         setBackground(Constants.backgroundColor);
     }
 
-    //Updates the world map for the client
+    /**
+     * Updates the clientWorld by copying world.
+     * 
+     * @param world	The gameWorld received from host.
+     */
     public void updateClientWorld(char[][] world)
     {
     	for (int y = 0; y < Constants.worldHeight; y++) {
@@ -38,43 +39,52 @@ public class ClientCanvas extends JPanel {
     	}
     }
 
+    /**
+     * @param x	The X coordinate 
+     * @param y The Y coordinate
+     * @return The char value of the given position.
+     */
     public char getClientWorld(int x, int y) {
     	return clientWorld[x][y];
     }
     
+    /**
+     * The method used when painting
+     *
+     * @param g The Graphics that will be used
+     */
     @Override
     public void paint(Graphics g) {
         if (paintCounter < 3) {
             drawWorld(g);
             paintCounter++;
         } else {
-            //drawChanges(g);
             drawWorld(g);
         }
     }
-    //Paints the canvas using changesList
-    public void drawChanges(Graphics g)
-    {
-        if(!ClientWindow.changes.isEmpty())
-        {
-            for (Change ch : ClientWindow.changes) {
-                drawObject(ch.getType(),new Position(ch.getX(),ch.getY()),g);
-            }
-        }
-    }
     
-    //TODO somethings on right not paining
+    /**
+     * This method is a brute force that paints the entire canvas according to GameWorld.
+     * Should not be used if not necessary, as it is inefficient.
+     *
+     * @param g The Graphics that will be used
+     */
     public void drawWorld(Graphics g)
     {
         for (int i = 0;i<Constants.worldWidth;i++)
             for (int j = 0;j<Constants.worldHeight;j++)
             {
-                //if(clientWorld[i][j]!='0')
                     drawObject(clientWorld[i][j], new Position(i,j), g);
             }
     }
 
-    //Used to determing what to draw
+    /**
+     * Draws the object given to it at it´s place
+     *
+     * @param c the character is the type of object
+     * @param p the position to paint
+     * @param g the graphics that will be used
+     */
     public void drawObject(char c, Position p, Graphics g)
     {
         switch (c)
@@ -112,6 +122,12 @@ public class ClientCanvas extends JPanel {
                 break;
             case 'g':
                 GameGraphics.drawGhost(p,g);
+                break;
+            case 'p':
+                GameGraphics.drawGun(p,g);
+                break;
+            case 'b':
+                GameGraphics.drawBullet(p,g);
                 break;
         }
     }

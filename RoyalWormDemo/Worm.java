@@ -89,15 +89,12 @@ public class Worm extends GameObject {
         updateHeadPos();
     }
 
-    public void grow() {
-        length += 1;
-    }
-
     public void grow(int n) {
         length += n;
+        score += n;
     }
 
-    public void looseLife() {
+    public void loseLife() {
         lives--;
         System.out.println("Worm " + type + " have " + lives + " lives");
     }
@@ -116,6 +113,8 @@ public class Worm extends GameObject {
         
         Position tmp = generateRandomPos(); 
         headPos = validPos();
+        
+        loseLife();
     }
     
     public Position generateRandomPos() {
@@ -138,7 +137,7 @@ public class Worm extends GameObject {
         speed -= n;
     }
 
-    public void lightninhMode() {
+    public void lightningMode() {
         isFast++;
         Thread t = new Thread(new Runnable() {
             @Override
@@ -157,6 +156,7 @@ public class Worm extends GameObject {
         });
         t.start();
         speed = (int) (Constants.wormspeed / 1.5);
+        score += 1;
     }
 
     public void resetSpeed() {
@@ -222,6 +222,7 @@ public class Worm extends GameObject {
 	
 	public void pickUpGun(){
 		gun = true;
+		score += 3;
 	}
 	
 	public void fireGun() {

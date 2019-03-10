@@ -1,10 +1,7 @@
 /**
- *This window works also as a controller for clients recieving and sending data
- *
- * @Param host Adress as a string
- * @Return A window containging a canvas, ready to paint recieved data and to send directions back to Host.
- * */
-
+ * The game window for the client.
+ * It also contains some networking related to receiving and sending data.
+ */
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,16 +22,18 @@ public class ClientWindow{
     private byte[] data = new byte[4800];
     private ClientCanvas clientCanvas;
     private char[][] receivedWorld;
-    private KeyListener keyListener;
     private InetAddress hostAddr;
-    private int portNr = 1233;
     private Thread rThread;
-	private Container playerContainer;
 
     public static List<Change> changes = new ArrayList<>();
     
-    public ClientWindow(String host) throws Exception {
-        hostAddr = InetAddress.getByName(host);
+    /**
+     * Constructor for ClientWindow. Initiates the JFrame and networking for receiving and sending data.
+     * 
+     * @param hostAddress The IP address of the host computer.
+     */
+    public ClientWindow(String hostAddress) throws Exception {
+        hostAddr = InetAddress.getByName(hostAddress);
         makeFrame();
         receivedWorld = new char[Constants.worldWidth][Constants.worldHeight];
         for (char[] c : receivedWorld) {
@@ -43,12 +42,11 @@ public class ClientWindow{
         System.out.println("Got this far");
         clientCanvas = new ClientCanvas(receivedWorld);
         frame.add(clientCanvas);
-        clientCanvas.addKeyListener(keyListener = new KeyListener() {
+        clientCanvas.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
 
             }
-
             @Override
             public void keyPressed(KeyEvent e) {
                 try {
@@ -69,7 +67,7 @@ public class ClientWindow{
             @Override
             public void run() {
                 try {
-                    recieveMessages();
+                    receiveMessages();
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -78,9 +76,11 @@ public class ClientWindow{
             }
         });
         rThread.start();
-
     }
 
+    /**
+     * Initiates the JFrame.
+     */
     private void makeFrame() throws IOException {
         frame = new JFrame("Client Window");
         frame.setPreferredSize(new Dimension(Constants.boardWidth+20,Constants.boardHeight+40)); //clientWindow isn't an exact copy of gameWindow (A bit smaller). Thus the addition to dimensions.
@@ -91,7 +91,10 @@ public class ClientWindow{
         frame.setResizable(false);
     }
 
-    public void recieveMessages() throws IOException, InterruptedException {
+    /**
+     * Network receiver used to receive gameWorld from host.
+     */
+    public void receiveMessages() throws IOException, InterruptedException {
         while (true) {
             DatagramPacket dp = new DatagramPacket(data,data.length);
         try{
@@ -100,13 +103,18 @@ public class ClientWindow{
             String message = new String(dp.getData(),0,dp.getLength());
 
             stringToWorld(message);
-            updateChanges();
             clientCanvas.updateClientWorld(receivedWorld);
             clientCanvas.repaint();
             }
         catch (Exception e){e.printStackTrace();}
         }
     }
+    
+    /**
+     * Converts string to receiverWorld.
+     * 
+     * @param s String containing a gameWorld.
+     */
     private void stringToWorld(String s)
     {
         int i = 0;
@@ -117,38 +125,26 @@ public class ClientWindow{
             if (i > Constants.worldWidth - 1)
                 break;
         }
-
     }
+    
+    /**
+     * Sends a Direction to the host according to the key pressed.
+     */
     private void keyHandler(int keycode) throws Exception {
         switch (keycode)
         {
             case KeyEvent.VK_UP:
-                System.out.println("Up");
                 NetworkController.sendDirectionData(new Direction(0,-1),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_DOWN:
-                System.out.println("Down");
                 NetworkController.sendDirectionData(new Direction(0,1),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_LEFT:
-                System.out.println("Left");
                 NetworkController.sendDirectionData(new Direction(-1,0),dSocket,hostAddr);
                 break;
             case KeyEvent.VK_RIGHT:
-                System.out.println("Right");
                 NetworkController.sendDirectionData(new Direction(1,0),dSocket,hostAddr);
                 break;
         }
-    }
-
-    private void updateChanges() {
-        ClientWindow.changes.clear();
-    	for (int y = 0; y < Constants.worldHeight; y++) {
-    		for (int x = 0; x < Constants.worldWidth; x++) {
-    			if (receivedWorld[x][y] != clientCanvas.getClientWorld(x, y)) {
-    				changes.add(new Change(x, y, receivedWorld[x][y]));
-    			}
-    		}
-    	}
     }
 }
