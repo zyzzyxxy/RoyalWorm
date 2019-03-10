@@ -7,8 +7,8 @@
 public class Change extends BoardCordinates {
     private char type;
     /**
-     * @param x-position for the position being changed.
-     * @param y-position for the position being changed.
+     * @param x position for the position being changed.
+     * @param y position for the position being changed.
      * @param type, as in what game object is changed. 
      */
     public Change(int x, int y, char type) {
