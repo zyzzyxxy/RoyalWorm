@@ -26,11 +26,7 @@ public class CollisionHandler {
      */
 	public static boolean collisionCheck(Position pos) 
 	{
-		if(GameEngine.GameWorld[pos.getX()][pos.getY()]!='0') {
-			System.out.println("Collision!!");
-			return true;
-		}
-		return false;
+		return (GameEngine.GameWorld[pos.getX()][pos.getY()]!='0');
 	}
 	
     /**
@@ -43,7 +39,6 @@ public class CollisionHandler {
 		//Handles collision for Worm
 		if(object instanceof Worm){
 			if (object.getType() == '1' || object.getType() == '2' || object.getType() == '3' || object.getType() == '4' || object.getType() == '5') {
-				System.out.print("in if");
 				switch (GameEngine.GameWorld[pos.getX()][pos.getY()]) {
 					case '0': //empty spot
 						break;

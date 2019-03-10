@@ -37,7 +37,6 @@ public class NetworkReciever extends Observable implements Runnable{
      * @throws IOException
      */
     public void recieveData() throws IOException {
-            System.out.println("In network reciever");
                 DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);
 
                 receiveSocket.receive(dp);

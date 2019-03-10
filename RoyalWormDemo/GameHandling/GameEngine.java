@@ -149,9 +149,7 @@ public class GameEngine extends Observable {
      */
 	public void updateBullets() throws InterruptedException {
 		for(Player p : playerList) {
-			//System.out.println(p.getWorm().getBullets().size());
 			for(Bullet b : p.getWorm().getBullets()) {
-				//p.getWorm().getBullets().remove(b); This should be here but crashes the game. Makes no significant differense though.
 				if(b.getProjection()) {
 				if(gameCOunter % Constants.bulletSpeed == 0)
 						b.update();

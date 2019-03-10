@@ -224,8 +224,6 @@ public class Worm extends GameObject {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-
-                System.out.println("Running thread in CH");
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {

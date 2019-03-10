@@ -77,13 +77,8 @@ public class Controller implements Observer {
 
         //for getting directions
         else if (o instanceof NetworkReciever && started) {
-            System.out.println("NetworkUpdate from controller");
-            System.out.println(arg);
-
             Direction tempDir = getDirFromString(arg.toString());
             String playerAdress = getAdressFromString(arg.toString());
-            System.out.println(arg);
-            System.out.println(playerAdress);
             for (Player p : gameEngine.playerList) {
                 try {
                     if (!p.isHost()&&p.getAddr().equals(InetAddress.getByName(playerAdress))) {
@@ -97,7 +92,6 @@ public class Controller implements Observer {
 
         //For startscreen
         else if (o instanceof NetworkReciever) {
-            System.out.println("We have contact" + arg.toString());
             if (arg.toString().substring(0, 5).equals("addme")) {
                 int i = 6;
                 StringBuilder name = new StringBuilder();
@@ -106,7 +100,6 @@ public class Controller implements Observer {
                     i++;
                 }
                 String addr = arg.toString().substring(i + 1);
-                System.out.println(name + " : " + addr);
                 boolean alreadyInList = false;
                 for (Player p : playerList) {
                     try {
@@ -254,18 +247,15 @@ public class Controller implements Observer {
             @Override
             public void keyPressed(KeyEvent e) {
                 hostKeyPressed(e);
-                System.out.println("Key pressed" + e.getKeyCode());
             }
         });
     }
-
 
     /**
      * Checks the game modes and starts the game
      */
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
-            System.out.println("HostButtonClicked");
             host = true;
 
             checkGameMode();

@@ -51,7 +51,6 @@ public class ClientWindow{
         for (char[] c : receivedWorld) {
             Arrays.fill(c, '0');
         }
-        System.out.println("Got this far");
         clientCanvas = new ClientCanvas(receivedWorld);
         frame.add(clientCanvas);
         clientCanvas.addKeyListener(new KeyListener() {
