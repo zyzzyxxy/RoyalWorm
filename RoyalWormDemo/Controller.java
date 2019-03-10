@@ -120,7 +120,7 @@ public class Controller implements Observer {
         }
     }
 
-    //this method is used when adding players to extract the adress
+    //this method is used when adding players to extract the address
     private String getAdressFromString(String str) {
         String result = "";
         int i = 0;
@@ -230,7 +230,7 @@ public class Controller implements Observer {
         });
     }
 
-    //Checks the gamemodes and starts the game
+    //Checks the game modes and starts the game
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
             System.out.println("HostButtonClicked");
