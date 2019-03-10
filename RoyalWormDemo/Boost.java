@@ -9,13 +9,14 @@ public class Boost extends GameObject {
 
     private int counter = 0;
     private int spawnRate;
-    
-/**
- * Instantiates a boost.
- * @param position to locate a spawn position
- * @param type as a char 
- * @param spawnRate is an integer user for determining for how frequent a boost spawns.   
- */
+
+    /**
+     * Constructor
+     *
+     * @param position  the position of the object
+     * @param type      the type as a char
+     * @param spawnRate spawnRate as an int
+     */
     public Boost(Position position, char type, int spawnRate)
     {
         super(position,type);
