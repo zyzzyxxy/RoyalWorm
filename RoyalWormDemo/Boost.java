@@ -1,7 +1,7 @@
 /**
  * 
  * Boosts are objects that players might pick up
- * @author Anton Eliasson Gustafsson & Martin Hagentoft
+ * @author Johan Ericsson & Anton Eliasson Gustafsson & Martin Hagentoft
  * @version 2019-03-01
  */
 
