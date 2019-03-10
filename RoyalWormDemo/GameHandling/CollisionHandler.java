@@ -9,7 +9,7 @@ import Positions.Position;
 
 /**
  * Checks and Handles collisions between GameObjects
- * @author Anton Eliasson Gustafsson, Johan Ericsson
+ * @author Anton Eliasson Gustafsson & Jonathan Uhre & Johan Ericsson
  * @version 2019-03-09
  */
 
@@ -37,7 +37,7 @@ public class CollisionHandler {
      * @param pos The Position of the collision.
      */
 	public static void collisionHandle(GameObject object, Position pos) throws InterruptedException {
-
+		//Handles collision for Worm
 		if(object instanceof Worm){
 			if (object.getType() == '1' || object.getType() == '2' || object.getType() == '3' || object.getType() == '4' || object.getType() == '5') {
 				System.out.print("in if");
@@ -80,6 +80,7 @@ public class CollisionHandler {
 				}
 			}
 		}
+		//Handles collision for Ghost.
 		else if (object instanceof Ghost)
 		{	
 			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];
@@ -93,6 +94,7 @@ public class CollisionHandler {
 				}
 			}
 		}
+		//Handles collision for Bullet.
 		else if(object instanceof Bullet) {
 			Worm tmp = ((Bullet)object).getWorm();
 			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];

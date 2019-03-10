@@ -39,7 +39,9 @@ public class Controller implements Observer {
     private boolean started = false;
     private boolean royalB, speedB, applesB,gunsB, ghostB;
 
-    //Constructor
+    /**
+     * Constructor for Controller.
+     */
     public Controller() throws Exception {
 
         nwReciever = new NetworkReciever(1230);
@@ -130,7 +132,12 @@ public class Controller implements Observer {
         }
     }
 
-    //this method is used when adding players to extract the address
+    /**
+     * This method is used when adding players to extract the IP address.
+     * 
+     * @param str A String containing an IP address
+     * @return The extracted IP address.
+     */
     private String getAdressFromString(String str) {
         String result = "";
         int i = 0;
@@ -145,7 +152,12 @@ public class Controller implements Observer {
         return result;
     }
 
-    //this method is used when getting a direction from another player
+    /**
+     * This method is used when getting a direction from another player.
+     * 
+     * @param arg A String containing a direction.
+     * @return The entered String converted to a Direction.
+     */
     private Direction getDirFromString(String arg) {
         int x, y;
         if (arg.substring(0, 1).equals("0")) {
@@ -164,7 +176,9 @@ public class Controller implements Observer {
         return new Direction(x, y);
     }
 
-    //Sends data to all players connected as clients
+    /**
+     * Sends data to all players connected as clients
+     */
     private void sendDataToPlayers() throws UnknownHostException {
         for (Player p : gameEngine.playerList) {
             if (!p.isHost()) {
@@ -173,7 +187,9 @@ public class Controller implements Observer {
         }
     }
 
-    //Shows the setupscreen before game begins
+    /**
+     * Shows the setupscreen before game begins
+     */
     private void showStartScreen() throws Exception {
         startFrame = new JFrame("HOST-Screen");
         startFrame.getContentPane().setLayout(new FlowLayout());
@@ -223,7 +239,9 @@ public class Controller implements Observer {
 
     }
 
-    //Starts the game
+    /**
+     * Starts the game
+     */
     public void startGame() throws Exception {
         boolean[] gameMode = {royalB, speedB,applesB,gunsB};
         this.gameEngine = new GameEngine(playerList,royalB,applesB,speedB,gunsB,ghostB);
@@ -240,7 +258,10 @@ public class Controller implements Observer {
         });
     }
 
-    //Checks the game modes and starts the game
+
+    /**
+     * Checks the game modes and starts the game
+     */
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
             System.out.println("HostButtonClicked");
@@ -256,7 +277,9 @@ public class Controller implements Observer {
         }
     }
 
-    //Checks what game modes will be activated in the game
+    /**
+     * Checks what game modes will be activated in the game
+     */
     private void checkGameMode()
     {
         if(royal.getState()==true)
@@ -281,7 +304,9 @@ public class Controller implements Observer {
             ghostB=false;
     }
 
-    //For controlling the host´s worm
+    /**
+     * For controlling the host's worm
+     */
     private void hostKeyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_DOWN && gameEngine.playerList.get(0).getWorm().getDirection().getY() != -1) {
             gameEngine.playerList.get(0).getWorm().getNextDirection().setX(0);

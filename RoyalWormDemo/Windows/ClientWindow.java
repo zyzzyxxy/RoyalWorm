@@ -1,6 +1,6 @@
 package Windows;
 /**
- * @author Johan Ericsson
+ * @author Johan Ericsson & Jonathan Uhre
  * @version 2019-03-10
  *
  * The game window for the client.
