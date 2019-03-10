@@ -32,7 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class GameEngine extends Observable {
@@ -48,7 +47,7 @@ public class GameEngine extends Observable {
     private int ghostCounter = 0;
     private int shrinkCOunter = 0;
     private boolean gameOver=false;
-    private boolean apples,lightning,gun,ghost, royal;
+    private boolean apples,lightning,gun,ghost, royal, multiPlayer;
     
     /**
      * Instantiates a GameEngine. 
@@ -72,6 +71,11 @@ public class GameEngine extends Observable {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
+        if(playersList.size()>1)
+            multiPlayer=true;
+        else
+            multiPlayer=false;
+
         makeSpawnList();
 
 
@@ -109,7 +113,6 @@ public class GameEngine extends Observable {
                 updateBoosts();
                 updateDynamicObjects();
                 checkForGameOver();
-
             }
             
             if((gameCOunter %  Constants.WALL_SPAWN_SPEED == 0) && royal) {
@@ -122,10 +125,21 @@ public class GameEngine extends Observable {
                 gameCOunter = 0;
         }
         else {
+            resetGameworld();
             makeGameOverMap();
             setChanged();
             tellObservers();
+            gameTimer.stop();
         }
+    }
+
+    /**
+     * Starts the timer
+     */
+    public void startTimer()
+    {
+        if(!gameTimer.isRunning())
+        gameTimer.start();
     }
 
     /**
@@ -169,7 +183,11 @@ public class GameEngine extends Observable {
             if(p.getWorm().getLives() > 0)
                 playersAlive++;
         }
-        if(playersAlive<=0)
+        if(multiPlayer&&playersAlive<=1)
+        {
+            gameOver=true;
+        }
+        else if(playersAlive<=0)
         {
             gameOver=true;
         }
@@ -183,7 +201,6 @@ public class GameEngine extends Observable {
      * Calls to two other methods which spawn guns and shrink walls.
      */
     private void battleRoyal() {
-    	spawnGun();
     	shrinkWalls();
     }
     /**
@@ -307,12 +324,16 @@ public class GameEngine extends Observable {
      * Empties the world and reset worms.
      */
     public void resetGameworld() {
-        for (char[] c : GameWorld) {
-            Arrays.fill(c, '0');
+        for (int i = 0; i < Constants.worldWidth; i++) {
+                for (int j = 0; j < Constants.worldHeight; j++) {
+                    updateGameworld(new Position(i,j),'0');
+                }
+            }
+
             for (Player p :playerList) {
                 p.getWorm().reset();
             }
-        }
+
     }
     public void resetWorms() {
         for (Player p:playerList) {
@@ -326,6 +347,7 @@ public class GameEngine extends Observable {
     public void resetGame() {
         resetGameworld();
         resetWorms();
+        gameOver=false;
         dObjectList.clear();
         shrinkCOunter=0;
     }
