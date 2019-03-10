@@ -1,3 +1,4 @@
+package Positions;
 /**
  *This class gives us a tuple of ints that can be used for positioning and direction".
  * @author Anton Eliasson Gustafsson & Martin Hagentoft

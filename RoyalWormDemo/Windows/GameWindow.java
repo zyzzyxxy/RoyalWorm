@@ -1,4 +1,11 @@
+package Windows;
 import javax.swing.*;
+
+import BoardObjects.Player;
+import Canvas.GameCanvas;
+import GameHandling.GameEngine;
+import src.Constants;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;

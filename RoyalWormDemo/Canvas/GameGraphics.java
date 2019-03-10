@@ -1,3 +1,4 @@
+package Canvas;
 /**
  *  * @author Johan Ericsson, Anton Eliasson Gustavsson
  *  * @Version 2019-03-06
@@ -5,6 +6,9 @@
  */
 
 import java.awt.*;
+
+import Positions.Position;
+import src.Constants;
 
 public class GameGraphics {
 

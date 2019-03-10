@@ -1,3 +1,4 @@
+package Windows;
 /**
  * @author Johan Ericsson
  * @version 2019-03-10
@@ -7,6 +8,13 @@
  */
 
 import javax.swing.*;
+
+import Canvas.ClientCanvas;
+import Network.NetworkController;
+import Positions.Change;
+import Positions.Direction;
+import src.Constants;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

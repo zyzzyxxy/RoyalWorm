@@ -1,8 +1,13 @@
+package Canvas;
 /**
  * A panel used as a canvas to draw the clientWorld and the objects in it
  */
 
 import javax.swing.*;
+
+import Positions.Position;
+import src.Constants;
+
 import java.awt.*;
 import java.awt.Graphics;
 import java.util.Arrays;

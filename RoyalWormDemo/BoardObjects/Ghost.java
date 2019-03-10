@@ -1,3 +1,4 @@
+package BoardObjects;
 /**
  * An enemy, this is a gameobject with a very simple ai that changes direction at random inside a timespan.
  * @author Anton Eliasson Gustafsson
@@ -5,6 +6,12 @@
  */
 
 import java.util.Random;
+
+import GameHandling.CollisionHandler;
+import GameHandling.GameEngine;
+import Positions.Direction;
+import Positions.Position;
+import src.Constants;
 
 public class Ghost extends DynamicObject {
     private int directionCounter, changeDirection;
