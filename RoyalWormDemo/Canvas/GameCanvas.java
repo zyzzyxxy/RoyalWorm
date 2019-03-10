@@ -19,8 +19,8 @@ import java.util.List;
 public class GameCanvas extends JPanel {
 
     //public Direction direction;
-    public List<Change> changes;
-    public int paintCounter=0;
+    private List<Change> changes;
+    private int paintCounter=0;
 
     /**
      * Constructor for GameCanvas. It initiate a reference to changes and sets canvas size and background.
