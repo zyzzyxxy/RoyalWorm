@@ -121,32 +121,12 @@ public class GameEngine extends Observable {
                 gameCOunter = 0;
         }
         else {
-            /*
-            String current="";
-            try {
-                current = new File( "." ).getCanonicalPath();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            loadGameworld(new File("/Users/johanericsson/Documents/GitHub/RoyalWorm/RoyalWorm/gameOver.txt"));
-            */
-            //fixGameOverChars();
             GameWorld=GameOverWalls;
             setChanged();
             tellObservers();
         }
     }
-    /*
-    public void fixGameOverChars()
-    {
-        for (int i = 0; i < Constants.worldWidth; i++) {
-                for (int j = 0; j < Constants.worldHeight; j++) {
-                    if(GameWorld[i][j]!='0')
-                        System.out.print(j + ", ");
-                }
-        }
-        System.out.println("DONE!");
-    }*/
+
     public void makeGameOverMap()
     {
         resetGameworld();
