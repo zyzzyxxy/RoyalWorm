@@ -1,7 +1,7 @@
 package Network;
 /**
 * Contains static methods for sending data
-*@author Martin Hagentoft
+*@author 
 *@version 2019-03-06 
 */
 
@@ -16,8 +16,6 @@ public class NetworkController{
 
     /**
      * Converts a char[][] to a byte array and sends the information to the specified adress
-     * @author Martin Hagentoft
-     *
      * @param map - the gameWorld to be sent as a char[][]
      * @param datagramSocket the DatagramSocket to use
      * @param addr the InetAdress wich the data should be sent to
