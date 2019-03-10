@@ -16,6 +16,7 @@ public class NetworkController{
 
     /**
      * Converts a char[][] to a byte array and sends the information to the specified adress
+     * @author Martin Hagentoft
      *
      * @param map - the gameWorld to be sent as a char[][]
      * @param datagramSocket the DatagramSocket to use

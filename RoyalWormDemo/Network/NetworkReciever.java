@@ -3,10 +3,9 @@ package Network;
  * A class for that can be instantiated and run in a thread. Recieves data and
  * notifies it´s observers sending the data as an argument.
  *
- * @author Johan Ericsson
+ * @author Johan Ericsson, Martin Hagentoft
  * @Version 2019-03-06
  */
-
 
 import java.io.IOException;
 import java.net.DatagramPacket;
