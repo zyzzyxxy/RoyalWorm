@@ -119,7 +119,7 @@ public class GameWindow extends JFrame implements Observer {
     private void menuClicked(ActionEvent e) throws IOException {
         System.out.println(e.getActionCommand());
         if(e.getActionCommand().equalsIgnoreCase("New")) {
-            gm.resetGameworld(); gameCanvas.repaint();
+            gm.resetGame(); gameCanvas.repaint();
         }
         if(e.getActionCommand().equalsIgnoreCase("Save"))
             saveFile();
