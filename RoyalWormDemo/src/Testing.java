@@ -4,6 +4,10 @@ package src;
  *
  * It has been used as a convinient way of adding methods for testing diffeent things, like if a map still is the same after
  * sending it over the network and so on.
+ *
+ * @author Johan Ericsson
+ * @version 2019-02-25
+ *
  */
 
 public class Testing {

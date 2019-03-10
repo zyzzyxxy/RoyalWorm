@@ -1,7 +1,7 @@
 package Canvas;
 /**
  * A panel used as a canvas to draw the gameWorld and the objects in it
- * @author Anton Eliasson Gustafsson
+ * @author Anton Eliasson Gustafsson, Johan Ericsson
  * @version 2019-03-09
  */
 
@@ -81,7 +81,7 @@ public class GameCanvas extends JPanel {
     }
 
     /**
-     * Draws the object given to it at it´s place
+     * Draws the object given to it at itï¿½s place
      *
      * @param c the character is the type of object
      * @param p the position to paint

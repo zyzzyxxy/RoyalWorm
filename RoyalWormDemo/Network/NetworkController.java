@@ -1,7 +1,7 @@
 package Network;
 /**
 * Contains static methods for sending data
-*@author 
+*@author Johan Ericsson
 *@version 2019-03-06 
 */
 

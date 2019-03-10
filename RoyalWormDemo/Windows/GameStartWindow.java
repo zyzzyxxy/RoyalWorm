@@ -1,7 +1,7 @@
 package Windows;
 /**
  * Starts the program and lets a user choose between Host or Client -mode
- *@author Anton Eliasson Gustafsson 
+ *@author Anton Eliasson Gustafsson, Johan Ericsson
  *@version 2019-03-10
  */
 

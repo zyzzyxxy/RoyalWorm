@@ -1,7 +1,7 @@
 package Positions;
 /**
  *Change class helps to keep track of changes made in the gameWorld, can be used to optimize graphics.
- * @author 
+ * @author Johan Ericsson
  * @version 2019-03-01
  * */
 

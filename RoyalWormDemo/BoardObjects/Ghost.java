@@ -1,7 +1,7 @@
 package BoardObjects;
 /**
  * An enemy, this is a gameobject with a very simple ai that changes direction at random inside a timespan.
- * @author Anton Eliasson Gustafsson 
+ * @author Johan Ericsson, Anton Eliasson Gustafsson
  * @version 2019-03.10
  */
 

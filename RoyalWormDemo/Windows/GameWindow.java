@@ -17,7 +17,7 @@ import java.util.Observer;
 
 /**
  * The game window for the host machine
- * @author Anton Eliasson Gustafsson
+ * @author Anton Eliasson Gustafsson, Johan Ericsson
  * @version 2019-03-09
  */
 public class GameWindow extends JFrame implements Observer {

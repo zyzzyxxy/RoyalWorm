@@ -20,7 +20,7 @@ import java.util.Observer;
 
 /**
  * This class controls everything from the Host side. It also contains the GameEngine responsible for creating and running the game.
- * @author Anton Eliasson Gustafsson
+ * @author Anton Eliasson Gustafsson, Johan Ericsson
  * @version 2019-03-09
  */
 public class Controller implements Observer {

@@ -5,7 +5,7 @@ import Positions.Position;
 
 /**
  * Dynamic objects are objects in motion. 
- * @author Anton Eliasson Gustafsson & Martin Hagentoft 
+ * @author Anton Eliasson Gustafsson, Martin Hagentoft, Johan Ericsson
  * @version 2019-03-01 
  */
 public class DynamicObject extends GameObject{
