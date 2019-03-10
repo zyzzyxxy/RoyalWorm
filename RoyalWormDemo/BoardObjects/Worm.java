@@ -1,3 +1,4 @@
+package BoardObjects;
 /**
  * @author Johan Ericsson, Anton Eliasson Gustavsson, Jonathan Uhre
  * @Version 2019-03-09
@@ -10,6 +11,12 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import GameHandling.CollisionHandler;
+import GameHandling.GameEngine;
+import Positions.Direction;
+import Positions.Position;
+import src.Constants;
 
 public class Worm extends GameObject {
     private int speed, length, lives, score;

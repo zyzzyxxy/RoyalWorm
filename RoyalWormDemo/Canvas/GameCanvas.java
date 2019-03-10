@@ -1,8 +1,15 @@
+package Canvas;
 /**
  * A panel used as a canvas to draw the gameWorld and the objects in it
  */
 
 import javax.swing.*;
+
+import GameHandling.GameEngine;
+import Positions.Change;
+import Positions.Position;
+import src.Constants;
+
 import java.awt.*;
 import java.awt.Graphics;
 import java.util.List;

@@ -1,3 +1,4 @@
+package Windows;
 /**
  * A container filled with  host and clientbuttons and a textfield for writing clientName.
  *
@@ -6,6 +7,9 @@
  */
 
 import javax.swing.*;
+
+import src.Constants;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

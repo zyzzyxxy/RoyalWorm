@@ -1,4 +1,12 @@
+package GameHandling;
 import javax.swing.*;
+
+import BoardObjects.Player;
+import Network.NetworkController;
+import Network.NetworkReciever;
+import Positions.Direction;
+import Windows.GameWindow;
+
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;

@@ -1,3 +1,4 @@
+package Windows;
 /**
  * Starts the program and lets a user choose between Host or Client -mode
  *@author Anton Eliasson Gustafsson 
@@ -5,6 +6,10 @@
  */
 
 import javax.swing.*;
+
+import GameHandling.Controller;
+import Network.NetworkController;
+
 import java.net.DatagramSocket;
 
 public class GameStartWindow {

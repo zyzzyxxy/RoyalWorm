@@ -1,3 +1,7 @@
+package BoardObjects;
+
+import Positions.Position;
+
 /**
  * A GameObject is an object with a position and a type. 
  * A type defines what kind of GameOBject it is. For instance 'a' is an apple and 'b' is a bullet. These chars are to be placed in 

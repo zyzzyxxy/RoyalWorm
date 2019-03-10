@@ -1,3 +1,12 @@
+package GameHandling;
+
+import BoardObjects.Bullet;
+import BoardObjects.GameObject;
+import BoardObjects.Ghost;
+import BoardObjects.Player;
+import BoardObjects.Worm;
+import Positions.Position;
+
 /**
  * Checks and Handles collisions between GameObjects
  */
