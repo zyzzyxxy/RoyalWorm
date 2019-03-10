@@ -112,21 +112,20 @@ public class GameWindow extends JFrame implements Observer {
                 });
     }
 
-
     /**
      * Handles JMenu in GameWindow with the use of ActionEvent.
      */
     private void menuClicked(ActionEvent e) throws IOException {
         System.out.println(e.getActionCommand());
         if(e.getActionCommand().equalsIgnoreCase("New")) {
-            gm.resetGame(); gameCanvas.repaint();
+            gm.resetGame();gm.startTimer(); gameCanvas.repaint();
         }
         if(e.getActionCommand().equalsIgnoreCase("Save"))
             saveFile();
         if(e.getActionCommand().equalsIgnoreCase("Load"))
             loadFile();
         if(e.getActionCommand().equalsIgnoreCase("Reset"))
-            gm.resetGame(); gameCanvas.repaint();
+            gm.resetGame(); gm.startTimer(); gameCanvas.repaint();
         if(e.getActionCommand().equalsIgnoreCase("Quit"))
             System.exit(0);
     }

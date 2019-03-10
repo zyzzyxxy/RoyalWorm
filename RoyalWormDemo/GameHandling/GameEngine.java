@@ -109,7 +109,6 @@ public class GameEngine extends Observable {
                 updateBoosts();
                 updateDynamicObjects();
                 checkForGameOver();
-
             }
             
             if((gameCOunter %  Constants.WALL_SPAWN_SPEED == 0) && royal) {
@@ -126,7 +125,17 @@ public class GameEngine extends Observable {
             makeGameOverMap();
             setChanged();
             tellObservers();
+            gameTimer.stop();
         }
+    }
+
+    /**
+     * Starts the timer
+     */
+    public void startTimer()
+    {
+        if(!gameTimer.isRunning())
+        gameTimer.start();
     }
 
     /**
@@ -186,7 +195,6 @@ public class GameEngine extends Observable {
      * Calls to two other methods which spawn guns and shrink walls.
      */
     private void battleRoyal() {
-    	spawnGun();
     	shrinkWalls();
     }
     /**
@@ -310,12 +318,16 @@ public class GameEngine extends Observable {
      * Empties the world and reset worms.
      */
     public void resetGameworld() {
-        for (char[] c : GameWorld) {
-            Arrays.fill(c, '0');
+        for (int i = 0; i < Constants.worldWidth; i++) {
+                for (int j = 0; j < Constants.worldHeight; j++) {
+                    updateGameworld(new Position(i,j),'0');
+                }
+            }
+
             for (Player p :playerList) {
                 p.getWorm().reset();
             }
-        }
+
     }
     public void resetWorms() {
         for (Player p:playerList) {
@@ -329,6 +341,7 @@ public class GameEngine extends Observable {
     public void resetGame() {
         resetGameworld();
         resetWorms();
+        gameOver=false;
         dObjectList.clear();
         shrinkCOunter=0;
     }
