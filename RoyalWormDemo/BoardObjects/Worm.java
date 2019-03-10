@@ -403,6 +403,14 @@ public class Worm extends GameObject {
 		return fireAllowed;
 	}
 
+/**
+ * increases lives for a player.
+ * @param i is with how many lives to increase with. 
+ */
+	public void setLives(int i) {
+		lives += i;
+	}
+
 }
 
 
