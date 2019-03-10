@@ -122,6 +122,7 @@ public class GameEngine extends Observable {
                 gameCOunter = 0;
         }
         else {
+            resetGameworld();
             makeGameOverMap();
             setChanged();
             tellObservers();
