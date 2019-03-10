@@ -76,7 +76,7 @@ public class GameStartWindow {
 		}
 		
 		if (actionCommand.equals("Client")) {
-			//If a player choose to play as a client, it sends data to a host so that the host knows a player has joined 
+			//If a player chooses to play as a client -> send data to a host so that the host knows a player has joined 
 			//and creates a ClientWindow. 
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
 			host = false;

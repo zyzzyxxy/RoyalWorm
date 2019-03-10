@@ -1,6 +1,8 @@
 package Canvas;
 /**
  * A panel used as a canvas to draw the clientWorld and the objects in it
+ * @author Anton Eliasson Gustafsson
+ * @version 
  */
 
 import javax.swing.*;
