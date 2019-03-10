@@ -1,10 +1,8 @@
 /**
  *Creates a boost that is a pickup in game, keeping track of its spawnrate
  *
- * @Param the position of the object
- * @Param the type as a char
- * @Param spawnRate as an int
- * @Return an instance of Boost
+ * @author Johan Ericsson, Anton Eliasson Gustavsson
+ * @version 2019-03-01
  * */
 
 public class Boost extends GameObject {
@@ -12,6 +10,13 @@ public class Boost extends GameObject {
     private int counter = 0;
     private int spawnRate;
 
+    /**
+     * Constructor
+     * 
+     * @param position  the position of the object
+     * @param type      the type as a char
+     * @param spawnRate spawnRate as an int
+     */
     public Boost(Position position, char type, int spawnRate)
     {
         super(position,type);

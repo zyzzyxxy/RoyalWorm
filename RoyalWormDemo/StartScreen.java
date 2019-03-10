@@ -35,7 +35,7 @@ public class StartScreen extends Container {
 
     /**
      * Populates the  screen
-     * 
+     *
      * @throws UnknownHostException
      */
     private void makeStartScreen() throws UnknownHostException {
