@@ -1,12 +1,11 @@
 /**
- * Starts the program and let´s user choose between Host or Client -mode
+ * Starts the program and lets a user choose between Host or Client -mode
+ *@author Anton Eliasson Gustafsson 
+ *@version 2019-03.10
  */
 
 import javax.swing.*;
 import java.net.DatagramSocket;
-
-
-
 
 public class GameStartWindow {
 	
@@ -19,10 +18,18 @@ public class GameStartWindow {
 	private static DatagramSocket sendSocket;
 	private static StartScreen sc;
 	
+	/**
+	 * Instantiates a GameStartWindow. Calls to the method showStartScreen. 
+	 * @throws Exception
+	 */
 	public GameStartWindow() throws Exception {
 		showStartScreen();
 	}
 	
+	/**
+	 * This method is used for a player to chose to play as host or client. See more comments inside method. 
+	 * @throws Exception
+	 */
 	private static void showStartScreen() throws Exception {
 		sendSocket = new DatagramSocket();
 		startFrame = new JFrame("Start Screen");
@@ -49,19 +56,23 @@ public class GameStartWindow {
 		startFrame.setVisible(true);
 		startFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
+	/**
+	 * This method takes a button (Host or Client) input from showStartScreen.
+	 * @param actionCommand is the pressed button. 
+	 * @throws Exception
+	 */
 	public static void buttonClicked(String actionCommand) throws Exception {
-
+		//If a player choose to play as host, a Controller is instantiated. 
 		if (actionCommand.equals("Host")) {
-			System.out.println("HostButtonClicked");
 			host = true;
 			startFrame.dispose();
 			done=true;
 			gameController = new Controller();
 		}
-
+		
 		if (actionCommand.equals("Client")) {
-			System.out.println("ClientButtonClicked");
+			//If a player choose to play as a client, it sends data to a host so that the host knows a player has joined 
+			//and creates a ClientWindow. 
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
 			host = false;//test
 			startFrame.dispose();
