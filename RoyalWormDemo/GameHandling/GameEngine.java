@@ -32,7 +32,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class GameEngine extends Observable {
@@ -48,7 +47,7 @@ public class GameEngine extends Observable {
     private int ghostCounter = 0;
     private int shrinkCOunter = 0;
     private boolean gameOver=false;
-    private boolean apples,lightning,gun,ghost, royal;
+    private boolean apples,lightning,gun,ghost, royal, multiPlayer;
     
     /**
      * Instantiates a GameEngine. 
@@ -72,6 +71,11 @@ public class GameEngine extends Observable {
         GameWorld = new char[Constants.worldWidth][Constants.worldHeight];
         resetGameworld();
         playerList = playersList;
+        if(playersList.size()>1)
+            multiPlayer=true;
+        else
+            multiPlayer=false;
+
         makeSpawnList();
 
 
@@ -181,7 +185,11 @@ public class GameEngine extends Observable {
             if(p.getWorm().getLives() > 0)
                 playersAlive++;
         }
-        if(playersAlive<=0)
+        if(multiPlayer&&playersAlive<=1)
+        {
+            gameOver=true;
+        }
+        else if(playersAlive<=0)
         {
             gameOver=true;
         }
