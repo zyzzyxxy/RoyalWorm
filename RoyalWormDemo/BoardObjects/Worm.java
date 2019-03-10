@@ -3,6 +3,7 @@ package BoardObjects;
  * @author Johan Ericsson
  * @author Anton Eliasson Gustafsson
  * @author Jonathan Uhre
+ * @author Jonathan Edfeldt
  * @Version 2019-03-09
  *
  * A worm class. This is the worm that will be present on the gameboard. It contains info about
