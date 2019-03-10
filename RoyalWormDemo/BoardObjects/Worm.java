@@ -65,8 +65,20 @@ public class Worm extends GameObject {
         direction = nextDirection;
         updateBody();
     }
-    public void resetCounter() { counter=0; }
-    public void incWormCounter() { counter++; }
+
+    /**
+     * Resets counter.
+     */
+    public void resetCounter() {
+    	counter = 0;
+    }
+
+    /**
+     * Increments counter.
+     */
+    public void incWormCounter() {
+    	counter++;
+    }
 
     /**
      * Checks if time to update
