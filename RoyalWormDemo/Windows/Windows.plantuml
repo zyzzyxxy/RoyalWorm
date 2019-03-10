@@ -1,0 +1,157 @@
+@startuml
+
+title __WINDOWS's Class Diagram__\n
+
+  package Windows {
+    class ClientWindow {
+        - frame : JFrame
+        - recievePort : int
+        - dSocket : DatagramSocket
+        - data : byte[]
+        - receivedWorld : char[][]
+        - hostAddr : InetAddress
+        - rThread : Thread
+        {static} + changes : List<Change>
+        + ClientWindow()
+        - makeFrame()
+        + receiveMessages()
+        - stringToWorld()
+        - keyHandler()
+    }
+  }
+  
+
+  package Windows {
+    class GameStartWindow {
+        {static} - startFrame : JFrame
+        {static} - host : boolean
+        {static} - done : boolean
+        {static} - hostAdress : String
+        {static} - gameController : Controller
+        {static} - cl : ClientWindow
+        {static} - sendSocket : DatagramSocket
+        {static} - sc : StartScreen
+        + GameStartWindow()
+        {static} - showStartScreen()
+        {static} + buttonClicked()
+    }
+  }
+  
+
+  package Windows {
+    class GameWindow {
+        - menuBar : JMenuBar
+        - File : JMenu
+        - Options : JMenu
+        - Help : JMenu
+        - New : JMenuItem
+        - Save : JMenuItem
+        - Load : JMenuItem
+        - Reset : JMenuItem
+        - Quit : JMenuItem
+        - SetControllers : JMenuItem
+        - Gamemode : JMenuItem
+        - About : JMenuItem
+        - playerContainer : Container
+        + GameWindow()
+        + update()
+        - makeFrame()
+        - makeMenus()
+        - menuClicked()
+        - loadFile()
+        - saveFile()
+    }
+  }
+  
+
+  package Windows {
+    class StartScreen {
+        + infoTextfield : JTextField
+        + connectToHostTextfield : JTextField
+        + hostButton : JButton
+        + clientButton : JButton
+        + StartScreen()
+        - makeStartScreen()
+    }
+  }
+  
+
+  ClientWindow o-- ClientCanvas : clientCanvas
+  GameWindow -up-|> Observer
+  GameWindow -up-|> JFrame
+  GameWindow o-- GameCanvas : gameCanvas
+  GameWindow o-- GameEngine : gm
+  AccessibleJFrame -up-|> AccessibleAWTFrame
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTFrame -up-|> AccessibleAWTWindow
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  AccessibleAWTWindow -up-|> AccessibleAWTContainer
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  WindowDisposerRecord -up-|> DisposerRecord
+  AccessibleAWTContainer -up-|> AccessibleAWTComponent
+  AccessibleAWTContainer +-down- AccessibleContainerHandler
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  WakingRunnable -up-|> Runnable
+  DropTargetEventTargetFilter -up-|> EventTargetFilter
+  MouseEventTargetFilter -up-|> EventTargetFilter
+  AccessibleAWTComponent -up-|> Serializable
+  AccessibleAWTComponent -up-|> AccessibleComponent
+  AccessibleAWTComponent -up-|> AccessibleContext
+  AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
+  BltSubRegionBufferStrategy -up-|> SubRegionShowable
+  BltSubRegionBufferStrategy -up-|> BltBufferStrategy
+  FlipSubRegionBufferStrategy -up-|> SubRegionShowable
+  FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
+  ProxyCapabilities -up-|> ExtendedBufferCapabilities
+  FlipContents -up-|> AttributeValue
+  StartScreen -up-|> Container
+  AccessibleAWTContainer -up-|> AccessibleAWTComponent
+  AccessibleAWTContainer +-down- AccessibleContainerHandler
+  AccessibleContainerHandler -up-|> ContainerListener
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  WakingRunnable -up-|> Runnable
+  DropTargetEventTargetFilter -up-|> EventTargetFilter
+  MouseEventTargetFilter -up-|> EventTargetFilter
+  AccessibleAWTComponent -up-|> Serializable
+  AccessibleAWTComponent -up-|> AccessibleComponent
+  AccessibleAWTComponent -up-|> AccessibleContext
+  AccessibleAWTComponent +-down- AccessibleAWTFocusHandler
+  AccessibleAWTComponent +-down- AccessibleAWTComponentHandler
+  AccessibleAWTFocusHandler -up-|> FocusListener
+  AccessibleAWTComponentHandler -up-|> ComponentListener
+  DummyRequestFocusController -up-|> RequestFocusController
+  SingleBufferStrategy -up-|> BufferStrategy
+  BltSubRegionBufferStrategy -up-|> SubRegionShowable
+  BltSubRegionBufferStrategy -up-|> BltBufferStrategy
+  FlipSubRegionBufferStrategy -up-|> SubRegionShowable
+  FlipSubRegionBufferStrategy -up-|> FlipBufferStrategy
+  BltBufferStrategy -up-|> BufferStrategy
+  FlipBufferStrategy -up-|> BufferStrategy
+  ProxyCapabilities -up-|> ExtendedBufferCapabilities
+  FlipContents -up-|> AttributeValue
+
+
+right footer
+
+
+PlantUML diagram generated by SketchIt! (https://bitbucket.org/pmesmeur/sketch.it)
+For more information about this tool, please contact philippe.mesmeur@gmail.com
+endfooter
+
+@enduml

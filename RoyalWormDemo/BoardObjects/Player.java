@@ -20,7 +20,6 @@ public class Player {
     private int lives;
     private String name;
 
-
     //Network
     public boolean host;
     public InetAddress addr;
@@ -63,43 +62,86 @@ public class Player {
         }
     }
 
+    /**
+     * @return The players Worm.
+     */
     public Worm getWorm() {
         return worm;
     }
+    
+    /**
+     * @return Counter from the players Worm.
+     */
     public int getWormCounter() {
         return worm.getCounter();
     }
-    public void resetWormCounter() { worm.resetCounter(); }
-    public void incWormCounter() { worm.incWormCounter(); }
+
+    /**
+     * Resets counter in the players Worm.
+     */
+    public void resetWormCounter() {
+    	worm.resetCounter();
+    }
+    
+    /**
+     * Increments counter in the players Worm.
+     */
+    public void incWormCounter() {
+    	worm.incWormCounter();
+    }
+    
+    /**
+     * @return The speed of the players worm.
+     */
     public int getWormSpeed() {
         return worm.getSpeed();
     }
 
+    /**
+     * @return True if the player is host.
+     */
     public boolean isHost() {
         return host;
     }
 
+    /**
+     * @return The players IP address.
+     */
     public InetAddress getAddr() {
         return addr;
     }
 
+    /**
+     * @return The players port.
+     */
     public int getPort() {
         return port;
     }
+    
+    /**
+     * @return The amount of lives the players worm has left.
+     */
     public int getWormLives() {
         return worm.getLives();
     }
 
-
+    /**
+     * @param addr The players IP address.
+     */
     public void setInetAddr(String addr) throws UnknownHostException {
         this.addr = InetAddress.getByName(addr);
     }
     
+    /**
+     * @return The players name.
+     */
     public String getName() {
     	return name;
     }
 
-    
+    /**
+     * @return PlayerPanel.
+     */
     public PlayerPanel getPlayerPanel() {
     	playerPanel.update(getWorm().getLives(), getWorm().getScore());
     	return playerPanel;

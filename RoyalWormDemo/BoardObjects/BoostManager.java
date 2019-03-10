@@ -1,7 +1,9 @@
 package BoardObjects;
 /**
- * This class takes care of the spawning of Boosts. It can spawn a boost in a specific location
- * or spawn it at random (free) location
+ * This class takes care of the spawning of Boosts.
+ * It can spawn a boost in a specific location or spawn it at random unoccupied location
+ * @author Anton Eliasson Gustafsson & Jonathan Uhre
+ * @version 2019-03-10
  */
 
 import java.util.Random;

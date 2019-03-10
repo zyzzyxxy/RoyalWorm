@@ -35,6 +35,7 @@ import java.util.*;
 
 public class GameEngine extends Observable {
     public static char[][] GameWorld;
+    public static char[][] GameOverWalls;
     public static List<Player> playerList = new ArrayList<>();
     public static List<DynamicObject> dObjectList = new ArrayList<>();
     public static List<Change> changes = new ArrayList<>();//for sending changes for graphics
@@ -45,7 +46,7 @@ public class GameEngine extends Observable {
     private int gameCOunter = 0;
     private int ghostCounter = 0;
     private int shrinkCOunter = 0;
-    private boolean gameOver=false;
+    private boolean gameOver=true;
     private boolean apples,lightning,gun,ghost, royal;
     
     /**
@@ -71,6 +72,7 @@ public class GameEngine extends Observable {
         resetGameworld();
         playerList = playersList;
         makeSpawnList();
+        makeGameOverMap();
 
         gameTimer = new Timer(Constants.GAMESPEED, new ActionListener() {
             @Override
@@ -119,19 +121,25 @@ public class GameEngine extends Observable {
                 gameCOunter = 0;
         }
         else {
-            String current="";
-            try {
-                current = new File( "." ).getCanonicalPath();
-                System.out.println(current);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Game over");
-            loadGameworld(new File("C:/Users/anton/Documents/Gitz/RoyalWormgameOver.txt"));
+            GameWorld=GameOverWalls;
             setChanged();
             tellObservers();
         }
     }
+
+    public void makeGameOverMap()
+    {
+        resetGameworld();
+        GameOverWalls=GameWorld;
+        int[] xCordinates = {19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 28, 28, 28, 28, 28, 29, 30, 30, 30, 31, 31, 31, 31, 32, 32, 32, 32, 32, 33, 33, 33, 33, 33, 34, 34, 34, 34, 34, 35, 35, 35, 35, 35, 35, 35, 36, 36, 36, 36, 36, 36, 37, 37, 38, 38, 39, 39, 39, 39, 39, 39, 40, 40, 40, 40, 40, 41, 42, 42, 42, 42, 43, 43, 43, 43, 43, 43, 44, 44, 44, 44, 44, 44, 44, 44, 45, 45, 45, 45, 45, 45, 45, 46, 46, 46, 46, 47, 47, 47, 47, 48, 48, 48, 48, 48, 49, 49, 49, 49, 49, 49, 49, 49, 50, 50, 50, 50, 52, 52, 52, 52, 53, 53, 53, 53, 53, 53, 53, 53, 54, 54, 54, 54, 54, 54, 55, 55, 55, 55, 56, 56, 56, 56, 57, 57, 57, 57, 57, 58, 58, 58, 58, 59, 59, 59, 59, 60, 60, 60};
+        int[] yCordinates = {9, 10, 11, 12, 13, 8, 9, 10, 11, 12, 13, 14, 8, 14, 18, 19, 20, 21, 22, 8, 14, 17, 18, 19, 20, 21, 22, 23, 8, 11, 14, 17, 23, 8, 11, 14, 17, 23, 8, 9, 11, 12, 13, 14, 17, 23, 9, 11, 12, 13, 17, 23, 17, 18, 19, 20, 21, 22, 23, 18, 19, 20, 21, 22, 13, 12, 13, 14, 10, 12, 14, 19, 10, 12, 14, 19, 20, 10, 12, 14, 20, 21, 10, 12, 14, 21, 22, 10, 11, 12, 13, 14, 22, 23, 11, 12, 13, 14, 21, 22, 20, 21, 19, 20, 10, 11, 12, 13, 14, 19, 10, 11, 12, 13, 14, 10, 10, 20, 21, 22, 10, 19, 20, 21, 22, 23, 10, 11, 12, 13, 14, 19, 21, 23, 11, 12, 13, 14, 19, 21, 23, 10, 19, 21, 23, 10, 19, 21, 23, 10, 19, 20, 21, 23, 10, 11, 12, 13, 14, 20, 21, 23, 11, 12, 13, 14, 20, 21, 22, 23, 11, 12, 13, 19, 20, 21, 22, 23, 10, 11, 12, 13, 14, 19, 10, 12, 14, 19, 10, 12, 14, 19, 10, 12, 14, 19, 20, 10, 12, 14, 20, 10, 11, 12, 14, 11, 12, 14};
+        for(int i = 0; i<xCordinates.length;i++)
+        {
+            GameOverWalls[xCordinates[i]][yCordinates[i]]='w';
+        }
+    }
+
+
 
     /**
      * Updates bullets' positions. 
