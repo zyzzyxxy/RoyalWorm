@@ -1,9 +1,15 @@
+package BoardObjects;
 /**
  * This class takes care of the spawning of Boosts. It can spawn a boost in a specific location
  * or spawn it at random (free) location
  */
 
 import java.util.Random;
+
+import GameHandling.GameEngine;
+import Positions.Change;
+import Positions.Position;
+import src.Constants;
 
 public class BoostManager {
     Random rnd = new Random();

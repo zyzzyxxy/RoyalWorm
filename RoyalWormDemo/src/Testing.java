@@ -1,3 +1,4 @@
+package src;
 /**
  * This class conatins methods that can be used to test stuff in the program.
  *

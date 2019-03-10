@@ -1,4 +1,5 @@
-/**´
+package GameHandling;
+/**
  * @author Johan Ericsson, Anton Eliasson Gustavsson, Jonathan Uhre
  * @Version 2019-03-09
  *
@@ -12,8 +13,19 @@
  * @Return an instance of GameEngine that runs.
  * */
 
-
 import javax.swing.Timer;
+
+import BoardObjects.Boost;
+import BoardObjects.BoostManager;
+import BoardObjects.Bullet;
+import BoardObjects.DynamicObject;
+import BoardObjects.GameObject;
+import BoardObjects.Ghost;
+import BoardObjects.Player;
+import Positions.Change;
+import Positions.Position;
+import src.Constants;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -255,12 +267,12 @@ public class GameEngine extends Observable {
                     dObjectList.remove(dObjectList.get(i));
         }
         for (int i = 0; i < dObjectList.size();i++) {
-            if (dObjectList.get(i).counter ==dObjectList.get(i).speed) {
+            if (dObjectList.get(i).getCounter() ==dObjectList.get(i).getSpeed()) {
                 dObjectList.get(i).update();
-                dObjectList.get(i).counter = 0;
+                dObjectList.get(i).setCounter(0);
             } else {
                 
-            	dObjectList.get(i).counter++;
+            	dObjectList.get(i).setCounter(dObjectList.get(i).getCounter() +1);
             }
         }
     }

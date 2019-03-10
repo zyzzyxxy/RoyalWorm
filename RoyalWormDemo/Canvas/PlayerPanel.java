@@ -1,3 +1,4 @@
+package Canvas;
 /**
  * @author Johan Ericsson, Anton Eliasson Gustafsson
  * @version 2019-03-09

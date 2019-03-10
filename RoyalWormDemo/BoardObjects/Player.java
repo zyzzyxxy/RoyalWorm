@@ -1,3 +1,4 @@
+package BoardObjects;
 /**
  * Holds the information about one player. Including it´s adress which to send data to and it´s worm.
  * This class is instantiated whenever we add a player to the game
@@ -6,6 +7,11 @@
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import Canvas.PlayerPanel;
+import Positions.Direction;
+import Positions.Position;
+import src.Constants;
 
 public class Player {
     private Worm worm;

@@ -1,3 +1,8 @@
+package BoardObjects;
+
+import Positions.Direction;
+import Positions.Position;
+
 /**
  * Dynamic objects are objects in motion. 
  * @author 
@@ -17,6 +22,17 @@ public class DynamicObject extends GameObject{
     public DynamicObject(Position position,char type, Direction direction) {
         super(position, type);
         this.direction = direction;
+    }
+    public int getCounter() {
+    	return counter;
+    }
+    
+    public void setCounter(int c) {
+    	counter = c;
+    }
+    
+    public int getSpeed() {
+    	return speed;
     }
 
     public void update() throws InterruptedException {}

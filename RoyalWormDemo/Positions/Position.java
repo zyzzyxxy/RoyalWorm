@@ -1,8 +1,11 @@
+package Positions;
 /**
  * Class used by GameObjects tha have positions
  */
 
 import java.util.Random;
+
+import src.Constants;
 
 public class Position extends BoardCordinates {
 	

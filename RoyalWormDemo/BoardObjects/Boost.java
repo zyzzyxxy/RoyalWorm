@@ -1,3 +1,7 @@
+package BoardObjects;
+
+import Positions.Position;
+
 /**
  * 
  * Boosts are objects that players might pick up

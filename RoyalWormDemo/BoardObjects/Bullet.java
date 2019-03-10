@@ -1,3 +1,10 @@
+package BoardObjects;
+
+import GameHandling.CollisionHandler;
+import GameHandling.GameEngine;
+import Positions.Position;
+import src.Constants;
+
 /** 
  * Bullets can be used when a player picks up a gun. A player fires bullets from a gun with space bar. 
  * @author Anton Eliasson Gustafsson & Martin Hagentoft

@@ -1,3 +1,4 @@
+package Network;
 /**
  * A class for that can be instantiated and run in a thread. Recieves data and
  * notifies it´s observers sending the data as an argument.
