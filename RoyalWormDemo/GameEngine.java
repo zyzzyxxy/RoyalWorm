@@ -1,7 +1,10 @@
-/**
+/**Â´
+ * @author Johan Ericsson, Anton Eliasson Gustavsson, Jonathan Uhre
+ * @Version 2019-03-09
+ *
  *This class takes care of the logics of the game.
  *
- * It´s observable and can notify changes to i.e. a gui or a network controller.
+ * Its observable and can notify changes to i.e. a gui or a network controller.
  * It has a timer that ticks, dictating the speed of the game
  *
  * @Param Player list of the players that should be included
@@ -156,7 +159,7 @@ public class GameEngine extends Observable {
         return GameWorld;
     }
 
-    /*
+    /**
      * Calls to two other methods which spawn guns and shrink walls.
      */
     private void battleRoyal() {

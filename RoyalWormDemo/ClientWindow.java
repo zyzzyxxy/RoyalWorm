@@ -1,4 +1,7 @@
 /**
+ * @author Johan Ericsson
+ * @version 2019-03-10
+ *
  * The game window for the client.
  * It also contains some networking related to receiving and sending data.
  */

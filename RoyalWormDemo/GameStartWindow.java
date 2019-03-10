@@ -74,7 +74,7 @@ public class GameStartWindow {
 			//If a player choose to play as a client, it sends data to a host so that the host knows a player has joined 
 			//and creates a ClientWindow. 
 			hostAdress = JOptionPane.showInputDialog("write host's adress");
-			host = false;//test
+			host = false;
 			startFrame.dispose();
 			done=true;
 			String name = sc.connectToHostTextfield.getText();
