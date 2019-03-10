@@ -1,11 +1,24 @@
 import java.util.Random;
-
+/**
+ *  
+ * Direction 
+ * @author Anton Eliasson Gustafsson 
+ * @version 2019-03-09
+ * 
+ */
 public class Direction extends BoardCordinates {
-	
+	/**
+	 * Instantiates a direction.
+	 * @param x direction x-axis
+	 * @param y direction y-axis
+	 */
     public Direction(int x, int y) {
         super(x, y);
     }
-
+/**
+ * Generates a random direction. 
+ * @return Direction
+ */
     public static Direction getRandomDirection()
     {
         Random rnd = new Random();
