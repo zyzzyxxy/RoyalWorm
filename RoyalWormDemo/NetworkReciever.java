@@ -1,3 +1,12 @@
+/**
+ * @author Johan Ericsson
+ * @Version 2019-03-06
+ *
+ * A class for that can be instantiated and run in a thread. Recieves data and
+ * notifies it´s observers sending the data as an argument.
+ */
+
+
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
@@ -8,14 +17,25 @@ public class NetworkReciever extends Observable implements Runnable{
 
     private DatagramSocket receiveSocket;
     private byte[] recieveData = new byte[1024];
-    private int recievePort = 1233;
+    private int recievePort;
 
+    /**
+     * Constructor
+     *
+     * @param port what port to use
+     * @throws SocketException
+     */
     public NetworkReciever(int port) throws SocketException {
         recievePort = port;
         receiveSocket = new DatagramSocket(recievePort);
     }
 
-    public Direction recieveData() throws IOException {
+    /**
+     * Recieves the data and notifies it´s observers
+     *
+     * @throws IOException
+     */
+    public void recieveData() throws IOException {
             System.out.println("In network reciever");
                 DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);
 
@@ -24,8 +44,6 @@ public class NetworkReciever extends Observable implements Runnable{
                 dp.getAddress();
                 setChanged();
                 notifyObservers(message+dp.getAddress());
-
-        return null;
     }
 
     @Override

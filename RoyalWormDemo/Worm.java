@@ -298,7 +298,7 @@ public class Worm extends GameObject {
 	public void setScore(int s) {
 		score = s;
 	}
-	
+
 	public boolean toggleFireAllowed() {
 		fireAllowed = true;
 		return fireAllowed;
