@@ -170,7 +170,6 @@ public class GameEngine extends Observable {
 				if(gameCOunter % Constants.bulletSpeed == 0)
 						b.update();
 						updateGameworld(b.getPosition(), 'b');
-						
 				}
 			}
 		}
@@ -365,8 +364,8 @@ public class GameEngine extends Observable {
             if (sc.hasNextLine()) {
                 char[] c = sc.nextLine().toCharArray();
             for (int j = 0; j < Constants.worldWidth; j++) {
-                //Dont load worms
-                if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5')
+                //Dont load worms and dynamics
+                if(c[j]=='1'||c[j]=='2'||c[j]=='3'||c[j]=='4'||c[j]=='5'||c[j]=='b'||c[j]=='g')
                     c[j]='0';
                 updateGameworld(new Position(j,i),c[j]);
             }
