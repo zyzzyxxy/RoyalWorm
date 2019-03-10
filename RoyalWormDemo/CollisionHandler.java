@@ -82,12 +82,12 @@ public class CollisionHandler {
 				}
 			}
 		}
-		else if(w instanceof Bullet) {
-			Worm tmp = ((Bullet)w).getWorm();
+		else if(object instanceof Bullet) {
+			Worm tmp = ((Bullet)object).getWorm();
 			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];
 			if(comp =='w' || comp == 'b'|| comp == '1' || comp == '2' || comp == '3' || comp == '4' || comp == '5' || comp == 'g' || comp == 'a' || comp == 's'){
 				if(comp == 'w')
-				((Bullet)w).endProjection();
+				((Bullet)object).endProjection();
 				if(comp == 's')
 					tmp.setScore(tmp.getScore() + 10);
 				if(comp == 'a')
