@@ -1,7 +1,9 @@
 package Network;
 /**
- * Contains static methods for sending data
- */
+* Contains static methods for sending data
+*@author 
+*@version 2019-03-06 
+*/
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;

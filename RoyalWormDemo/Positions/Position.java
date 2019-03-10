@@ -1,7 +1,9 @@
 package Positions;
 /**
- * Class used by GameObjects tha have positions
- */
+* Class used by GameObjects tha have positions
+* @author Anton Eliasson Gustafsson
+* @version 2019-03-03 
+*/
 
 import java.util.Random;
 

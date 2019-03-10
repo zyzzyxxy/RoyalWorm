@@ -9,6 +9,8 @@ import Positions.Position;
 
 /**
  * Checks and Handles collisions between GameObjects
+ * @author Anton Eliasson Gustafsson
+ * @version 2019-03-09
  */
 
 public class CollisionHandler {
@@ -40,39 +42,39 @@ public class CollisionHandler {
 			if (object.getType() == '1' || object.getType() == '2' || object.getType() == '3' || object.getType() == '4' || object.getType() == '5') {
 				System.out.print("in if");
 				switch (GameEngine.GameWorld[pos.getX()][pos.getY()]) {
-					case '0':
+					case '0': //empty spot
 						break;
-					case 'a':
+					case 'a': //apple
 						((Worm) object).grow(1);
 						break;
-					case 's':
+					case 's': //super apple
 						((Worm) object).grow(10);
 						break;
-					case 'w':
+					case 'w': // wall
 						((Worm) object).reset();
 						break;
-					case '1':
+					case '1': // player 1
 						((Worm) object).reset();
 						break;
-					case '2':
+					case '2': // player 2
 						((Worm) object).reset();
 						break;
-					case '3':
+					case '3':// player 3
 						((Worm) object).reset();
 						break;
-					case '4':
+					case '4':// player 4
 						((Worm) object).reset();
 						break;
-					case '5':
+					case '5':// player 5
 						((Worm) object).reset();
 						break;
-					case 'l':
+					case 'l': // lightning
 						((Worm) object).lightningMode();
 						break;
-					case 'p':
+					case 'p': //pistol (gun)
 						((Worm) object).pickUpGun();
-						break;
-					case 'b':
+						break; 
+					case 'b': //bullet
 						((Worm) object).reset();
 						break;
 				}

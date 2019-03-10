@@ -1,6 +1,6 @@
 package GameHandling;
 /**
- * @author Johan Ericsson, Anton Eliasson Gustavsson, Jonathan Uhre
+ * @author Johan Ericsson, Anton Eliasson Gustafsson, Jonathan Uhre
  * @Version 2019-03-09
  *
  *This class takes care of the logics of the game.

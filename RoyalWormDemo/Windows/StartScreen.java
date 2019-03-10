@@ -1,7 +1,6 @@
 package Windows;
 /**
  * A container filled with  host and clientbuttons and a textfield for writing clientName.
- *
  * @author Johan Ericsson
  * @version 2019-03-01
  */
