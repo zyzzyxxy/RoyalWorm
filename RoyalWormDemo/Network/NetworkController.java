@@ -15,11 +15,12 @@ import Positions.Direction;
 public class NetworkController{
 
     /**
-     * Converts a char[][] to a byte array and sends the information to the specified adress
+     * Converts a char[][] to a byte array and sends the information to the specified address
      * @param map - the gameWorld to be sent as a char[][]
      * @param datagramSocket the DatagramSocket to use
      * @param addr the InetAdress which the data should be sent to
-     */
+	 * @throws UnknownHostException UnknownHostException
+	 */
     public static void sendWorldData(char[][] map, DatagramSocket datagramSocket, InetAddress addr) throws UnknownHostException {
         String result = "";
         for (char[] c:map ) {
@@ -33,12 +34,14 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
+
     /**
-     * Sends the data given to the specified adress
+     * Sends the data given to the specified address
      *
      * @param data - the data to be sent
      * @param datagramSocket the DatagramSocket to use
-     * @param addr the InetAdress wich the data should be sent to
+     * @param addr the InetAdress which the data should be sent to
+     * @throws UnknownHostException UnknownHostException
      */
     public static void sendData(byte[] data, DatagramSocket datagramSocket, String addr) throws UnknownHostException {
         InetAddress inetAddress = InetAddress.getByName(addr);
@@ -49,12 +52,14 @@ public class NetworkController{
         }
         catch (Exception e){e.printStackTrace();}
     }
+    
     /**
-     * Sends the direction as a byte[] to the specified adress
+     * Sends the direction as a byte[] to the specified address
      *
      * @param dir - the data to be sent
      * @param datagramSocket the DatagramSocket to use
-     * @param addr the InetAdress wich the data should be sent to
+     * @param addr the InetAdress which the data should be sent to
+     * @throws Exception Exception
      */
     public static void sendDirectionData(Direction dir, DatagramSocket datagramSocket, InetAddress addr) throws Exception
     {

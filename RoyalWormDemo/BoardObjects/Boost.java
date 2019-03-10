@@ -42,9 +42,11 @@ public class Boost extends GameObject {
     {
         counter=0;
     }
+
     /**
      * Returns true if counter is greater or equal to spawnRate, else false.
-     * @return
+     * 
+     * @return True if it's time to spawn.
      */
     public boolean timeToSpawn()
     {

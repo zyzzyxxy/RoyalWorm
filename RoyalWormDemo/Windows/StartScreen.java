@@ -27,7 +27,7 @@ public class StartScreen extends Container {
      *
      * @param hostButton    the Button to use
      * @param clientButton  the Button to use
-     * @throws UnknownHostException
+     * @throws UnknownHostException UnknownHostException
      */
     public StartScreen(JButton hostButton, JButton clientButton) throws UnknownHostException {
         this.hostButton = hostButton;

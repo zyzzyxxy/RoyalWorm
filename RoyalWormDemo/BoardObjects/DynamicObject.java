@@ -15,11 +15,12 @@ public class DynamicObject extends GameObject{
     int speed;
     int counter;
     char type;
+
 /**
  * Instantiates a DynamicObject
- * @param position of the dynamic object.
- * @param type is defines as a char
- * @param direction 
+ * @param position Position of the dynamic object.
+ * @param type Type defines as char
+ * @param direction  Direction of object
  */
     public DynamicObject(Position position,char type, Direction direction) {
         super(position, type);

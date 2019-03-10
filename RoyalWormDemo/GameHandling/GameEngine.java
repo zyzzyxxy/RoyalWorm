@@ -58,7 +58,7 @@ public class GameEngine extends Observable {
      * @param lightning is a boolean determining if lightnings are in the game or not.
      * @param gun is a boolean determining if guns are in the game or not. NOTE: Does not work in current version.
      * @param ghost is a boolean determining if ghosts are in the game or not.
-     * @throws Exception 
+     * @throws Exception Exception 
      */
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
@@ -164,7 +164,7 @@ public class GameEngine extends Observable {
 
     /**
      * Updates bullets' positions. 
-     * @throws InterruptedException
+     * @throws InterruptedException InterruptedException
      */
 	public void updateBullets() throws InterruptedException {
 		for(Player p : playerList) {
@@ -359,7 +359,7 @@ public class GameEngine extends Observable {
     /**
      * Loads a game map. 
      * @param file of the map.
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException FileNotFoundException
      */
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);

@@ -69,7 +69,8 @@ public class Ghost extends DynamicObject {
 
     /**
      * This method checks if the ghost is dead.
-     * @return 
+     * 
+     * @return True if dead.
      */
     
 	public boolean isDead() {

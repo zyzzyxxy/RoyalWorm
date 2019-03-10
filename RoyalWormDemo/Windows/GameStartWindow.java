@@ -26,7 +26,7 @@ public class GameStartWindow {
 	
 	/**
 	 * Instantiates a GameStartWindow. Calls to the method showStartScreen. 
-	 * @throws Exception
+	 * @throws Exception Exception
 	 */
 	public GameStartWindow() throws Exception {
 		showStartScreen();
@@ -65,7 +65,7 @@ public class GameStartWindow {
 	/**
 	 * This method takes a button (Host or Client) input from showStartScreen.
 	 * @param actionCommand is the pressed button. 
-	 * @throws Exception
+	 * @throws Exception Exception
 	 */
 	public static void buttonClicked(String actionCommand) throws Exception {
 		//If a player choosees to play as host, a Controller is instantiated. 

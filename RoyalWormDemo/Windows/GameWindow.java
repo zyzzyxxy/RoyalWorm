@@ -34,6 +34,7 @@ public class GameWindow extends JFrame implements Observer {
      * Constructor for GameWindow. Saves a reference to GameEngine and initiates the JFrame.
      * 
      * @param gm The gameWorld for the program.
+     * @throws SocketException SocketException
      */
     public GameWindow(GameEngine gm) throws SocketException {
         this.gm = gm;

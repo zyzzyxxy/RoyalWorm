@@ -43,6 +43,7 @@ public class ClientWindow{
      * Constructor for ClientWindow. Initiates the JFrame and networking for receiving and sending data.
      * 
      * @param hostAddress The IP address of the host computer.
+     * @throws Exception Exception
      */
     public ClientWindow(String hostAddress) throws Exception {
         hostAddr = InetAddress.getByName(hostAddress);
@@ -104,6 +105,9 @@ public class ClientWindow{
 
     /**
      * Network receiver used to receive gameWorld from host.
+     * 
+     * @throws IOException IOException
+     * @throws InterruptedException InterruptedException
      */
     public void receiveMessages() throws IOException, InterruptedException {
         while (true) {

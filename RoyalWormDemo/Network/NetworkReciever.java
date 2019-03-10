@@ -24,7 +24,7 @@ public class NetworkReciever extends Observable implements Runnable{
      * Constructor
      *
      * @param port what port to use
-     * @throws SocketException
+     * @throws SocketException SocketException
      */
     public NetworkReciever(int port) throws SocketException {
         recievePort = port;
@@ -34,7 +34,7 @@ public class NetworkReciever extends Observable implements Runnable{
     /**
      * Recieves the data and notifies it´s observers
      *
-     * @throws IOException
+     * @throws IOException IOException
      */
     public void recieveData() throws IOException {
                 DatagramPacket dp = new DatagramPacket(recieveData, recieveData.length);

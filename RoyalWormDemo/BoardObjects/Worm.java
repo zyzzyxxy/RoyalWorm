@@ -66,6 +66,8 @@ public class Worm extends GameObject {
 
     /**
      * Updates the direction and body of the Worm.
+     * 
+     * @throws InterruptedException InterruptedException
      */
     public void update() throws InterruptedException {
         direction = nextDirection;
@@ -89,7 +91,7 @@ public class Worm extends GameObject {
     /**
      * Checks if time to update
      *
-     * @throws InterruptedException
+     * @throws InterruptedException InterruptedException
      */
     public void updater() throws InterruptedException {
         if(lives > 0) {
@@ -118,6 +120,8 @@ public class Worm extends GameObject {
 
     /**
      * Updates worms body. Adding a new head in direction and taking away a bit in the tail
+     * 
+     * @throws InterruptedException InterruptedException
      */
     public void updateBody() throws InterruptedException {
         Position head, tail;

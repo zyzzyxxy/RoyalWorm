@@ -57,6 +57,7 @@ public class GameGraphics {
      * Draws the worm of a player
      *
      * @param head as a boolean. This can be used to paint the head of the worm
+     * @param player the player to be drawn.
      * @param p for position, where to draw
      * @param graphics the graphics that will be used
      * @return Updated Graphics

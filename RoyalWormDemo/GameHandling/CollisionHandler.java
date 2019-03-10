@@ -29,12 +29,13 @@ public class CollisionHandler {
 		return (GameEngine.GameWorld[pos.getX()][pos.getY()]!='0');
 	}
 	
-    /**
+	/**
      * Handles the collision of two GameObjects. Should be used when an object changes position.
      * 
      * @param object The GameObject which collision should be handled.
      * @param pos The Position of the collision.
-     */
+	 * @throws InterruptedException InterruptedException
+	 */
 	public static void collisionHandle(GameObject object, Position pos) throws InterruptedException {
 		//Handles collision for Worm
 		if(object instanceof Worm){

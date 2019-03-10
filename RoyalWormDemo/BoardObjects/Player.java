@@ -35,6 +35,8 @@ public class Player {
      * @param pNumber Player number
      * @param addr Player IP address
      * @param host Boolean to set host.
+     * @throws InterruptedException InterruptedException
+     * @throws UnknownHostException UnknownHostException
      */
     public Player(String name, int pNumber, String addr, boolean host) throws InterruptedException, UnknownHostException {
         Position position = Position.getRandomPosition();
@@ -144,6 +146,7 @@ public class Player {
 
     /**
      * @param addr The players IP address.
+     * @throws UnknownHostException UnknownHostException
      */
     public void setInetAddr(String addr) throws UnknownHostException {
         this.addr = InetAddress.getByName(addr);

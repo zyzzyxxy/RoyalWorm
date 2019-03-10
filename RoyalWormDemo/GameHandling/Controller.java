@@ -42,6 +42,8 @@ public class Controller implements Observer {
 
     /**
      * Constructor for Controller.
+     * 
+     * @throws Exception Exception
      */
     public Controller() throws Exception {
 
@@ -235,6 +237,8 @@ public class Controller implements Observer {
 
     /**
      * Starts the game
+     * 
+     * @throws Exception Exception
      */
     public void startGame() throws Exception {
         boolean[] gameMode = {royalB, speedB,applesB,gunsB};
@@ -253,6 +257,9 @@ public class Controller implements Observer {
 
     /**
      * Checks the game modes and starts the game
+     * 
+     * @param actionCommand String on button.
+     * @throws Exception Exception
      */
     public void buttonClicked(String actionCommand) throws Exception {
         if (actionCommand.equals("START")) {
