@@ -316,6 +316,17 @@ public class GameEngine extends Observable {
             }
         }
     }
+    public void resetWorms() {
+        for (Player p:playerList) {
+            p.resetWorm();
+        }
+    }
+    public void resetGame() {
+        resetGameworld();
+        resetWorms();
+        dObjectList.clear();
+        shrinkCOunter=0;
+    }
 
     /**
      * Loads a game map. 

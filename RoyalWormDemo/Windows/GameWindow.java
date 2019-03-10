@@ -126,7 +126,7 @@ public class GameWindow extends JFrame implements Observer {
         if(e.getActionCommand().equalsIgnoreCase("Load"))
             loadFile();
         if(e.getActionCommand().equalsIgnoreCase("Reset"))
-            gm.resetGameworld(); gameCanvas.repaint();
+            gm.resetGame(); gameCanvas.repaint();
         if(e.getActionCommand().equalsIgnoreCase("Quit"))
             System.exit(0);
     }

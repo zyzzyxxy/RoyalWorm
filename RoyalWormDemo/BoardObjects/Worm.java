@@ -168,11 +168,22 @@ public class Worm extends GameObject {
         }
         body.clear();
         length = Constants.wormStartingLength;
-        
-        Position tmp = generateRandomPos(); 
+
+        Position tmp = generateRandomPos();
         headPos = validPos();
-        
+
         loseLife();
+    }
+    public void totalReset() {
+        for (Position p : body) {
+            GameEngine.updateGameworld(p, '0');
+        }
+        body.clear();
+        length = Constants.wormStartingLength;
+
+        headPos = startPos;
+        lives=3;
+        score=0;
     }
     
     /**

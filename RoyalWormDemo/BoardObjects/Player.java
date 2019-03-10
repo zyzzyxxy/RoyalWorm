@@ -47,6 +47,11 @@ public class Player {
         this.playerPanel = new PlayerPanel(name);
     }
 
+    public void resetWorm()
+    {
+        getWorm().totalReset();
+    }
+
     /**
      *Updates players worm to a direction if necessary conditions is met. Worm cannot i.e change from right to left in an instant
      *
