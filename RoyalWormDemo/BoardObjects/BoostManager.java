@@ -5,6 +5,7 @@ package BoardObjects;
  * @author Anton Eliasson Gustafsson
  * @author Jonathan Uhre
  * @author Johan Ericsson
+ * @author Jonathan Edfeldt
  * @version 2019-03-10
  */
 
