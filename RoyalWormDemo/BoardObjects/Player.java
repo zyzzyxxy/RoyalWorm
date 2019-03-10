@@ -47,6 +47,9 @@ public class Player {
         this.playerPanel = new PlayerPanel(name);
     }
 
+    /**
+     * total reset of worm
+     */
     public void resetWorm()
     {
         getWorm().totalReset();

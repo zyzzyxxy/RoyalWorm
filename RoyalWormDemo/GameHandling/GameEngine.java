@@ -321,6 +321,10 @@ public class GameEngine extends Observable {
             p.resetWorm();
         }
     }
+
+    /**
+     * Resets the whole game.
+     */
     public void resetGame() {
         resetGameworld();
         resetWorms();

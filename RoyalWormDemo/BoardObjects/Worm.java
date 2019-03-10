@@ -174,6 +174,10 @@ public class Worm extends GameObject {
 
         loseLife();
     }
+
+    /**
+     * Resets with starting condition
+     */
     public void totalReset() {
         for (Position p : body) {
             GameEngine.updateGameworld(p, '0');
