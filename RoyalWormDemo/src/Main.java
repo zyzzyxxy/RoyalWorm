@@ -14,6 +14,4 @@ public class Main {
 
 	startWindow = new GameStartWindow();
 	}
-
-
 }
