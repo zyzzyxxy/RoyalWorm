@@ -154,7 +154,7 @@ public class GameEngine extends Observable {
             updateGameworld(new Position(xCordinates[i],yCordinates[i]),'w');
         }
         for(Player p : playerList) {
-        	//bruteforce solution. Players get -1 lives when game over. 
+        	//Brute force solution. Players get -1 lives when game over. 
         	p.getWorm().setLives(1);
         	
         }
