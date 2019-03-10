@@ -2,15 +2,11 @@ import java.util.Random;
 
 public class Bullet extends DynamicObject {
 	
-	private int speed, directionCounter, changeDirection;
-    private int counter;
-   private char type;
-   private Position position;
-   private Direction direction;
-   // Random rnd =  new Random();
-   private boolean dead=false;
-   private int dirX, dirY;
-   private boolean projection;
+	private int speed;
+    private Position position;
+    private int dirX, dirY;
+    private boolean projection;
+    private Worm worm;
 
     public Bullet(Position position, Worm w) {
         super(position, 'b',w.getDirection());
@@ -18,10 +14,8 @@ public class Bullet extends DynamicObject {
         dirY = w.getDirection().getY();
         this.speed = Constants.bulletSpeed;
         this.position = position;
-        this.direction=w.getDirection();
-        this.type = 'b';
         projection = true;
-       // changeDirection = rnd.nextInt(5)*5;
+        worm = w;
     }
     
 
@@ -61,6 +55,15 @@ public class Bullet extends DynamicObject {
 
 	public void resetProjection() {
 		projection = true;
+	}
+
+
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public Worm getWorm() {
+		return worm;
 	}
 
 

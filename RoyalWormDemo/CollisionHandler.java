@@ -82,10 +82,20 @@ public class CollisionHandler {
 				}
 			}
 		}
-		else if(object instanceof Bullet) {
+		else if(w instanceof Bullet) {
+			Worm tmp = ((Bullet)w).getWorm();
 			char comp = GameEngine.GameWorld[pos.getX()][pos.getY()];
-			if(comp =='w' || comp == 'b'|| comp == '1' || comp == '2' || comp == '3' || comp == '4' || comp == '5'){
-				((Bullet)object).endProjection();
+			if(comp =='w' || comp == 'b'|| comp == '1' || comp == '2' || comp == '3' || comp == '4' || comp == '5' || comp == 'g' || comp == 'a' || comp == 's'){
+				if(comp == 'w')
+				((Bullet)w).endProjection();
+				if(comp == 's')
+					tmp.setScore(tmp.getScore() + 10);
+				if(comp == 'a')
+					tmp.setScore(tmp.getScore() + 5);
+				if(comp == 'g')
+					tmp.setScore(tmp.getScore() + 50);
+				if(comp == 'p')
+					tmp.setScore(tmp.getScore() + 3);
 			}
 			else 
 			for (Player p:GameEngine.playerList) {

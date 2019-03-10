@@ -13,7 +13,10 @@ public class Ghost extends DynamicObject {
     private Random rnd =  new Random();
     private boolean dead=false;
 
-    //Constructor
+ /**
+  * 
+  * @param position
+  */
     public Ghost(Position position) {
         super(position, 'g',Direction.getRandomDirection());
         this.counter=0;

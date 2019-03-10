@@ -1,11 +1,11 @@
 /**
  *This class takes care of the logics of the game.
  *
- * ItÂ´s observable and can notify changes to i.e. a gui or a network controller.
+ * It´s observable and can notify changes to i.e. a gui or a network controller.
  * It has a timer that ticks, dictating the speed of the game
  *
  * @Param Player list of the players that should be included
- * @Param booleans for every game mode avaliable.
+ * @Param booleans for every game mode available.
  * @Return an instance of GameEngine that runs.
  * */
 
@@ -32,6 +32,18 @@ public class GameEngine extends Observable {
     private int shrinkCOunter = 0;
     private boolean gameOver=false;
     private boolean apples,lightning,gun,ghost, royal;
+    
+    /**
+     * Instantiates a GameEngine. 
+     * Whenever a GameEngine is created, it sets up the game world's size and a timer which with an actionlistener becomes a gametick.
+     * @param playersList creates a public list of players
+     * @param royal is a boolean determining if the game mode Battle Royal is active or not. 
+     * @param apples is a boolean determining if apples are in the game or not.
+     * @param lightning is a boolean determining if lightnings are in the game or not.
+     * @param gun is a boolean determining if guns are in the game or not. NOTE: Does not work in current version.
+     * @param ghost is a boolean determining if ghosts are in the game or not.
+     * @throws Exception 
+     */
 
     public GameEngine(List<Player> playersList,boolean royal, boolean apples,boolean lightning, boolean gun, boolean ghost) throws Exception {
         this.apples = apples;
@@ -58,8 +70,12 @@ public class GameEngine extends Observable {
         //Starts the game
         gameTimer.start();
     }
-
-    //This method is called every time the GameTimer ticks, takes care of updating the gamecomponents.
+    
+    /**
+     * This method is called every time the GameTimer ticks, takes care of updating the game components.
+     * @throws InterruptedException
+     * @throws FileNotFoundException
+     */
     private void gameTick() throws InterruptedException, FileNotFoundException {
         if(!gameOver) {
             updateWorms();
@@ -102,6 +118,10 @@ public class GameEngine extends Observable {
         }
     }
 
+    /**
+     * Updates bullets' positions. 
+     * @throws InterruptedException
+     */
 	public void updateBullets() throws InterruptedException {
 		for(Player p : playerList) {
 			//System.out.println(p.getWorm().getBullets().size());
@@ -116,7 +136,9 @@ public class GameEngine extends Observable {
 			}
 		}
 	}
-
+	/**
+	 * Checks if game over.
+	 */
 	public void checkForGameOver()
     {
         int playersAlive=0;
@@ -134,12 +156,16 @@ public class GameEngine extends Observable {
         return GameWorld;
     }
 
-    //What boosts will be avaliable in Game
+    /*
+     * Calls to two other methods which spawn guns and shrink walls.
+     */
     private void battleRoyal() {
     	spawnGun();
     	shrinkWalls();
     }
-
+    /**
+     * Spawns a gun on a random position with no collisions.  
+     */
 	private void spawnGun() {
 		Position tmp;
 		do {
@@ -148,7 +174,10 @@ public class GameEngine extends Observable {
 			
 		updateGameworld(tmp, 'p');
 	}
-	
+	/**
+	 * Generates a random position. 
+	 * @return the generated position. 
+	 */
 	public Position randomPos() {
 		Random xr = new Random();
 		Random yr = new Random();
@@ -158,7 +187,9 @@ public class GameEngine extends Observable {
 		return tmp;
 	}
 
-	//Adds a new layer of walls inside the previous layer
+	/**
+	 * Shrink walls in Battle Royal mode. 
+	 */
 	private void shrinkWalls() {
 		for(int i = 0; i<80; i++) {
 			updateGameworld(new Position(i,0+shrinkCOunter), 'w');
@@ -172,7 +203,9 @@ public class GameEngine extends Observable {
 		shrinkCOunter++;
 	}
 
-	//What boosts will be avaliable in Game
+	/**
+	 * Adds lightnings and apples to a spawnlist.
+	 */
     private void makeSpawnList() {
         if(lightning)
         spawnList.add(new Boost(Position.getRandomPosition(), 'l', 50));
@@ -180,7 +213,9 @@ public class GameEngine extends Observable {
         spawnList.add(new Boost(Position.getRandomPosition(), 'a', 15));
     }
 
-    //This method updates boost and spawns them if time
+/**
+ * Updates boosts' positions and calls for random boosts spawns.
+ */
     private void updateBoosts() {
         for (Boost b : spawnList) {
             if (b.timeToSpawn()) {
@@ -196,14 +231,20 @@ public class GameEngine extends Observable {
         else {ghostCounter++;}
     }
 
-    //Update worms, move one step
+    /**
+     * Updates worms.
+     * @throws InterruptedException
+     */
     private void updateWorms() throws InterruptedException {
         for (Player p : playerList) {
         	p.getWorm().updater();
         }
     }
 
-    //Updates dynamic objects in dObjectlist
+    /**
+     * Updates dynamic objects (except worms). NOTE: Only ghosts in current version.
+     * @throws InterruptedException
+     */
     private void updateDynamicObjects() throws InterruptedException {
         for (int i = 0; i < dObjectList.size();i++) {
             if(dObjectList.get(i) instanceof Ghost)
@@ -215,24 +256,33 @@ public class GameEngine extends Observable {
                 dObjectList.get(i).update();
                 dObjectList.get(i).counter = 0;
             } else {
-                dObjectList.get(i).counter++;
+                
+            	dObjectList.get(i).counter++;
             }
         }
     }
 
-    //updates gameworld and add changes to changes-list
+    /**
+     * Updates gameWorld. 
+     * @param pos for a position in gameWorld.
+     * @param c corresponds what type of object that is stored in the position.
+     */
     public static void updateGameworld(Position pos, char c) {
         GameWorld[pos.getX()][pos.getY()] = c;
         changes.add(new Change(pos.getX(), pos.getY(), c));
     }
-
-    //notifies observers
+    
+    /**
+     * Notifies observers.
+     */
     public void tellObservers() {
         setChanged();
         notifyObservers(changes);
     }
 
-    //empties the world and reset worms
+    /**
+     * Empties the world and reset worms.
+     */
     public void resetGameworld() {
         for (char[] c : GameWorld) {
             Arrays.fill(c, '0');
@@ -242,7 +292,11 @@ public class GameEngine extends Observable {
         }
     }
 
-    //Loads a world file, must be right format
+    /**
+     * Loads a game map. 
+     * @param file of the map.
+     * @throws FileNotFoundException
+     */
     public void loadGameworld(File file) throws FileNotFoundException {
         Scanner sc = new Scanner(file);
         for (int i = 0; i < Constants.worldHeight; i++) {
@@ -258,7 +312,10 @@ public class GameEngine extends Observable {
         }
     }
 
-    //removes a GameObject from the dynamic list
+    /**
+     * Removes a GameObject from the dynamic list
+     * @param o is the GameObject being removed. 
+     */
     public static void removeFromDynamicList(GameObject o)
     {
         dObjectList.remove(o);

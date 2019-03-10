@@ -123,6 +123,12 @@ public class ClientCanvas extends JPanel {
             case 'g':
                 GameGraphics.drawGhost(p,g);
                 break;
+            case 'p':
+                GameGraphics.drawGun(p,g);
+                break;
+            case 'b':
+                GameGraphics.drawBullet(p,g);
+                break;
         }
     }
 }

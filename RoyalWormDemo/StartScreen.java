@@ -43,7 +43,6 @@ public class StartScreen extends Container {
 
         add(infoTextfield, BorderLayout.NORTH);
         add(middleContainer, BorderLayout.CENTER);
-        //add(rightContainer, BorderLayout.EAST);
 
         middleContainer.add(hostButton);
         middleContainer.add(clientButton);
